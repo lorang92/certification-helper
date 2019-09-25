@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+
+        function newFile(elem) {
+            var list = document.getElementById('list');
+            list.innerHTML = '';
+
+            for (var i = 0; i < elem.files.length; i++) {
+                var file = elem.files[i];
+                var li = document.createElement('li');
+                li.innerText = file.name + ' (' + file.type + ') ' + file.size;
+                list.appendChild(li);
+
+                if (i === 0) {
+                    showContent(file);
+                }
+            }
+        }
+
+        function showContent(file) {
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                var content = document.getElementById('content');
+                content.innerText = e.target.result;
+            }
+            fr.readAsText(file);
+        }
+    </script>
+</head>
+<body>
+    <input type="file" onchange="newFile(this)" multiple />
+    <ul id="list"></ul>
+    <div id="content" style="background-color: aqua"></div>
+</body>
+</html>

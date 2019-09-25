@@ -1,0 +1,74 @@
+﻿/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Added by us
+-----------------------------------------------------------*/
+
+body {
+    font-family: Calibri, Verdana, Arial;
+}
+
+h1 {
+    color: white;
+    background-color: orange;
+}
+
+.hidden, .fileEntryTemplate {
+    display: none;
+}
+
+li {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.filename {
+    display: block;
+    color: navy;
+    font-size: 16pt;
+}
+
+.uploadSize, .uploadStatus {
+    display: block;
+    color: orange;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.successMessage {
+    color: green;
+}
+
+.errorMessage {
+    color: red;
+}
+

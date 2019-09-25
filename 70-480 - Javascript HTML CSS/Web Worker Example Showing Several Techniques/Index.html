@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Prime Numbers Application</title>
+    <link href="Site.css" rel="stylesheet" />
+    <script src="PrimeFinder.js"></script>
+    <script src="PrimeWorkerDetails.js"></script>
+
+    <style>
+        label {
+            width: 130px;
+            float: left;
+        }
+
+        #messageArea {
+            background-color: lightblue;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        // global variables (yuck)
+        var primesWorkers = [];
+        var numberOfWorkers = 5;
+
+        var lowerNumberElem;
+        var upperNumberElem;
+        var messageAreaElem;
+        var resultAreaElem;
+
+        var startButton;
+        var findPrimesButton;
+        var refreshButton;
+        var cancelButton;
+
+        // Page initialization.
+        function onLoad() {
+            startButton = document.getElementById("startWorkersButton");
+            startButton.addEventListener("click", startWorkers);
+            findPrimesButton = document.getElementById("findPrimesButton")
+            findPrimesButton.addEventListener("click", findPrimes);
+            refreshButton = document.getElementById("refreshButton")
+            refreshButton.addEventListener("click", refreshWorkers);
+            cancelButton = document.getElementById("cancelWorkersButton")
+            cancelButton.addEventListener("click", cancelWorkers);
+
+            lowerNumberElem = document.getElementById("lowerNumber");
+            upperNumberElem = document.getElementById("upperNumber");
+            messageAreaElem = document.getElementById("messageArea");
+            resultAreaElem = document.getElementById("resultArea");
+        }
+
+        // This gets executed immediately and ensure that our onLoad function
+        // is called when the document is ready (has been loaded).
+        window.addEventListener("load", onLoad, true);
+
+        // Either the startButton is available, or the other three.
+        // Called from startWorkers and closeWorkers.
+        function toggleButtons() {
+            startButton.disabled = !startButton.disabled;
+            findPrimesButton.disabled = !startButton.disabled;
+            refreshButton.disabled = !startButton.disabled;
+            cancelButton.disabled = !startButton.disabled;
+        }
+
+        function startWorkers(ev) {
+            // First toggle the buttons so we can't be called again before this current batch of workers has been dismissed (closed).
+            toggleButtons();
+
+            // Create some UI Prime Workers that will handle the web worker details for us and add each 
+            // to the primes workers array so we can access them again later.
+            for (var primeWorkersCount = 0; primeWorkersCount < numberOfWorkers; primeWorkersCount++) {
+
+                var workerName = "Worker" + (primeWorkersCount + 1);
+                var worker = new UIPrimeWorker(workerName, messageFromWorker, errorFromWorker, messageErrorFromWorker);
+                primesWorkers.push(worker);
+
+            }
+
+            // Update the UI with the information from the web workers.
+            refreshWorkers();
+        }
+
+        function findPrimes() {
+            // First check the values the user entered.
+            var primeRange = validate(lowerNumberElem.value, upperNumberElem.value);
+
+            if (primeRange.valid) {
+
+                // Split the range in parts of about equal size.
+                var ranges = splitRange(primeRange.fromNumber, primeRange.toNumber, numberOfWorkers);
+
+                // Fire off the web workers, each with its own part of the range.
+                for (i = 0; i < numberOfWorkers; i++) {
+                    primesWorkers[i].findPrimes(ranges[i].fromNumber, ranges[i].toNumber);
+                }
+
+                // Update the UI with the information from the now calculating web workers.
+                refreshWorkers();
+
+            } else {
+                // Report what's wrong, so the user can take action.
+                showMessage(primeRange.message);
+            }
+        }
+
+        function refreshWorkers() {
+            // This is a simple function to avoid scattering the 'workers' id all over the place.
+            // An other option would be to put 'workers' in a constant.
+            // Advantage of this function is that it also shows how primesWorkers and 'workers' are related and
+            // does so in a single place.
+            showWorkers(primesWorkers, document.getElementById('workers'));
+        }
+
+
+        function cancelWorkers(workerX) {
+            // First toggle the buttons so we can't be called again and the user can start a new batch of workers.
+            toggleButtons();
+
+            // Tell each web worker to clean up and close itself.
+            for (i = 0; i < numberOfWorkers; i++) {
+                primesWorkers[i].close();
+            }
+
+            // Update the UI with the information from the now calculating web workers.
+            refreshWorkers();
+        }
+
+        function validate(numberString1, numberString2) {
+
+            // Make sure we're dealing with integers and that the first is smaller or equal to the second.
+            // Would of course be much nicer to simply swap the numbers for the user. Just don't forget to update the values
+            // in the UI inputs as well in that case.
+            var n1 = Number.parseInt(numberString1);
+            var n2 = Number.parseInt(numberString2);
+
+            return {
+                "valid": (Number.isInteger(n1) && Number.isInteger(n2) && n1 <= n2),
+                "fromNumber": n1,
+                "toNumber": n2,
+                "message": "Lower number and upper number should be valid integers, and lower number should be less than or equal to upper number."
+            }
+        }
+
+        function splitRange(fromNumber, toNumber, count) {
+            // Figure out what the total number of integers to check for prime'ness is and determine how many we are 
+            // going to give each worker.
+            var spread = toNumber - fromNumber + 1;
+            var increment = Number.parseInt(spread / count); // Division to integer part of the actual result.
+
+            // Prepare the ranges for all workers using the number we just determined.
+            var ranges = new Array(count);
+            for (i = 0; i < count; i++) {
+                ranges[i] = {
+                    "fromNumber": fromNumber + (i * increment),
+                    "toNumber": fromNumber + ((i + 1) * increment)
+                }
+            }
+
+            // Adjust the last range's toNumber to ensure that we cover the complete spread in case the spread wasn't divisable by count.
+            ranges[count - 1].toNumber = toNumber;
+            return ranges;
+        }
+
+        function showWorkers(workers, workersList) {
+            // First, clear the UI list element
+            clearList(workersList);
+
+            // Then iterate over the workers and add each worker's information as the contents of a list element.
+            var li;
+            for (var worker of workers) {
+                li = document.createElement('li');
+                li.id = worker.name;
+                li.innerHTML = worker.name
+                    + ", action: " + worker.action
+                    + ", status: " + worker.statusMessage
+                    + ", from: " + worker.fromNumber
+                    + ", to: " + worker.toNumber;
+                workersList.appendChild(li);
+            }
+        }
+
+        function clearList(list) {
+            // Unfortunately, there is no simple function (except in jQuery) to clear an (un)ordered list.
+            // Using list.lastChild might be faster.
+            while (list.firstChild) {
+                list.removeChild(list.firstChild);
+            }
+        }
+
+        function messageFromWorker(e) {
+            // NOTE: this handler can be called from any of the web workers (through/via the UI Prime Worker that created it).
+
+            // NOTE: a good next step would be to refactor this function into a simple switchboard method and put the details
+            // of handling a specific message in its own specific method.
+            if (e.data.type == "close") {
+
+                // Worker has closed itself so we don't need to terminate it.
+
+                // Update the UI so it shows that the worker was closed.
+                refreshWorkers();
+
+                // You can opt to remove the UIPrimeWorker objects or re-use the objects.
+                // The latter would require some changes to the startWorkers function.
+                // For now, we find the worker in primesWorkers and remove it from the array.
+                var closedWorkerIndex = primesWorkers.findIndex(xxx => xxx.name === e.data.worker.name);
+                primesWorkers.splice(closedWorkerIndex, 1);
+
+                // Update the UI so the closed worker is no longer shown.
+                refreshWorkers();
+
+            } else if (e.data.type == "calc") {
+
+                var msg = e.data.worker.name;
+
+                if (e.data.statusMessage == "finished") {
+                    msg += " - result: " + e.data.primes;
+                    resultAreaElem.value += "\n" + msg;
+                    resultAreaElem.scrollTop = resultAreaElem.scrollHeight;
+                }
+                else if (e.data.statusMessage == "progress") {
+                    msg += " - found: " + e.data.primes;
+                    showMessage(msg);
+                }
+
+            }
+        }
+
+        function showMessage(msg) {
+            // Add the message to the messageArea element and ensure that the last added message stays in view.
+            messageAreaElem.innerHTML += "\n" + msg;
+            messageAreaElem.scrollTop = messageAreaElem.scrollHeight;
+        }
+
+        function errorFromWorker(e) {
+            // NOTE: this handler can be called from any of the web workers (through/via the UI Prime Worker that created it).
+            showMessage(e.data);
+        }
+
+        function messageErrorFromWorker(e) {
+            // NOTE: this handler can be called from any of the web workers (through/via the UI Prime Worker that created it).
+            showMessage(e.data);
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <h1>Prime Numbers Application</h1>
+
+    <label for="lowerNumber">Lower number:</label>
+    <input type="Text" id="lowerNumber" size="15" /> <br />
+
+    <label for="upperNumber">Upper number:</label>
+    <input type="Text" id="upperNumber" size="15" /> <br /><br />
+
+    <input type="button" value="Start workers" id="startWorkersButton" /> &nbsp;
+    <input type="button" value="Find primes" id="findPrimesButton" disabled /> &nbsp;
+    <input type="button" value="Refresh worker information" id="refreshButton" disabled /> &nbsp;
+    <input type="button" value="Cancel workers" id="cancelWorkersButton" disabled /> <br /><br />
+
+    <textArea id="resultArea" rows="20" cols="50"></textArea>
+    <textArea id="messageArea" rows="20" cols="50"></textArea>
+    <br /><br />
+    <ul id="workers"></ul>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Video Example</title>
+	<style>
+		body { 
+			font-family: verdana; 
+		}
+		
+		.videobox {
+			width: 200px;
+			float: left;
+		}
+		
+		video {
+			width: 180px;
+			height: 135px;
+			margin-top: 10px;
+			border: 5px solid orange;
+			border-radius: 5px;
+			box-shadow: 7px 7px 5px gray; 
+		}
+		
+		.videobox:hover {
+			width: 320px;
+		}
+		
+		video:hover {
+			width: 300px;
+			height: 225px;
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<h1>This page plays video...</h1>
+	
+	<div class="videobox">
+		Play .mov file<br/>
+		<video src="MyVideos/SwanseaBay.mov" poster="ImageLoading.png" autoplay loop controls></video>
+	</div>
+
+	<div class="videobox">
+		Play .mp4 file<br/>
+		<video src="MyVideos/SwanseaBay.mp4" poster="ImageLoading.png" controls></video>
+	</div>
+
+	<div class="videobox">
+		Play .webm file<br/>
+		<video src="MyVideos/SwanseaBay.webm" poster="ImageLoading.png" controls></video>
+	</div>
+
+	<div class="videobox">
+		Play .ogv file<br/>
+		<video src="MyVideos/SwanseaBay.ogv" poster="ImageLoading.png" controls></video>
+	</div>
+
+	<div class="videobox">
+		Play best format<br/>
+		<video poster="ImageLoading.png" controls>
+			<source src="MyVideos/SwanseaBay.mp4"  type='video/mp4' />
+			<source src="MyVideos/SwanseaBay.webm" type='video/webm' />
+			<source src="MyVideos/SwanseaBay.ogv"  type='video/ogg' />
+			
+			<!-- You can embed Flash or Silverlight content here, as a fallback -->
+			
+			<!-- You can also display some simple text in case the browser doesn't support the video tag -->
+			Can't play video. Download video <a href="MyVideos/SwanseaBay.webm">here</a>.
+		</video>
+	</div>
+	
+</body>
+</html>

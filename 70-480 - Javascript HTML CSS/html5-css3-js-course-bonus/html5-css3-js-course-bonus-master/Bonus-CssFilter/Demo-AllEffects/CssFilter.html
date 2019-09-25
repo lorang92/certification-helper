@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CSS Filter Demo</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+    <h2>CSS filter</h2>
+	<p>
+		<i>This demo might not work in older browsers.</i>
+	</p>
+    <p style="-webkit-transform: translate(20px);">
+        -webkit-filter: filter(value) [filter(value) ...];<br />
+        filter: filter(value) [filter(value) ...];
+    </p>
+    <p>
+        <label><input type="checkbox" data-filter="blur(5px)">blur(5px)</label><br />
+        <label><input type="checkbox" data-filter="brightness(50%)">brightness(50%)</label><br />
+        <label><input type="checkbox" data-filter="saturate(400%)">saturate(400%)</label><br />
+        <label><input type="checkbox" data-filter="hue-rotate(90deg)">hue-rotate(90deg)</label><br />
+        <label><input type="checkbox" data-filter="invert(100%)">invert(100%)</label><br />
+        <label><input type="checkbox" data-filter="grayscale(100%)">grayscale(100%)</label><br />
+        <label><input type="checkbox" data-filter="sepia(100%)">sepia(100%)</label><br />
+        <label><input type="checkbox" data-filter="contrast(200%)">contrast(200%)</label><br />
+    </p>
+    <img id="image" src="Sinnataggen.png" />
+
+    <script>
+        $('input[type=checkbox]').on('change', function() {
+            var filter = $('input:checked').map(function() {
+                    return this.dataset.filter;
+                })
+                .get()
+                .join(' ');
+            $('#image').css('filter', filter);
+        })
+    </script>
+</body>
+</html>

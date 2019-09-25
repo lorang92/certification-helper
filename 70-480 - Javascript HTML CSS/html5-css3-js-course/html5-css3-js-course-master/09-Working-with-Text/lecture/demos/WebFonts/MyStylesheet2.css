@@ -1,0 +1,62 @@
+/* Font face definitions */
+@font-face { 
+    font-family: MyFont; 
+    src: url('WoffFonts/SF_Arch_Rival.woff'), 
+	     url('TtfFonts/SF_Arch_Rival.ttf'),
+		 url('OtfFonts/SF_Arch_Rival.otf'),
+		 url('EotFonts/SF_Arch_Rival.eot'); 
+} 
+
+@font-face { 
+    font-family: MyFont; 
+    font-weight: bold;
+    src: url('WoffFonts/SF_Arch_Rival_Bold.woff'), 
+	     url('TtfFonts/SF_Arch_Rival_Bold.ttf'),
+		 url('OtfFonts/SF_Arch_Rival_Bold.otf'),
+		 url('EotFonts/SF_Arch_Rival_Bold.eot'); 
+} 
+
+@font-face { 
+    font-family: MyFont; 
+    font-style: italic;
+    src: url('WoffFonts/SF_Arch_Rival_Italic.woff'),
+	     url('TtfFonts/SF_Arch_Rival_Italic.ttf'),
+		 url('OtfFonts/SF_Arch_Rival_Italic.otf'),
+		 url('EotFonts/SF_Arch_Rival_Italic.eot'); 	
+} 
+
+@font-face { 
+    font-family: MyFont; 
+    font-weight: bold;
+    font-style: italic;
+    src: url('WoffFonts/SF_Arch_Rival_Bold_Italic.woff'), 
+	     url('TtfFonts/SF_Arch_Rival_Bold_Italic.ttf'),
+		 url('OtfFonts/SF_Arch_Rival_Bold_Italic.otf'),
+		 url('EotFonts/SF_Arch_Rival_Bold_Italic.eot'); 	
+} 
+
+/* Stylesheet Rules */
+body {
+    font-family: MyFont, sans-serif;
+    font-size: 40pt;
+    background-color: green;
+    color: white;
+}
+
+.normalClass {
+    font-weight: normal;
+    font-style: normal;
+}
+
+.boldClass {
+    font-weight: bold;
+}
+
+.italicClass {
+    font-style: italic;
+}
+
+.boldItalicClass {
+    font-weight: bold;
+    font-style: italic;
+}

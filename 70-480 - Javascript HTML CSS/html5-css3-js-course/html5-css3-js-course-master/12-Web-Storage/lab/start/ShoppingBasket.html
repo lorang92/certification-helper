@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title>Shopping basket (using session storage)</title>
+
+<script>
+
+var messageArea;
+
+function init() {
+    messageArea = document.getElementById("messageArea");
+}    
+
+
+if(!window.sessionStorage) {
+    alert("Session Storage Not Supported!");
+}
+
+function addItem() {
+    var product = document.getElementById("product").value;
+    var quantity = document.getElementById("quantity").value;
+    window.sessionStorage.setItem(product, quantity);
+}
+
+function countItems() {
+   messageArea.innerHTML = "Number of items: " + window.sessionStorage.length;
+}
+
+function removeItem() {
+    // TODO
+}
+
+function clearItems() {
+    // TODO
+}
+
+function displayItems() {
+    messageArea.innerHTML = "<ul>";
+    for(var i = 0; i < window.sessionStorage.length; i ++) {
+        var key = window.sessionStorage.key(i);
+        var value = window.sessionStorage.getItem(key);
+        messageArea.innerHTML += "<li>" + key + " " + value + "</li>";
+    }
+    messageArea.innerHTML += "</ul>";
+}
+
+function onLoad() {
+   document.getElementById("addButton").addEventListener("click", addItem, true);
+   document.getElementById("countItemsButton").addEventListener("click", countItems, true);
+   document.getElementById("removeItemButton").addEventListener("click", removeItem, true);
+   document.getElementById("clearItemsButton").addEventListener("click", clearItems, true);
+   document.getElementById("displayItemsButton").addEventListener("click", displayItems, true);
+}
+
+window.addEventListener("load", onLoad, true);
+
+</script>
+</head>
+<body onload="init()">
+
+<h1>Shopping basket (using session storage)</h2>
+
+Product:  <input type="Text" id="product"  size="15"> <br>
+Quantity: <input type="Text" id="quantity" size="15"> <br>
+<br/><br/>
+
+<input type="button" value="Add item" id="addButton" /> &nbsp;
+<input type="button" value="Count items" id="countItemsButton" /> &nbsp;
+<input type="button" value="Remove item" id="removeItemButton" /> &nbsp;
+<input type="button" value="Clear items" id="clearItemsButton" /> &nbsp;
+<input type="button" value="Display items" id="displayItemsButton" /> &nbsp;
+
+<br/><br/>
+<div id="messageArea" />
+
+</body>
+</html>

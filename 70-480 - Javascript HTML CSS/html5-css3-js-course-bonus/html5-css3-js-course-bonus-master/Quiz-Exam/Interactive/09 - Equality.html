@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<script>
+
+    function calc(f, lbl) {
+        var x = 10;
+        var label = document.getElementById(lbl);
+        label.innerText = f(x) ? true : false;
+    }
+
+</script>
+<body>
+    <h1>True or False</h1>
+    <pre>
+    var x = 10;
+    var result = [???] ? true : false;
+    </pre>
+    <div>
+        <button onclick="calc(function (x) { return x == 10; }, 'double1result');">x == 10</button>
+        <label id="double1result" />
+    </div>
+    <div>
+        <button onclick="calc(function (x) { return x == '10'; }, 'double2result');">x == '10'</button>
+        <label id="double2result" />
+    </div>
+    <div>
+        <button onclick="calc(function (x) { return x === 10; }, 'triple1result');">x === 10</button>
+        <label id="triple1result" />
+    </div>
+    <div>
+        <button onclick="calc(function (x) { return x === '10'; }, 'triple2result');">x === '10'</button>
+        <label id="triple2result" />
+    </div>
+    <div>
+        <button onclick="calc(function (x) { return x = 10; }, 'single1result');">x = 10</button>
+        <label id="single1result" />
+    </div>
+    <div>
+        <button onclick="calc(function (x) { return x = 9; }, 'single2result');">x = 9</button>
+        <label id="single2result" />
+    </div>
+    <div>
+        <button onclick="calc(function (x) { return x = 0; }, 'single3result');">x = 0</button>
+        <label id="single3result" />
+    </div>
+</body>
+</html>

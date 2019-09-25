@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Current Product Suggestions</title>
+    <link href="Stylesheet.css" rel="stylesheet" />
+    <script src="ProductSuggestionsFunctions.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function onLoad() {
+
+            // Display the products in a bulleted list.
+            displayProducts(window.opener.allProducts, "currentProductsList");
+
+            // Update the document's title and the "heading" element, to show current time.
+            const now = new Date();
+            const msg = "Products at " + now.toLocaleTimeString("en-UK");
+            document.title = msg;
+            document.querySelector("#heading").innerHTML = msg;
+
+            // Display the products in a table, which we'll create dynamically using DOM.
+            const tbody = document.querySelector("#currentProductsTableBody");
+            for (const product of Array.from(window.opener.allProducts)) {
+                addTableRow(tbody, product);
+            }
+
+            // Allow all <td> elements (in the <tbody>) to be highlighted in dark grey.
+            var tdElems = document.querySelectorAll("tbody * td");
+            for (var i = 0; i < tdElems.length; i++) {
+                tdElems[i].addEventListener("mouseover", onMouseOverOutTd);
+                tdElems[i].addEventListener("mouseout", onMouseOverOutTd);
+            }
+
+            // Allow all <tr> elements (in the <tbody>) to be highlighted in light grey.
+            var trElems = document.querySelectorAll("tbody tr");
+            for (var i = 0; i < trElems.length; i++) {
+                trElems[i].addEventListener("mouseover", onMouseOverOutTr, true);
+                trElems[i].addEventListener("mouseout", onMouseOverOutTr, true);
+            }
+        }
+
+
+        function onMouseOverOutTr(e) {
+            if (e.type == "mouseover") {
+                e.currentTarget.style.cssText = "color:white; background-color:#bbbbbb";
+            }
+            else {
+                e.currentTarget.style.cssText = "";
+            }
+        }
+
+
+        function onMouseOverOutTd(e) {
+            if (e.type == "mouseover") {
+                e.target.style.cssText = "color:white; background-color:#888888";
+            }
+            else {
+                e.target.style.cssText = "";
+            }
+        }
+
+
+        function addTableRow(tbody, product) {
+
+            // Use the document's createElement() method to create a <tr> element.
+            const tr = document.createElement("tr");
+
+            // Add 4 <td> child elements to the <tr> element - each <td> displays a separate product field.
+            addTableColumn(tr, product.description);
+            addTableColumn(tr, product.email);
+            addTableColumn(tr, product.price);
+            addTableColumn(tr, product.sales);
+
+            // Append the <tr> to the <tbody>.
+            tbody.appendChild(tr);
+        }
+
+
+        function addTableColumn(tr, data) {
+
+            // Use the document's createElement() method to create a <td> element.
+            const td = document.createElement("td");
+
+            // The <td> just holds a simple piece of data, so we can set it directly via the innerHTML property.
+            td.innerHTML = data;
+
+            // Append the <td> to the <tr>.
+            tr.appendChild(td);
+        }
+
+
+    </script>
+
+</head>
+<body onload="onLoad()">
+
+    <h1 id="heading">Current product suggestions</h1>
+
+    <div id="currentProductsList"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Product description</td>
+                <td>User's email address</td>
+                <td>Recommended retail price</td>
+                <td>Estimated sales/year</td>
+            </tr>
+        </thead>
+        <tbody id="currentProductsTableBody">
+            <tr>
+                <td>Dummy description 1</td>
+                <td>Dummy email address 1</td>
+                <td>Dummy retail price 1</td>
+                <td>Dummy estimated sales/year 1</td>
+            </tr>
+            <tr>
+                <td>Dummy description 2</td>
+                <td>Dummy email address 2</td>
+                <td>Dummy retail price 2</td>
+                <td>Dummy estimated sales/year 2</td>
+            </tr>
+            <tr>
+                <td>Dummy description 3</td>
+                <td>Dummy email address 3</td>
+                <td>Dummy retail price 3</td>
+                <td>Dummy estimated sales/year 3</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

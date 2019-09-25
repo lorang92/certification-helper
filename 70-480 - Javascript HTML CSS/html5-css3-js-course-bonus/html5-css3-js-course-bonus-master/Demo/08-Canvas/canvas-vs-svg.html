@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" height="100px" width="300px" style="background-color: lightgray">
+        Canvas not supported
+    </canvas>
+
+    <script type="text/javascript">
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = 'orange';
+        context.strokeStyle = 'blue';
+
+        context.rect(10, 10, 80, 80);
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(40, 40);
+        context.lineTo(200, 80);
+        context.stroke();
+    </script>
+
+    <svg id="mySVG"
+        xmlns="http://www.w3.org/2000/svg"
+        height="100px" width="300px" 
+        style="background-color: lightgray">
+    </svg>
+
+    <script>
+        var svgNS = 'http://www.w3.org/2000/svg';
+        var svg = document.getElementById('mySVG');
+
+        var r = document.createElementNS(svgNS, 'rect');
+        r.setAttributeNS(null, 'x', 10);
+        r.setAttributeNS(null, 'y', 10);
+        r.setAttributeNS(null, 'width', 80);
+        r.setAttributeNS(null, 'height', 80);
+        r.setAttributeNS(null, 'fill', 'orange');
+        svg.appendChild(r);
+
+        var l = document.createElementNS(svgNS, 'path');
+        l.setAttributeNS(null, 'd', 'M 40 40 L 200 80');
+        l.setAttributeNS(null, 'stroke', 'blue');
+        svg.appendChild(l);
+    </script>
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+        style="height: 100px; width: 300px; background-color: lightgray">
+        <rect x="10" y="10" width="80" height="80" fill="orange"/>
+        <path d="M 40 40 L 200 80" stroke="blue"/>
+    </svg>
+</body>
+</html>

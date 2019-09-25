@@ -1,0 +1,61 @@
+<html>
+<body>
+
+<h1>"switch" example</h1>
+
+<script type="text/javascript">
+
+var d = new Date();
+theMonth = d.getMonth();
+
+switch (theMonth)
+{
+case 11:
+case 0:
+case 1:
+  document.write("Winter");
+  break;
+
+case 2:
+case 3:
+case 4:
+  document.write("Spring");
+  break;
+
+case 5:
+case 6:
+case 7:
+  document.write("Summer");
+  break;
+
+default:
+  document.write("Autumn");
+  break;
+}
+document.write("<br/>");
+
+var country = prompt("Enter a country");
+switch (country)
+{
+case "England":
+case "Scotland":
+case "Wales":
+case "Northern Ireland":
+  document.write(country + " is in the UK");
+  break;
+
+case "Norway":
+case "Sweden":
+case "Denmark":
+  document.write(country + " is in Scandinavia");
+  break;
+
+default:
+  document.write(country + " isn't in UK or Scandinavia");
+  break;
+}
+
+</script>
+
+</body>
+</html>

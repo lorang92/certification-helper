@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script>
+        function Employee() {}
+
+        Employee.prototype.PayEmployee = function () {
+            alert('Hi there!');
+        }
+
+        // Reverse order: C & D before A & B, because that is how the code should be.
+
+        //// C
+        /*
+        function Consultant() {
+            Employee.call(this);
+        }
+        Consultant.prototype = new Employee();
+        Consultant.prototype.constructor = Consultant;
+        */
+
+        //// D
+        /*
+        function Consultant() {
+            Employee.call(this);
+        }
+        Consultant.prototype.constructor = Consultant.create;
+        */
+
+        //// A
+        /*
+        Consultant.PayEmployee = function () {
+            alert('Pay Consulant');
+        }
+        */
+
+        //// B
+        /*
+        Consultant.prototype.PayEmployee = function () {
+            alert('Pay Consultant');
+        }
+        */
+
+        //// Result:
+        var consultant = new Consultant();
+        consultant.PayEmployee();
+    </script>
+</head>
+<body>
+    You are creating a class named Consultant that must inherit from the Employee class. The Consultant class must modify the inherited PayEmployee method.<br />
+    The Employee class is defined as follows.
+    <pre>
+    function Employee() {}
+    Employee.prototype.PayEmployee = function ( ){
+      alert('Hi there!');
+    }</pre>
+
+    Future instances of Consultant must be created with the overridden method.<br />
+
+    You need to write the code to implement the Consultant class.<br />
+
+    Which code segments should you use? (Each correct answer presents part of the solution. Choose two.)
+
+    <ol type="A">
+        <li>
+            <pre>Consultant.PayEmployee = function ()
+{
+  alert('Pay Consulant');
+}</pre>
+        </li>
+
+        <li>
+            <pre>Consultant.prototype.PayEmployee = function ()
+{
+  alert('Pay Consultant');
+}</pre>
+        </li>
+
+        <li>
+            <pre>function Consultant () {
+  Employee.call(this);
+}
+Consultant.prototype = new Employee();
+Consultant.prototype.constructor = Consultant;</pre>
+        </li>
+
+        <li>
+            <pre>function Consultant() {
+  Employee.call(this); 
+}
+Consultant.prototype.constructor = Consultant.create;</pre>
+        </li>
+    </ol>
+</body>
+</html>

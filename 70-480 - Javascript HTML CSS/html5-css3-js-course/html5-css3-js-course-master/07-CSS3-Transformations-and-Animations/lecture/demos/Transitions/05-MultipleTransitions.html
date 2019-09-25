@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Multiple Transitions Demo</title>
+
+    <style>
+        #myPanel {
+            background-color: yellow;
+            width:    200px;
+            height: 100px;
+
+            transition: 
+                background-color 4250ms, 
+                width 1s, 
+                height 1s;
+
+            -ms-transition: 
+                background-color 4250ms, 
+                width 1s, 
+                height 1s;
+
+            -webkit-transition: 
+                background-color 4250ms, 
+                width 1s, 
+                height 1s;
+
+            -moz-transition: 
+                background-color 4250ms, 
+                width 1s, 
+                height 1s;
+
+            -o-transition: 
+                background-color 4250ms, 
+                width 1s, 
+                height 1s;
+            }
+
+            #myPanel:hover {
+                background-color: red;
+                width:    300px;
+                height: 150px;
+            }
+    </style>
+
+</head>
+
+<body>
+    <div id="myPanel"></div>
+</body>
+
+</html>

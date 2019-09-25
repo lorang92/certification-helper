@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Named Access on the Window Object</title>
+</head>
+<body>
+    <h1 id="title">This is cool stuff!</h1>
+    <p id="content">
+        So you could misuse this.
+    </p>
+
+    <script>
+        /* Element id's are used as property names on the window object.
+           The property value is the element. */
+        console.log(title);
+        console.log(content);
+
+        debugger;
+
+        title.innerText = 'This is weird stuff!';
+        content.innerText = 'So please (did I mention "please"?) do not use this!';
+
+        /* This will not overwrite the element, but will work. */
+        //title = "hi!";
+        //console.log(title); // "hi!"
+    </script>
+</body>
+</html>

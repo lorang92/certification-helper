@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Web SQL example</title>
+
+    <style>
+    
+        body {
+            font-family: arial;
+        }
+        
+        label {
+            float: left;
+            width: 150px;
+        }
+        
+        #messageArea {
+            background-color: lightblue;
+        }
+        
+    </style>
+    
+    <script>
+    
+        // Global variables.
+        var courseNameElem;
+        var durationElem;
+        var messageAreaElem;
+        var courseListAreaElem;
+        var db;
+        
+        // Adds a course in the database.
+        function addCourse() {
+        
+            db.transaction(
+            
+                // Execute a SQL statement in a transaction, to insert a course into the database.
+                function(tx) {
+                    var name = courseNameElem.value;
+                    var dur  = durationElem.value;
+                    tx.executeSql("INSERT INTO Courses (name, duration) VALUES (?, ?)", [name, dur], displayInsertResult);
+                },
+                
+                // Handle any errors (causes transaction to rollback).
+                function(err) {
+                    messageAreaElem.innerHTML = "Error: " + err.message + " (transaction rolled back)";
+                }
+            );
+        }
+        
+        // Displays the results of an INSERT statement.
+        function displayInsertResult(tx, rs) {
+            messageAreaElem.innerHTML = "Number of rows inserted: " + rs.rowsAffected + ", id of new row: " + rs.insertId;
+        }
+                
+        // Deletes a course in the database.
+        function deleteCourse() {
+        
+            db.transaction(
+            
+                // Execute a SQL statement in a transaction, to delete a course from the database.
+                function(tx) {
+                    var name = courseNameElem.value;
+                    tx.executeSql("DELETE FROM Courses WHERE name = ?", [name], displayDeleteResult);
+                },
+                
+                // Handle any errors (causes transaction to rollback).
+                function(err) {
+                    messageAreaElem.innerHTML = "Error: " + err.message + " (transaction rolled back)";
+                }
+            );
+        }
+        
+        // Displays the results of a DELETE statement.
+        function displayDeleteResult(tx, rs) {
+            messageAreaElem.innerHTML = "Number of rows deleted: " + rs.rowsAffected;
+        }
+            
+        // Selects all the courses in the database.
+        function selectCourses() {
+        
+            db.transaction(
+                // Execute a SQL statement in a transaction, to select all courses from the database.
+                function(tx) {
+                    tx.executeSql("SELECT * FROM Courses", [], displayResultSet);
+                }
+            );
+        }
+        
+        // Displays the results of a SELECT statement.
+        function displayResultSet(tx, rs) {
+        
+            messageAreaElem.innerHTML = "There are " + rs.rows.length + " course(s) in the database";
+            
+            // Iterate through all the rows (i.e. courses) in the result set, and display the details.
+            var msg = "";
+            for (var i = 0; i < rs.rows.length; i++) {
+              var row = rs.rows.item(i);
+              msg += "[" + row["id"] + "] " + row["name"] + " (" + row["duration"] + " days)<br/>";
+            }
+            courseListAreaElem.innerHTML = msg;
+        }
+
+        // Performs page initialization.
+        function onLoad(event) {
+
+            courseNameElem     = document.getElementById("courseName");
+            durationElem       = document.getElementById("duration");
+            messageAreaElem    = document.getElementById("messageArea");
+            courseListAreaElem = document.getElementById("courseListArea");
+            
+            // Test if the browser supports HTML5 databases.
+            if (window.openDatabase) {
+            
+                messageAreaElem.innerHTML = "Your browser does support local databases";
+
+                // Open a database. The openDatabase() function has 4 parameters:
+                //   - Name of database
+                //   - Version number
+                //   - Text description
+                //   - Estimated size of database.
+                db = window.openDatabase("myDB", "1.0", "Local database of courses", 1024*1000);
+
+                // Create a table to hold courses.
+                db.transaction(function(tx) {
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Courses(id INTEGER PRIMARY KEY, name TEXT, duration INTEGER)", []);
+                });
+                
+                // Select (and display) courses.
+                selectCourses();
+            
+            } else {
+            
+                messageAreaElem.innerHTML = "Your browser does not support local databases";
+            }
+        }
+        
+        window.addEventListener("load", onLoad, true);
+          
+    </script>
+    
+</head>
+<body>
+
+    <div>
+        <header>
+            <h1>Web SQL example</h1>
+        </header>
+        
+        <label for="courseName">Course name</label>
+        <input type="text" id="courseName" size="40"/> <br/>
+
+        <label for="duration">Duration</label>
+        <input type="text" id="duration" size="40"/> <br/>
+        
+        <button onclick="addCourse()">Add course</button> &nbsp;
+        <button onclick="deleteCourse()">Delete course</button> &nbsp;
+        <button onclick="selectCourses()">Select courses</button> <br/><br/>
+
+        <div id="messageArea"></div> <br/>
+        <div id="courseListArea"></div>
+        
+    </div>
+    
+</body>
+</html>

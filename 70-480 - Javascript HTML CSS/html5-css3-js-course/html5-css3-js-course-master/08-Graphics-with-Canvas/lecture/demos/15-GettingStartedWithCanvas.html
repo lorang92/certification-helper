@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Canvas Example</title>
+    <style>
+  
+        body {
+            font-family: arial, verdana;
+            font-size: 12px;
+        }
+        
+        canvas {
+            border: 2px solid darkblue;
+            background-color: lightgreen;
+        }
+    </style>
+    
+</head>
+
+<body>
+    
+    <h1>Getting started with canvas</h1>
+    
+    <canvas id="myCanvas">
+        Sorry, your browser doesn't support canvas.
+    </canvas>
+
+    <script>
+
+        // Get the canvas element and its drawing context.
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+            
+        // Draw a simple filled rectangle.
+        var edge = 20;
+        context.fillStyle = "red";
+        context.fillRect(edge, edge, canvas.width - edge*2, canvas.height - edge*2);
+
+    </script>
+ 
+</body>
+
+</html>

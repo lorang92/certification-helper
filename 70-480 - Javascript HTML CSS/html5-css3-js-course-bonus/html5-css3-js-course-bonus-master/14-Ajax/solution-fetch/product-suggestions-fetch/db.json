@@ -1,0 +1,44 @@
+{
+  "productSuggestions": [
+    {
+      "id": 1,
+      "description": "Swansea City Shirt",
+      "price": 45
+    },
+    {
+      "id": 2,
+      "description": "Ajax Shirt",
+      "price": "0.99"
+    },
+    { 
+      "id": 3,
+      "description": "FIFA football",
+      "price": 22.5
+    },
+    {
+      "id": 4,
+      "description": "Carving Skis",
+      "price": "495.5"
+    },
+    {
+      "id": 5,
+      "description": "OLED TV",
+      "price": 2700
+    },
+    {
+      "id": 6,
+      "description": "Solid State Laptop",
+      "price": 1785
+    },
+    {
+      "id": 7,
+      "description": "Tablet computer",
+      "price": 450
+    },
+    {
+      "id": 8,
+      "description": "Bugatti Veyron",
+      "price": 950000
+    }
+  ]
+}

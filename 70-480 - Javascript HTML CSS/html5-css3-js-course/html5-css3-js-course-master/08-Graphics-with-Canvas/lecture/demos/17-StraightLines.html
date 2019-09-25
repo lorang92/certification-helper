@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Drawing simple shapes</title>
+    <style>
+    
+        body {
+            font-family: arial, verdana;
+            font-size: 12px;
+        }
+    
+        button {
+            background-color: yellow;
+            color: orange;
+            width: 130px;
+            height: 30px;
+            margin: 0px 10px 5px 0px;
+        }
+    
+        canvas {
+            border: 2px solid darkblue;
+        }
+    </style>
+	
+</head>
+
+<body>
+	
+    <h1>Drawing simple shapes</h1>
+    
+    <p>Click a button to draw a shape</p>
+    
+    <button onclick="drawRectangles()">Draw rectangles</button>
+    <button onclick="drawTriangle()">Draw triangle</button>
+    <br/>
+    
+    <canvas id="myCanvas">
+        Sorry, your browser doesn't support canvas.
+    </canvas>
+
+    <script>
+        function drawRectangles() 
+        {
+            // Get the canvas element and its drawing context.
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            
+            // Clear any existing content in the canvas.
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set the stroke color and the fill color.
+            context.strokeStyle = "rgb(0, 0, 255)";
+            context.fillStyle = "rgba(255, 0, 0, 0.75)";
+            
+            // Draw the outline of a rectangle.
+            context.strokeRect(10, 10, 100, 50); // x1, y1, width, height.
+
+            // Draw a filled-in rectangle.
+            context.fillRect(30, 30, 100, 50);     // x1, y1, width, height.
+        }
+
+
+        function drawTriangle() 
+        {
+            // Get the canvas element and its drawing context.
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+
+            // Clear any existing content in the canvas.
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set the stroke color and the fill color.
+            context.strokeStyle = "rgb(0, 0, 255)";
+            context.fillStyle = "rgba(255, 0, 0, 0.75)";
+
+            // Create a path in absolute coordinates.
+            context.beginPath();
+            context.moveTo(60, 30);
+            context.lineTo(100, 90);
+            context.lineTo(20, 90);
+
+            // Close the path.
+            // context.closePath();
+
+            // Draw the path as a stroked shape;
+            context.stroke();
+            
+            // Draw the path as a filled shape.
+            context.fill();
+        }
+
+    </script>
+ 
+</body>
+</html>

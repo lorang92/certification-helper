@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Defining private scope variables</title> 
+
+	<style>
+		div {
+			margin: 10px;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+	
+		// Definition of plugin as an immediately invoked function expression.
+		(function($) {
+			
+			// Private-scope variables.
+			var normalSettings = {
+				'color': 'black',
+				'background-color': 'white',
+				'font-weight': 'normal'
+			};
+
+			var highlightSettings = {
+				'color': 'darkblue',
+				'background-color': 'lightblue',
+				'font-weight': 'bold'
+			};
+			
+			// Add the highlight() function to the jQuery object, so it's available on all jQuery selections.
+			$.fn.highlight = function() {
+				$(this).hover(
+					function() { $(this).css(highlightSettings); },
+					function() { $(this).css(normalSettings);    }
+				);
+			};
+			
+		}(jQuery));
+		
+		
+		// Client code, which uses the plugin.
+		$(function() {
+			// Invoke the highlight() plugin for all <div> elements.
+			$('div').highlight();
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<div>This is div 1</div>
+	<div>This is div 2</div>
+	<div>This is div 3</div>
+	
+</body>
+</html>

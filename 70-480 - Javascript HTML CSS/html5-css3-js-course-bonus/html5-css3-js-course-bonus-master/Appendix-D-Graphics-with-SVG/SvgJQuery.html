@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>SVG &amp; jQuery</title>
+	<style>
+
+		body {
+			font-family: arial, verdana;
+			font-size: 12px;
+		}
+
+		svg {
+			border: 2px solid darkblue;
+			width: 300px;
+			height: 200px;
+		}
+
+	</style>
+
+    <!--
+        The integrity and crossorigin attributes are used for Subresource Integrity (SRI) checking:
+        https://www.w3.org/TR/SRI/
+    -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<h1>SVG &amp; jQuery</h1>
+
+	<button onclick="makeAChange()">Make a change</button>
+
+	<br/>
+
+	<!-- Draw some rectangles -->
+	<svg xmlns="http://www.w3.org/2000/svg" id="rectangles">
+		<rect id="myrect" x="20" y="20" width="100" height="75" 
+		      fill="red" stroke="blue" />
+			  
+		<rect x="50" y="50" width="100" height="75" rx="20" ry="20"
+		      fill="yellow" stroke="blue" />
+	</svg>
+	
+	<script>
+		function makeAChange() {
+		    var elems = $('#rectangles rect');
+		    for (var i = 0; i < elems.length; i++) {
+		        var elem = elems[i];
+		        elem.x.baseVal.value += 10;
+		    }
+        }
+	</script>
+
+</body>
+</html>

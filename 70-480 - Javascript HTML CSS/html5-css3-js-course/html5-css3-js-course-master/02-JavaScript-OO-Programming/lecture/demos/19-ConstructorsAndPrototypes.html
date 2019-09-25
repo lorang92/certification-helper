@@ -1,0 +1,66 @@
+<html>
+<head>
+    <script type="text/javascript">
+
+        //=====================================================
+        // Define a constructor for Account.
+        //=====================================================
+        var Account = function (id, name) {
+            this.id = id;
+            this.name = name;
+            this.balance = 0;
+            this.numTransactions = 0;
+            return this;
+        };
+
+        
+        //=====================================================
+        // Implement functionality for Account.
+        //=====================================================
+        Account.prototype = {
+
+            deposit: function(amount) {
+                this.balance += amount;
+                this.numTransactions++;
+            },
+
+            withdraw: function(amount) {
+                this.balance -= amount;
+                this.numTransactions++;
+            },
+
+            displayDetails: function() {
+                alert(this.id + ", " +
+                      this.name + " earns $" +
+                      this.balance + " (" +
+                      this.numTransactions + " transactions)");
+            }
+        };
+
+        
+        //=====================================================
+        // Create some Account objects and manipulate them.
+        //=====================================================
+        function createSomeObjects() {
+            var acc1 = new Account(1, "Emily");
+            acc1.deposit(1000);
+            acc1.deposit(2000);
+            acc1.withdraw(400);
+            acc1.displayDetails();
+
+            var acc2 = new Account(2, "Tom");
+            acc2.deposit(3000);
+            acc2.deposit(1000);
+            acc2.displayDetails();
+        }
+    </script>
+
+</head>
+
+<body>
+<form name="form1">
+  <input type="button" id="btnEmp1" value="Create some objects" onclick="createSomeObjects()" />
+</form>
+</body>
+
+</html>

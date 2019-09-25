@@ -1,0 +1,15 @@
+{
+    "players": [
+        { "firstName": "Michel",   "lastName": "Vorm",      "salary": 90000  },
+        { "firstName": "Angel",    "lastName": "Rangel",    "salary": 120000 },
+        { "firstName": "Chico",    "lastName": "Flores",    "salary": 225000 },
+        { "firstName": "Ashley",   "lastName": "Williams",  "salary": 195000 },
+        { "firstName": "Ben",      "lastName": "Davies",    "salary": 80000  },
+        { "firstName": "Leon",     "lastName": "Britton",   "salary": 130000 },
+        { "firstName": "Ki",       "lastName": "Sun Yeoun", "salary": 100000 },
+        { "firstName": "Jonathon", "lastName": "de Guzman", "salary": 105000 },
+        { "firstName": "Pablo",    "lastName": "Hernandez", "salary": 120000 },
+        { "firstName": "Wayne",    "lastName": "Routledge", "salary": 200000 },
+        { "firstName": "Miguel",   "lastName": "Michu",     "salary": 400000 }
+    ]
+  }

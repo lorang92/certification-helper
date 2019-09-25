@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>$(this) vs. this example</title> 
+	
+	<style>
+		body { 
+			font-family: "Calibri";
+			color: darkblue;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+	
+		var colours = [ 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet' ];
+		var index = 0;
+		
+		$(function() {
+
+			$("#reset").click(function() {
+			
+				var currentColour = colours[index];
+				index = (index + 1) % colours.length;
+
+				$("form").each(function() {
+
+					// this is the current <form> element.
+					alert("Resetting " + this.getAttribute("id") + " to " + currentColour);
+					this.reset();							
+					
+					// $(this) is a jQuery object encapsulating the current <form> element.
+					$(this).css("background", currentColour);	
+				});
+			});
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<h3>Name form</h3>
+	<form id="nameForm">
+		<input type="text" placeholder="title"></input> <br/>
+		<input type="text" placeholder="first name"></input> <br/>
+		<input type="text" placeholder="middle initial"></input> <br/>
+		<input type="text" placeholder="last name"></input> <br/>
+	</form>
+		
+	<h3>Address form</h3>
+	<form id="addressForm">
+		<input type="text" placeholder="street"></input> <br/>
+		<input type="text" placeholder="disrtict"></input> <br/>
+		<input type="text" placeholder="city"></input> <br/>
+		<input type="text" placeholder="post code"></input> <br/>
+	</form>
+
+	<h3>Contact details form</h3>
+	<form id="contactDetailsForm">
+		<input type="text" placeholder="mobile phone"></input> <br/>
+		<input type="text" placeholder="home phone"></input> <br/>
+		<input type="text" placeholder="email"></input> <br/>
+		<input type="text" placeholder="facebook"></input> <br/>
+	</form>
+
+	<button id="reset">Reset</button>
+	
+</body>
+</html>

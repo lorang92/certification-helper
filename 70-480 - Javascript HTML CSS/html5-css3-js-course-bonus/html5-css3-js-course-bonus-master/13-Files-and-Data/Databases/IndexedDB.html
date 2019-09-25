@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>IndexedDB Example</title>
+
+	<style>
+		body {
+			font-family: 'Segoe UI Light', 'Verdana', 'Sans serif';
+		}
+
+		label {
+			width: 120px;
+			display: inline-block;
+			margin-bottom: 10px;
+		}
+
+		.productDescription {
+			width: 200px;
+			display: inline-block;
+		}
+
+		a {
+			margin-left: 20px;
+		}
+	</style>
+
+	<script>
+		// myDataStore / myDataStore.indexedDB
+
+		var myDataStore = {};
+
+		myDataStore.indexedDB = {};
+		myDataStore.indexedDB.db = null;
+
+		myDataStore.indexedDB.onerror = function (err) {
+			console.error(err);
+		};
+
+		myDataStore.indexedDB.open = function (successCallback) {
+			var version = 1;
+			var request = indexedDB.open('productsDB', version);
+
+			// We can only create Object stores in a versionchange transaction.
+			request.onupgradeneeded = function (e) {
+				var db = e.target.result;
+
+				// A versionchange transaction is started automatically.
+				e.target.transaction.onerror = myDataStore.indexedDB.onerror;
+
+				// Delete the 'product' object store if it already exists.
+				if (db.objectStoreNames.contains('product')) {
+					db.deleteObjectStore('product');
+				}
+
+				// Create the 'product' object store, and specify the 'id' property as the key property.
+				var productStore = db.createObjectStore('product', { keyPath: 'id' });
+
+				// Create an index for the 'product' object store on the 'name' property and make the names unique.
+				productStore.createIndex(
+					'name-index' /* Index name */,
+					'name' /* Key path */,
+					{ unique: true } /* Optional */
+				);
+			};
+
+			request.onsuccess = function (e) {
+				myDataStore.indexedDB.db = e.target.result;
+				if (successCallback) {
+					successCallback();
+				}
+			};
+
+			request.onerror = function (e) {
+				myDataStore.indexedDB.onerror(e.target.error);
+			}
+		};
+
+		myDataStore.indexedDB.addProduct = function (id, name, price, successCallback) {
+			var db = myDataStore.indexedDB.db;
+			var trans = db.transaction(['product'], 'readwrite');
+			var store = trans.objectStore('product');
+
+			var request = store.put({
+				id: id,
+				name: name,
+				price: price
+			});
+
+			request.onsuccess = function (e) {
+				if (successCallback) {
+					successCallback(id);
+				}
+			};
+
+			request.onerror = function (e) {
+				myDataStore.indexedDB.onerror(e.target.error);
+			}
+		};
+
+		myDataStore.indexedDB.getAllProducts = function (successCallback) {
+			var products = [];
+
+			var db = myDataStore.indexedDB.db;
+			var trans = db.transaction(['product'], 'readonly');
+			trans.onerror = myDataStore.indexedDB.onerror;
+			var store = trans.objectStore('product');
+
+			// Get everything in the store
+			var keyRange = IDBKeyRange.lowerBound(0);
+			var cursorRequest = store.openCursor(keyRange);
+
+			cursorRequest.onsuccess = function (e) {
+				var result = e.target.result;
+
+				if (!result) {
+					successCallback(products);
+					return;
+				}
+
+				products.push(result.value);
+				result.continue();
+			};
+
+			cursorRequest.onerror = myDataStore.indexedDB.onerror;
+		};
+
+
+		myDataStore.indexedDB.deleteProduct = function (id, successCallback) {
+			var db = myDataStore.indexedDB.db;
+			var trans = db.transaction(['product'], 'readwrite');
+			var store = trans.objectStore('product');
+
+			var request = store.delete(id);
+
+			request.onsuccess = function (e) {
+				if (successCallback) {
+					successCallback(id);
+				}
+			};
+
+			request.onerror = myDataStore.indexedDB.onerror;
+		};
+
+	</script>
+
+	<script>
+		// UI <-> myDataStore.indexedDB
+
+		// Bug: Should not be 0 when there is already a database with items.
+		var lastProductId = 0;
+
+		function removeAllChildren(elem) {
+			// Slow (see: https://jsperf.com/innerhtml-vs-removechild/15): productsElem.innerHTML = '';
+			while (elem.lastChild) {
+				elem.removeChild(elem.lastChild);
+			}
+		}
+
+		function displayAllProducts() {
+			myDataStore.indexedDB.getAllProducts(function (products) {
+				var productsElem = document.getElementById('productsList');
+
+				removeAllChildren(productsElem);
+
+				for (var index in products) {
+					var li = document.createElement('li');
+					displayProduct(products[index], li);
+					productsElem.appendChild(li);
+				}
+			});
+		};
+
+		function displayProduct(product, elem) {
+			var span = document.createElement('span');
+			span.setAttribute('class', 'productDescription');
+			span.textContent = '[' + product.id + '] ' + product.name + ', ' + product.price;
+			elem.appendChild(span);
+
+			var a = document.createElement('a');
+			a.textContent = 'Delete';
+			a.setAttribute('href', '');
+			a.addEventListener('click', function (e) {
+				e.preventDefault();
+				myDataStore.indexedDB.deleteProduct(product.id, displayAllProducts);
+			});
+			elem.appendChild(a);
+		}
+
+		function addProduct(e) {
+			// Prevent default post to server
+			e.preventDefault();
+
+			// Get form values
+			var form = e.target;
+			var name = form['nameTextBox'].value;
+			var price = form['priceTextBox'].value;
+
+			// Add product
+			myDataStore.indexedDB.addProduct(lastProductId++, name, price, displayAllProducts);
+
+			// Clear all form values
+			form.reset();
+		}
+
+		function init() {
+			myDataStore.indexedDB.open(function () {
+				// Only display add-form & all products after opening the database successfully
+				document.getElementById('addProduct').addEventListener('submit', addProduct);
+				document.getElementById('addProduct').removeAttribute('hidden');
+				displayAllProducts();
+			});
+		}
+
+		window.addEventListener('DOMContentLoaded', init, false);
+
+	</script>
+</head>
+
+<body>
+	<h1>Products IndexedDB Example</h1>
+
+	<form id="addProduct" hidden>
+		<label>
+			Product name:
+			<input type="text" name="nameTextBox">
+		</label>
+		<br>
+
+		<label>
+			Unit price:
+			<input type="text" name="priceTextBox">
+		</label>
+		<br>
+
+		<button type="submit">Add</button>
+	</form>
+
+	<ul id="productsList"></ul>
+</body>
+
+</html>

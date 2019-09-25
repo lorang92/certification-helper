@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="site.css" rel="stylesheet" />
+    <script src="jquery-1.10.2.js"></script>
+</head>
+
+<body>
+    <h2>Player selection</h2>
+
+    <input type="text" id="Name" onkeyup="getMatchingPlayers();" autofocus /> 
+    <br /> 
+    <ul id="ResultList"></ul>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#ResultList").on("mouseover", "li", function () {
+                this.style.color = "red";
+            });
+
+            $("#ResultList").on("mouseout", "li", function () {
+                this.removeAttribute('style');
+            });
+        });
+
+        function getMatchingPlayers() {
+
+            // Empty the ResultList.
+            $("#ResultList").empty();
+
+            // Send an Ajax GET request, to get players whose name matches the user's input.
+            $.ajax({
+                type: "GET",
+                url: "/players?q=" + $("#Name").val(),
+
+                success: function (data) {
+                    $.each(data, function (key, val) {
+                        $('#ResultList').append("<li>" + val.firstName + " " + val.lastName + " [$" + val.salary + "]</li>");
+                    });
+                },
+
+                error: function (xhr, message, errorThrown) {
+                    alert("Ajax error occurred: " + message);
+                }
+            });
+        }
+    </script>
+    
+</body>
+</html>

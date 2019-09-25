@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2017 Rick Beerendonk -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Value</title>
+
+    <style>
+        /* Definition of a CSS Variable */
+        main {
+            --important-color: orange;
+        }
+
+        footer {
+            font-size: 0.8rem;
+        }
+
+        /* Use of a CSS Variable fallback value */
+        em {
+            background-color: var(--important-color, lightskyblue);
+        }
+
+        /* Define a new value for the variable */
+        .explanation {
+            --important-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <p>
+            This is an example of <em>CSS Variables</em>, also known by the offical name of CSS Custom Properties. 
+        </p>
+        <p class="explanation">
+            CSS Variables are <em>supported in all latest browsers</em>, but not in Internet Explorer or Edge version 15 and lower.
+        </p>
+    </main>
+    <footer>
+        This document is created by <em>Rick Beerendonk</em>.
+    </footer>
+</body>
+</html>

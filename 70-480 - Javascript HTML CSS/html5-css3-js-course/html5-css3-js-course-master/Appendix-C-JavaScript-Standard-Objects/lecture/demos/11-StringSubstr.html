@@ -1,0 +1,16 @@
+<html>
+<body>
+
+<script type="text/javascript">
+var email = "andyo@olsensoft.com";
+var atIndex = email.indexOf("@");
+var suffixIndex = email.lastIndexOf(".");
+document.write("Your email address is " + email + "<br/>");
+
+document.write("User name is " + email.substr(0, atIndex) + "<br/>");
+document.write("Suffix is "    + email.substr(suffixIndex, email.length));
+</script>
+
+
+</body>
+</html>

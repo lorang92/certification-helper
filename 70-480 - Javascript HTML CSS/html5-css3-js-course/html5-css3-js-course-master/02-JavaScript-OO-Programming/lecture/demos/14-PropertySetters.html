@@ -1,0 +1,78 @@
+<html>
+<head>
+
+<script type="text/javascript">
+
+//=====================================================
+// Define functions for use by employee objects
+//=====================================================
+function payRise(amount) {
+    this.salary += amount;            
+    return this.salary; 
+}
+
+function displayDetails() {
+    alert(this.name + " is " + this.age + " and earns " + this.salary);
+}
+
+
+//=====================================================
+// Create an employee, syntax 1
+//=====================================================
+var employee1 = {
+    name: "John Smith",
+    age: 21,
+    salary: 10000,
+    payRise: payRise,
+    displayDetails: displayDetails
+};
+
+
+//=====================================================
+// Create an employee, syntax 2
+//=====================================================
+var employee2 = {
+    name: "Mary Jones",
+    age: 42,
+    salary: 20000,
+    
+    payRise: function(amount) {
+        this.salary += amount;            
+        return this.salary; 
+    },
+    
+    displayDetails: function() {
+        alert(this.name + " is " + this.age + " and earns " + this.salary);
+    }
+};
+
+
+//=====================================================
+// Regular event handler functions
+//=====================================================
+function processEmployee(button) {
+    if (button.id == "btnEmp1") {
+        alert("employee1 salary (before pay rise): " + employee1.salary);
+        employee1.payRise(1000);
+        employee1.displayDetails();
+    }
+    else if (button.id == "btnEmp2") {
+        alert("employee2 salary (before pay rise): " + employee2.salary);
+        employee2.payRise(1000);
+        employee2.displayDetails();
+    }
+}
+
+</script>
+</head>
+
+
+<body>
+<form name="form1">
+  <input type="button" id="btnEmp1" value="Pay rise for employee1" onclick="processEmployee(this)" />
+  &nbsp;&nbsp;&nbsp;
+  <input type="button" id="btnEmp2" value="Pay rise for employee2" onclick="processEmployee(this)" />
+</form>
+</body>
+
+</html>

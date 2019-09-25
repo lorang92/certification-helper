@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        You are developing a web application that uses web workers to process images extracted from an HTML5 CANVAS object on a web page. 
+    </p>
+    <p>
+        You need to pass messages between the web workers and the web page.<br />
+        Which three types of objects should you use?<br />
+        (Each correct answer presents a complete solution. Choose three.)
+    </p>
+    <ol type="A">
+        <li>
+            JSON
+        </li>
+        <li>
+            Window
+        </li>
+        <li>
+            Parent
+        </li>
+        <li>
+            String
+        </li>
+        <li style="font-style: italic">
+            JavaScript
+        </li>
+        <li style="font-style: italic">
+            DOM
+        </li>
+    </ol>
+
+    <script>
+        var worker = new Worker('Js/62%20-%20Web%20worker.js');
+        worker.onmessage = function (e) { alert('OK: ' + e.data) };
+        worker.onerror = function (e) { alert('Error!') };
+
+        var json = { Name: "Jan Jansen", Age: 32 };
+        var str = "Hello world";
+        var f = function () { return 10; };
+
+        worker.postMessage(json);
+        //worker.postMessage(this.window);
+        //worker.postMessage(this.parent);
+        worker.postMessage(str);
+        //worker.postMessage(f);
+
+        worker.terminate();
+    </script>
+</body>
+</html>

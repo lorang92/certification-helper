@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Viewer</title>
+
+    <style>
+
+        body {
+            font-family: arial;
+        }
+
+        button {
+            display: inline;
+            margin-bottom: 10px;
+            padding: 5px;
+            text-align: center;
+            background-color: yellow;
+            color: red;
+            width: 150px;
+            height: 30px;
+        }
+
+        #myImageContainer {
+            width: 600px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 5px 5px 20px gray; 
+        }
+
+        #myImageContainer img {
+            width: 1800px;
+            height: 1200px;
+            margin-left: -400px;
+            margin-top: -300px;
+
+            -ms-transition:     -ms-transform     3s ease-in-out;
+            -webkit-transition: -webkit-transform 3s ease-in-out;
+            -moz-transition:    -moz-transform    3s ease-in-out;
+            -o-transition:      -o-transform      3s ease-in-out;
+            transition:         transform         3s ease-in-out;
+        }
+        
+        .rotateClockwise {
+            -ms-transform:     rotate(15deg);
+            -webkit-transform: rotate(15deg);
+            -moz-transform:    rotate(15deg);
+            -o-transform:      rotate(15deg);
+            transform:         rotate(15deg);
+        }
+        
+        .rotateAntiClockwise {
+            -ms-transform:     rotate(-15deg);
+            -webkit-transform: rotate(-15deg);
+            -moz-transform:    rotate(-15deg);
+            -o-transform:      rotate(-15deg);
+            transform:         rotate(-15deg);
+        }
+        
+        .moveLeft {
+            -ms-transform:     translateX(10%);
+            -webkit-transform: translateX(10%);
+            -moz-transform:    translateX(10%);
+            -o-transform:      translateX(10%);
+            transform:         translateX(10%);
+        }
+
+        .moveRight {
+            -ms-transform:     translateX(-10%);
+            -webkit-transform: translateX(-10%);
+            -moz-transform:    translateX(-10%);
+            -o-transform:      translateX(-10%);
+            transform:         translateX(-10%);
+        }
+
+        .zoomIn {
+            -ms-transform:     scale(1.5);
+            -webkit-transform: scale(1.5);
+            -moz-transform:    scale(1.5);
+            -o-transform:      scale(1.5);
+            transform:         scale(1.5);
+        }
+
+        .zoomOut {
+            -ms-transform:     scale(0.6);
+            -webkit-transform: scale(0.6);
+            -moz-transform:    scale(0.6);
+            -o-transform:      scale(0.6);
+            transform:         scale(0.6);
+        }
+
+        .topLeftOrigin {
+            -ms-transform-origin:     left top;
+            -webkit-transform-origin: left top;
+            -moz-transform-origin:    left top;
+            -o-transform-origin:      left top;
+            transform-origin:         left top;
+        }
+
+    </style>
+
+    <script src="jquery-1.10.2.js"></script>
+
+    <script> 
+
+        function onload() {
+
+            $('button')
+                .html(function() {
+                    return this.getAttribute('data-description');
+                })
+                .click(function() {
+                    var classToAdd  = this.getAttribute('data-class-to-add');
+                    $('#myImage').removeClass().addClass(classToAdd);            
+                });
+        }
+
+    </script>
+
+</head>
+
+<body onload="onload()">
+
+    <h1>Simple Viewer</h1>
+    
+    <button data-description='Turn clockwise'      data-class-to-add='rotateClockwise     topLeftOrigin'></button>
+    <button data-description='Turn anti-clockwise' data-class-to-add='rotateAntiClockwise topLeftOrigin'></button>
+    <button data-description='Move left'           data-class-to-add='moveLeft  topLeftOrigin'></button>
+    <button data-description='Move right'          data-class-to-add='moveRight topLeftOrigin'></button>
+    <button data-description='Zoom in'             data-class-to-add='zoomIn    topLeftOrigin'></button>
+    <button data-description='Zoom out'            data-class-to-add='zoomOut   topLeftOrigin'></button>
+    <br/>
+    <button data-description='Clear transform'     data-class-to-add='topLeftOrigin'></button>
+
+    <div id="myImageContainer">
+        <img id="myImage" src="sunset.jpg" alt="Sunset in Lake Garda">
+    </div>
+
+</body>
+</html>
+

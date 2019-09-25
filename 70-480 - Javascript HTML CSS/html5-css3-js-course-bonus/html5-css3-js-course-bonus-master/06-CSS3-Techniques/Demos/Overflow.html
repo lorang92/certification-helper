@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        div {
+            width: 110px;
+            height: 110px;
+            border: thin solid black;
+        }
+
+        #div1 {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        #div2 {
+            overflow-x: scroll;
+            overflow-y: scroll;
+        }
+
+        /* default */
+        #div3 {
+            overflow-x: visible;
+            overflow-y: visible;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="div1"><p style="width:140px">
+        Overflow-x specifies whether or not to clip the left/right edges of the content.
+        Overflow-y specifies whether or not to clip the top/bottom edges of the content.
+    </p></div>
+
+    <div id="div2"><p style="width:140px">
+        Overflow-x specifies whether or not to clip the left/right edges of the content.
+        Overflow-y specifies whether or not to clip the top/bottom edges of the content.
+    </p></div>
+
+    <div id="div3"><p style="width:140px">
+        Overflow-x specifies whether or not to clip the left/right edges of the content.
+        Overflow-y specifies whether or not to clip the top/bottom edges of the content.
+    </p></div>
+
+</body>
+</html>

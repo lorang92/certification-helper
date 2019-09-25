@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Camera</title>
+    <script>
+        function init() {
+            navigator.getUserMedia = navigator.getUserMedia ||
+                    navigator.webkitGetUserMedia ||
+                    navigator.mozGetUserMedia ||
+                    navigator.msGetUserMedia;
+
+            var video = document.querySelector('video');
+
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia({/*audio: true,*/  video: true}, function (stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                }, errorCallback);
+            }
+        }
+
+        function errorCallback(error) {
+            alert(error.name);
+        }
+
+        window.addEventListener("load", init, true);
+    </script>
+</head>
+<body>
+    <p>
+        <em>Run this example in Chrome, FireFox or Opera.
+            Due to security restrictions, this page should be run from a webserver (e.g. localhost).
+            You could run this site from a debugger within and IDE like VisualStudio,
+            use <a href="https://www.npmjs.com/package/http-server" target="_blank" rel="noopener">http-server</a>
+            or addon <a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb" target="_blank" rel="noopener">Web Server for Chrome</a>.</em>
+    </p>
+    <video />
+</body>
+</html>

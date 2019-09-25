@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>No Web Worker</title>
+
+    <script src="lib.js"></script>
+
+    <script>
+        function setResult(s) {
+            var r = document.getElementById('result');
+            r.innerText = s;
+        }
+
+        function newText(s) {
+            sleep(1000);
+            setResult(s.toUpperCase());
+        }
+    </script>
+</head>
+<body>
+    <input type="text" onkeyup="newText(this.value)" />
+    <div id="result"></div>
+</body>
+</html>

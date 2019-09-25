@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        function addAction(action) {
+            var list = document.getElementById('list');
+            var li = document.createElement('li');
+            li.innerText = action;
+            list.appendChild(li)
+        }
+
+        function handleOffline() {
+            addAction("Offline");
+        }
+
+        function handleOnline() {
+            addAction("Online");
+        }
+
+        function handleVisibilityChange(e) {
+            addAction(document.visibilityState);
+        }
+
+        function init() {
+            addAction(document.hidden ? "Hidden" : "Shown");
+            addAction(navigator.onLine ? "Online" : "Offline");
+        }
+    </script>
+</head>
+<body onload="init()" ononline="handleOnline()" onoffline="handleOffline()">
+
+    <ul id="list">
+    </ul>
+
+    <script>
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+    </script>
+</body>
+</html>

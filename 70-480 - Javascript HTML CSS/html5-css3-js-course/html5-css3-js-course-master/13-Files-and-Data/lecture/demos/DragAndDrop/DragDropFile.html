@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Drag-and-Drop Example</title>
+
+    <style>
+        
+        body {
+            font-family: arial;
+        }
+        
+        canvas {
+            background-color: yellow;
+            border: solid 1px black;
+        }
+        
+    </style>
+
+    <script type="text/javascript">
+    
+        // Handles dragover events.
+        function onDragover(mouseEvent) {
+            mouseEvent.preventDefault();
+        }
+        
+        // Handles drop events.
+        function onDrop(mouseEvent) {
+
+            // Prevent the default drop action (which would be to obliterate the current page and display the dropped-file instead).
+            mouseEvent.preventDefault();
+            
+            // Get a reference to the HTML element that the user dropped the file onto.
+            var targetCanvas = mouseEvent.target;
+
+            // Get the first file dragged by the user.
+            var allTheFiles = event.dataTransfer.files;
+            var firstFile = allTheFiles[0];
+
+            // Was the file an image file?
+            if (firstFile.type.match(/image.*/)) {
+
+                // Yes! So read it into memory asynchronously.
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    // This code is executed when the image file has been loaded. Create an Image oject, 
+                    var img = new Image();
+                    img.src = e.target.result;
+                    displayImage(img, targetCanvas);    
+                };
+                reader.readAsDataURL(firstFile);
+            }
+        }
+        
+        // Displays an image.
+        function displayImage(img, targetCanvas) {
+        
+            if (targetCanvas.classList.contains("fixedSize")) {
+                // Get ready to draw a fixed-size image, the same size as the target canvas.
+                img.width = targetCanvas.width;
+                img.height = targetCanvas.height;
+            }
+            else {
+                // Get ready to draw a real-size image, i.e. make the target canvas the same size as the image itself.
+                targetCanvas.width = img.width;
+                targetCanvas.height = img.height;
+            }
+
+            // Draw the image on the target canvas.
+            var ctx = targetCanvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+        }
+
+        function onLoad(event) {
+
+            // Handle the dragover and drop events on all canvas elements.
+            var dropzoneElems = document.querySelectorAll("canvas");
+            for (var i = 0; i < dropzoneElems.length; i++) {
+                dropzoneElems[i].addEventListener("dragover", onDragover, true);
+                dropzoneElems[i].addEventListener("drop", onDrop, true);
+            }
+        }
+        
+        window.addEventListener("load", onLoad, true);
+        
+    </script>
+
+</head>
+<body>
+
+    <div>
+        <header>
+            <h1>Drag-and-drop example</h1>
+        </header>
+        
+        Fixed-size canvas<br>
+        <canvas id="dropzone1" width="150" height="100" class="fixedSize">Drop a file here...</canvas> <br><br>
+
+        Real-size canvas<br>
+        <canvas id="dropzone2" width="150" height="100" class="realSize">Drop a file here...</canvas>
+
+    </div>
+
+</body>
+</html>

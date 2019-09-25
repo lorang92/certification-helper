@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Http GET using Fetch</title>
+
+    <!-- polyfill for Safari -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.js"></script> -->
+
+    <script type="text/javascript">
+        function myOnKeyUp() {
+            var myInputField = document.getElementById('myInputField');
+            var myEchoField = document.getElementById('myEchoField');
+
+            var url = "/Home/EchoInUppercase?text=" + myInputField.value;
+
+            fetch(url)
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw Error(response.status + ": " + response.statusText + "\n" + response.url);
+                    }
+                    return response.text();
+                })
+                .then(function (response) {
+                    myEchoField.innerText = response;
+                })
+                .catch(function (error) {
+                    console.error(error.message);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Http GET using Fetch</h1>
+    </header>
+
+    <main>
+        <label for="myInputField">Text:</label>
+        <input type="text" id="myInputField" onkeyup="myOnKeyUp()" autofocus />
+        <br /> <br />
+        <p id="myEchoField"></p>
+    </main>
+
+    <footer>
+        <hr />
+        @Html.ActionLink("Home", "Index")
+    </footer>
+</body>
+</html>

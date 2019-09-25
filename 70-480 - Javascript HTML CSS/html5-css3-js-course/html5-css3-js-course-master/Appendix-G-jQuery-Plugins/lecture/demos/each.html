@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>$.each example</title> 
+	
+	<style>
+		body { 
+			font-family: "Calibri";
+			color: darkblue;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			var arr = ['Huey', 'Lewey', 'Dewey'];
+			$.each(arr, function(indexOfElement, valueOfElement) {
+				$('#list1').append("<li>[" + indexOfElement + "] is " + valueOfElement);
+			});
+
+			var obj = { name: 'John', age: 21, salary: 10000};
+			$.each(obj, function(indexOfElement, valueOfElement) {
+				$('#list2').append("<li>[" + indexOfElement + "] is " + valueOfElement);
+			});
+
+			$.each($("ul"), function(indexOfElement, valueOfElement) {
+				$('#list3').append("<li>[" + indexOfElement + "] is " + valueOfElement);
+			});
+
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<h2>Array elements</h2>
+	<ul id="list1"></ul>
+	
+	<h2>Object properties</h2>
+	<ul id="list2"></ul>
+	
+	<h2>jQuery selection</h2>
+	<ul id="list3"></ul>
+	
+</body>
+</html>

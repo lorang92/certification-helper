@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Camera</title>
+    <script>
+        function init() {
+            var constraints = { audio: false, video: { width: 1280, height: 720 } };
+            
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(function(mediaStream) {
+                    var video = document.querySelector('video');
+                    video.srcObject = mediaStream;
+                    video.onloadedmetadata = function(e) {
+                        video.play();
+                    };
+                })
+                .catch(function(err) { alert(err.name + ": " + err.message); });
+        }
+
+        window.addEventListener("load", init, true);
+    </script>
+</head>
+<body>
+    <p>
+        <em>Run this example in Chrome, FireFox or Opera.
+            Due to security restrictions, this page should be run from a webserver (e.g. localhost).
+            You could run this site from a debugger within and IDE like VisualStudio,
+            use <a href="https://www.npmjs.com/package/http-server" target="_blank" rel="noopener">http-server</a>
+            or addon <a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb" target="_blank" rel="noopener">Web Server for Chrome</a>.</em>
+    </p>
+    <video />
+</body>
+</html>

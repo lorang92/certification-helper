@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="Js/jquery-2.0.2.js"></script>
+
+    <script>
+        var JSONObject = {
+            "Confirmation": "1234",
+            "FirstName": "John"
+        }
+    </script>
+</head>
+<body>
+    <p>
+        You are developing a customer web form that includes the following HTML.
+<pre>&lt;label id="txtValue"&gt;&lt;/label&gt;</pre>
+    </p>
+    <p>
+        Information from the web form is submitted to a web service. The web service returns the following JSON object.
+        <pre>
+{
+   "Confirmation": "1234", 
+   "FirstName": "John"
+}
+            </pre>
+    </p>
+    <p>
+        You need to display the Confirmation number from the JSON response in the txtValue label field.<br />
+        Which JavaScript code segment should you use?
+    </p>
+
+    <ol type="A">
+        <li>
+            $("#txtValue").val = (JSONObject.Confirmation);
+            <br />
+            <label id="txtValueA"></label>
+            <button onclick="$('#txtValueA').val = (JSONObject.Confirmation)">Show</button>
+        </li>
+        <li>
+            $("#txtValue").val(JSONObject.Confirmation);
+            <br />
+            <label id="txtValueB"></label>
+            <button onclick="$('#txtValueB').val(JSONObject.Confirmation)">Show</button>
+        </li>
+        <li>
+            $("#txtValue").text = (JSONObject.Confirmation);
+            <br />
+            <label id="txtValueC"></label>
+            <button onclick="$('#txtValueC').text = (JSONObject.Confirmation)">Show</button>
+        </li>
+        <li>
+            $("#txtValue").text(JSONObject.Confirmation);
+            <br />
+            <label id="txtValueD"></label>
+            <button onclick="$('#txtValueD').text(JSONObject.Confirmation)">Show</button>
+        </li>
+    </ol>
+</body>
+</html>

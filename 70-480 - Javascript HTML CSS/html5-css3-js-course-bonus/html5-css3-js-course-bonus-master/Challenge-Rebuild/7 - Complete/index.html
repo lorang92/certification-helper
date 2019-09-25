@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2018 Rick Beerendonk -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Challenge-Rebuild - Complete</title>
+
+    <style>
+        body {
+            background-color: lightgray;
+            margin: 0;
+        }
+
+        #intro,
+        article {
+            height: 1500px;
+        }
+
+        article {
+            padding-top: 50px;
+        }
+
+        #menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: white;
+
+            border-bottom-color: lightgray;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+
+            overflow: hidden;
+
+            /* Position sticked to the top */
+            position: sticky;
+
+            /* Initially don't show */
+            height: 0;
+            top: -50px;
+
+            /* Transitions */
+            transition-property: height top;
+            transition-duration: 500ms;
+        }
+
+        #menu.visible {
+            height: 50px;
+            top: 0;
+        }
+
+        .menuItem {
+            height: 36px;
+            width: 36px;
+            border-color: darkgray;
+            border-radius: 50%;
+            border-style: solid;
+            border-width: 2px;
+            color: rgba(0, 0, 0, 0); /* transparent */
+            margin: 5px;
+            transition-property: border-color transform;
+            transition-duration: 400ms;
+        }
+
+        .menuItem:hover {
+            border-color: black;
+            transform: scale(1.1);
+        }
+
+        .menuItem.selected {
+            border-color: black;
+            transform: scale(1.2);
+        }
+    </style>
+
+    <script>
+        function changeUrlHash(newHash) {
+            const currentUrl = window.location.href;
+            const hashPos = currentUrl.indexOf('#');
+            const currentUrlBeforeHash = hashPos < 0 ? currentUrl : currentUrl.substr(0, hashPos);
+            const newUrl = newHash ? `${currentUrlBeforeHash}#${newHash}` : currentUrlBeforeHash;
+            if (currentUrl !== newUrl) {
+                history.replaceState(null, document.title, newUrl);
+            }
+        }
+
+        let currentArticle;
+
+        function setCurrentArticle(article) {
+            currentArticle = article;
+
+            // Adjust URL
+            changeUrlHash(article && article.id);
+
+            // Show menu if there is a current article
+            const menu = document.querySelector('#menu');
+            if (article) {
+                menu.classList.add('visible');
+            }
+            else {
+                menu.classList.remove('visible');
+            }
+
+            // Select current article
+            const menuItems = document.querySelectorAll('.menuItem');
+            for (const menuItem of menuItems) {
+                if (article && (article.id === menuItem.dataset.articleId)) {
+                    menuItem.classList.add('selected');
+                }
+                else {
+                    menuItem.classList.remove('selected');
+                }
+            }
+        }
+
+        function init() {
+            // Create menu item for every article
+            const menu = document.querySelector('#menu');
+            const articles = document.querySelectorAll('article');
+
+            for (const article of articles) {
+                const a = document.createElement('a');
+                a.classList.add('menuItem');
+                a.href = `#${article.id}`;
+                a.innerText = article.id;
+                a.style.setProperty('background-color', article.style.getPropertyValue('background-color'));
+                a.dataset.articleId = article.id;
+                menu.appendChild(a);
+            }
+        }
+
+        function bodyScrolled() {
+            // Turn "document.getElementsByTagName()" into an array
+            const all = [].slice.call(document.getElementsByTagName("article"));
+
+            // Filter items with a top higher than 50% of the visible part of the page
+            const topAboveMiddleOfScreen = all.filter(article =>
+                article.getBoundingClientRect().top < (window.innerHeight / 2));
+
+            // Get the lowest item of all items filtered in the previous step
+            const visibleArticle = topAboveMiddleOfScreen.length === 0
+                ? null
+                : topAboveMiddleOfScreen.reduce((acc, current) => {
+                    // if we don't have an item yet, just return current.
+                    if (!acc) {
+                        return current;
+                    }
+
+                    // if the current is lower on the page than acc, return current.
+                    if (acc.getBoundingClientRect().top < current.getBoundingClientRect().top) {
+                        return current;
+                    }
+
+                    // By default return acc.
+                    return acc;
+                });
+
+            setCurrentArticle(visibleArticle);
+        }
+    </script>
+</head>
+
+<body onload="init()" onscroll="bodyScrolled()">
+    <nav id="menu">
+    </nav>
+    <header id="intro">Introduction</header>
+    <article id="first" style="background-color: lightyellow">First</article>
+    <article id="second" style="background-color: lightblue">Second</article>
+    <article id="third" style="background-color: lightsalmon">Third</article>
+    <article id="fourth" style="background-color: lightgreen">Fourth</article>
+    <article id="fifth" style="background-color: lightpink">Fifth</article>
+</body>
+
+</html>

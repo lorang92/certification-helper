@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web Worker with Canvas</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" height="100px" width="300px" style="background-color: lightgray">
+        Canvas not supported
+    </canvas>
+
+    <script type="text/javascript">
+        if (typeof (Worker) === "undefined") {
+            alert("Worker not defined!");
+        }
+
+        var canvas = document.getElementById('myCanvas');
+        var offscreenCanvas = canvas.transferControlToOffscreen();
+
+        var w = new Worker("worker.js");
+        w.onerror = function (e) { console.error(e) };
+        w.postMessage(offscreenCanvas, [offscreenCanvas]);
+    </script>
+</body>
+
+</html>

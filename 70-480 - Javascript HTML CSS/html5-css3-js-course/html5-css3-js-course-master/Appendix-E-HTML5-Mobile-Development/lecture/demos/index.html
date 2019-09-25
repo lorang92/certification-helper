@@ -1,0 +1,127 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Mobile Course Planner</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+	<!-- Link in the jQuery-Mobile style sheet -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.css" />
+
+	<!-- Import the jQuery and jQuery-Mobile script files -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.js"></script>
+
+	<!-- Import our "data object" and "user interface" script files -->
+	<script type="text/javascript" src="data.js"></script>
+	<script type="text/javascript" src="uibehavior.js"></script>
+
+</head>
+
+<!-- For the body, use the jQuery "b" data theme (black-and-gray) -->
+<body data-theme="b"> 
+
+	<!-- ===========================================================================================
+	     Main page for the mobile app (note the data-role attribute).
+    	 =========================================================================================== -->
+	<div id="homePanel" data-role="page">
+
+		<!-- Header, includes a "Create new course" link -->
+		<div data-role="header">
+			<h1>Mobile Course Planner</h1>
+			<a href="#newCoursePanel" data-icon="plus">Create new course</a>
+		</div>
+		
+		<!-- Main content, i.e. a listview of courses -->
+		<div data-role="content">
+			<ul data-role="listview">
+				<!-- Will contain <li> elements, each with a hyperlink such as <a href="#itemPanel?course=1">HTML5</a> -->
+			</ul>
+		</div>
+		
+		<!-- Footer, displays a copyright message -->
+		<div data-role="footer">
+			<h2>&copy; My company</h2>
+		</div>
+	</div>
+
+	
+	<!-- ===========================================================================================
+	     Detail page, displays one list item (i.e. one course).
+    	 =========================================================================================== -->
+	<div id="itemPanel" data-role="page">
+
+		<!-- Header, includes a "back" icon, the name of the course, and a "delete" icon -->
+		<div data-role="header">
+			<a href="#" data-rel="back" data-icon="back">back</a>
+			<h1 id="headerField">Name of the course</h1>
+			<a href="#" id="deleteButton" data-icon="delete">delete</a>
+		</div>
+		
+		<!-- Main content, i.e. details for a course -->
+		<div data-role="content">
+			<p id="idField">Course ID will appear here</p>
+			<p id="durationField">Duration will appear here</p>
+			<p id="certificationField">Certification will appear here</p>
+		</div>
+		
+		<!-- Footer, displays a copyright message -->
+		<div data-role="footer">
+			<h2>&copy; My company</h2>
+		</div>
+	</div>
+
+	
+	<!-- ===========================================================================================
+	     New Course dialog, displays input controls for the user to enter a new course.
+		 Note 1: This is a dialog rather than a page.
+		 Note 2: We use the jQuery "e" data theme (orange).
+    	 =========================================================================================== -->
+	<div id="newCoursePanel" data-role="dialog" data-theme="e">
+
+		<!-- Simple header -->
+		<div data-role="header">
+			<h1>Create a new course</h1>
+		</div>
+		
+		<!-- Main content, i.e. mobile input controls -->
+		<div data-role="content">
+		
+			<form id="newCourseForm" action="#" method="post" data-ajax="false">
+
+				<!-- Text box, for course name -->
+				<div data-role="fieldcontain">
+					<label for="newNameField" class="ui-hidden-accessible">Course name:</label>
+					<input type="text" id="newNameField" value="" placeholder="Name of the course"/>
+				</div>
+				
+				<!-- Range, for course duration -->
+				<div data-role="fieldcontain">
+					<label for="newDurationField" data-mini="true">Duration:</label>
+					<input type="range" id="newDurationField" min="1" max="5" value="3" />
+				</div>
+
+				<!-- Select list box, displayed as a slider, to indicate if the course leads to certification --> 
+				<div data-role="fieldcontain">	
+					<label for="newCertificationField">Certification:</label>
+					<select id="newCertificationField" data-role="slider" data-mini="true">
+						<option>No</option>
+						<option>Yes</option>
+					</select>				
+				</div>
+				
+				<!-- Submit and Back buttons --> 
+				<div data-role="fieldcontain">	
+					<input type="submit" value="Save" />
+					<input type="button" id="backButton" value="Back" data-rel="back" data-icon="back" />
+				</div>
+			</form>
+		</div>
+		
+		<!-- Simple footer, no text content, just to look tidy -->
+		<div data-role="footer">
+			<h2>&nbsp;</h2>
+		</div>
+	</div> 
+	
+</body>
+</html>

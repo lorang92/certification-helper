@@ -1,0 +1,14 @@
+{
+  "name": "html5-css3-js5",
+  "version": "1.0.0",
+  "description": "Extra's for the HTML5, CSS3, JS5 course.",
+  "author": "Rick Beerendonk <rick@beerendonk.com>",
+  "scripts": {
+    "clean": "rimraf node_modules",
+    "open": "open",
+    "openserver": "node \"./Util-WebServer/server.js\" 8080"
+  },
+  "dependencies": {
+    "http-server": "0.11.1"
+  }
+}

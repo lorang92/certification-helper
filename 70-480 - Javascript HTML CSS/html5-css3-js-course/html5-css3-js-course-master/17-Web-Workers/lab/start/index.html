@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Prime Numbers Application</title>
+    <link href="site.css" rel="stylesheet" />
+
+    <style>	
+	    label {
+		    width: 130px;
+		    float: left;
+	    }
+	
+	    #messageArea {
+		    background-color: lightblue;
+	    }
+    </style>
+
+    <script type="text/javascript">
+
+        // Add your main-thread code here.
+        var primesWorker = null;
+        var lowerNumberElem;
+        var upperNumberElem;
+        var messageAreaElem;
+        var resultAreaElem;
+
+        // Performs page initialization.
+        function onLoad() {
+            document.getElementById("findPrimesButton").addEventListener("click", findPrimes, true);
+            document.getElementById("cancelWorkerButton").addEventListener("click", cancelWorker, true);
+            primesWorker = new Worker("utilities.js");
+            primesWorker.addEventListener("message", function(message) {
+                resultAreaElem.innerHTML = message.data;
+            });
+            primesWorker.addEventListener("error", function(error) {
+                console.log(error);
+            });
+            lowerNumberElem = document.getElementById("lowerNumber");
+            upperNumberElem = document.getElementById("upperNumber");
+            messageAreaElem = document.getElementById("messageArea");
+            resultAreaElem  = document.getElementById("resultArea");
+        }
+
+        window.addEventListener("load", onLoad, true);
+
+        function findPrimes() {
+            primesWorker.postMessage(upperNumberElem.value);
+        }
+
+        function cancelWorker() {
+        }
+
+    </script>
+</head>
+<body>
+
+	<h1>Prime Numbers Application</h1>
+
+	<label for="lowerNumber">Lower number:</label> 
+	<input type="Text" id="lowerNumber" size="15" /> <br/>
+
+	<label for="upperNumber">Upper number:</label> 
+	<input type="Text" id="upperNumber" size="15" /> <br/><br/>
+
+	<input type="button" value="Find primes"   id="findPrimesButton" /> &nbsp;
+	<input type="button" value="Cancel worker" id="cancelWorkerButton" /> <br/><br/>
+
+	<div id="messageArea"></div> <br/>
+
+	<textArea id="resultArea" rows="20" cols="50"></textArea>
+
+</body>
+</html>

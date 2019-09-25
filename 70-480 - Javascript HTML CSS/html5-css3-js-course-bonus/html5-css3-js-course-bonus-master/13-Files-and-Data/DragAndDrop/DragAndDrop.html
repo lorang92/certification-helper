@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script>
+        function dragStart(event){
+            event.dataTransfer.setData('text/plain', event.target.innerHTML);
+        }
+        
+        function dragOver(event){
+            event.preventDefault();
+        }
+        
+        function drop(event){
+            event.target.innerHTML = event.dataTransfer.getData('text/plain');
+        }
+    </script>
+</head>
+<body>
+    <div>Source 0</div>
+    <div draggable="true" ondragstart="dragStart(event)">Source 1</div>
+    <div draggable="true" ondragstart="dragStart(event)">Source 2</div>
+
+    <div id="result" ondragover="dragOver(event)" ondrop="drop(event)">Target</div>
+</body>
+</html>

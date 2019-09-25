@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script>
+        function execute() {
+            var code =
+                select1.options[select1.selectedIndex].text
+                + ' new '
+                + select2.options[select2.selectedIndex].text
+                + '('
+                + select3.options[select3.selectedIndex].text
+                + ', '
+                + select4.options[select4.selectedIndex].text
+                + ');';
+
+            try {
+                eval(code);
+            } catch (error) {
+                debugger;
+                alert('Error raise (number: ' + error.number + ', description: ' + error.description + ')');
+            }
+        }
+
+        // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+    </script>
+</head>
+<body>
+    <p>
+        You are developing an online shopping application that accepts credit cards for payment. 
+    </p>
+
+    <p>
+        If the credit card number is invalid, the application must:
+        <ul>
+            <li>Generate an error</li>
+            <li>Assign "200" to the error number</li>
+            <li>Assign "Invalid" to the error description</li>
+        </ul>
+    </p>
+
+    <p>
+        You need to write the code that meets the requirements.<br />
+        How should you write the code?<br />
+        (To answer, select the appropriate option from the drop-down list in the answer area.)
+    </p>
+
+    <p style="color: red">
+        IE only!
+    </p>
+
+    <p>
+        <select id="select1">
+            <option></option>
+            <option>throw</option>
+            <option>"Invalid"</option>
+            <option>200</option>
+            <option>Error</option>
+            <option>break</option>
+        </select>
+        new
+        <select id="select2">
+            <option></option>
+            <option>throw</option>
+            <option>"Invalid"</option>
+            <option>200</option>
+            <option>Error</option>
+            <option>break</option>
+        </select>
+        (
+        <select id="select3">
+            <option></option>
+            <option>throw</option>
+            <option>"Invalid"</option>
+            <option>200</option>
+            <option>Error</option>
+            <option>break</option>
+        </select>
+        ,&nbsp;
+        <select id="select4">
+            <option></option>
+            <option>throw</option>
+            <option>"Invalid"</option>
+            <option>200</option>
+            <option>Error</option>
+            <option>break</option>
+        </select>
+        );
+    </p>
+    <button onclick="execute()">Execute</button>
+</body>
+</html>

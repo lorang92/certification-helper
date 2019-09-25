@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Adding/Removing Event Handlers Demo</title>
+        <style type="text/css">
+            p {
+				font-family: Verdana;
+                background: grey;
+                color: white;
+                padding: 10px;
+                margin: 5px;
+                border: thin solid black
+            }
+			
+			.actIntro {
+				font-style: italic;
+				color: lightgreen;
+			}
+
+			.speaker {
+				font-weight: bold;
+				color: yellow;
+			}
+        </style>
+	</head>
+
+    <body>       
+		<p>
+			<b>Script / Text of Act I Macbeth</b>
+		</p>
+
+		<p>
+			<span class="actIntro">
+			ACT I<br>
+			SCENE I. A desert place.<br>
+			Thunder and lightning. Enter three Witches<br><br>
+			</span>
+			
+			<span class="speaker">First Witch</span><br>
+			When shall we three meet again<br>
+			In thunder, lightning, or in rain?<br><br>
+
+			<span class="speaker">Second Witch</span><br>
+			When the hurlyburly's done,<br>
+			When the battle's lost and won.<br><br>
+
+			<span class="speaker">Third Witch</span><br>
+			That will be ere the set of sun.<br><br>
+
+			<span class="speaker">First Witch</span><br>
+			Where the place?<br><br>
+
+			<span class="speaker">Second Witch</span><br>
+			Upon the heath.<br><br>
+
+			<span class="speaker">Third Witch</span><br>
+			There to meet with Macbeth.
+		</p>
+		<button id="toggle">Toggle events</button> 
+
+		<script type="text/javascript">
+
+			function toggleEvents() {
+				eventsEnabled = !eventsEnabled;				
+				if (eventsEnabled) {
+					for (var i = 0; i < pElems.length; i++) {
+						pElems[i].addEventListener("mouseover", handleMouseOver);
+						pElems[i].addEventListener("mouseout", handleMouseOut);
+					}
+				}
+				else {
+					for (var i = 0; i < pElems.length; i++) {
+						pElems[i].removeEventListener("mouseover", handleMouseOver);
+						pElems[i].removeEventListener("mouseout", handleMouseOut);
+					}
+				}
+			}
+
+			function handleMouseOver(e) {
+				e.target.style.background = 'orange'; 
+				e.target.style.color = 'blue';
+			}
+
+			function handleMouseOut(e) {
+				e.target.style.background = 'grey'; 
+				e.target.style.color = 'white';
+			}
+
+			var pElems = document.getElementsByTagName("p");
+			var buttonElem = document.getElementById("toggle");
+			buttonElem.onclick = toggleEvents;
+			var eventsEnabled = false;
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,6 @@
+This folder is containing the original Ajax demo extended with a fetch example.
+
+More about fetch:
+- http://caniuse.com/#feat=fetch
+- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+- https://developer.mozilla.org/en/docs/Web/API/Fetch_API

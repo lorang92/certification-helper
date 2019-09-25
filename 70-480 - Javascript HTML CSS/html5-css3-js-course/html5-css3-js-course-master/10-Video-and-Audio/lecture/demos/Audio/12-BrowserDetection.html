@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html >
+<html lang="en">
+<head>
+    <title>Browser Detection Example</title>
+    <script type="text/javascript">
+
+        try 
+		{
+			var audio = document.createElement("audio");
+		
+			if (audio && 
+			    audio.canPlayType && 
+				audio.canPlayType("audio/mp3")) 
+			{
+				audio.src = "MyAudios/Beat.mp3";
+				audio.play();
+			}
+			else
+			{
+				alert("Browser cannot play MP3 format.");
+			}
+		}
+		catch (e) 
+		{
+			alert ("Exception: " + e);
+		}
+
+    </script>
+</head>
+<body>
+</body>
+</html>
+    

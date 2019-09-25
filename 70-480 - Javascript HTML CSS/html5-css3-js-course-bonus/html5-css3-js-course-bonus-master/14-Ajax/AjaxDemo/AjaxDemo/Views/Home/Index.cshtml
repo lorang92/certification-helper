@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Ajax Demo</title>
+</head>
+<body>
+    <h1>Ajax Demo</h1>
+
+    <h2>HTTP: GET</h2>
+    <div>
+        @Html.ActionLink("Use Ajax directly", "GetUsingAjaxDirectly")  <br /><br />
+        @Html.ActionLink("Use Ajax with jQuery", "GetUsingAjaxWithJQuery") <br />
+        @Html.ActionLink("Use Ajax with jQuery (deferred syntax)", "GetUsingAjaxWithJQueryDeferred") <br /><br />
+        @Html.ActionLink("Use fetch", "GetUsingFetch")  <br />
+        @Html.ActionLink("Use fetch (with async/await)", "GetUsingFetchWithAsyncAwait")  <br />
+    </div>
+
+    <h2>HTTP: POST</h2>
+    <div>
+        @Html.ActionLink("Use Ajax directly", "PostUsingAjaxDirectly")  <br /><br />
+        @Html.ActionLink("Use Ajax with jQuery (deferred syntax)", "PostUsingAjaxWithJQueryDeferred")  <br /><br />
+        @Html.ActionLink("Use fetch", "PostUsingFetch")  <br />
+        @Html.ActionLink("Use fetch (with async/await)", "PostUsingFetchWithAsyncAwait")  <br />
+    </div>
+</body>
+</html>

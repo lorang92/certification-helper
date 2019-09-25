@@ -1,0 +1,85 @@
+<html>
+<head>
+    <script type="text/javascript">
+
+        //=====================================================
+        // Sprite object.
+        //=====================================================
+        var Sprite = function(name) {
+            this.name = name; 
+            this.x = 0;        
+            this.y = 0;        
+            this.v = 0;        
+            return this;
+        };
+
+        Sprite.prototype = {
+            move: function(dx, dy) {
+                this.x += dx;
+                this.y += dy;
+            },
+            accelerate: function(dv) {
+                this.v += dv;
+            }
+        };
+
+        
+        //=====================================================
+        // Ball object, inherits from Sprite.
+        //=====================================================
+        var Ball = function(name, radius, elasticity) {
+
+            // Call the Sprite (i.e. base-object) constructor.
+            Sprite.call(this, name);
+
+            // Define additional Ball-specific properties.
+            this.radius = radius;
+            this.elasticity = elasticity;
+
+            return this;
+        };
+
+        Ball.prototype = new Sprite();
+
+        Ball.prototype.inflate = function(dr) {
+           this.radius += dr;
+        };
+
+        Ball.prototype.getSurfaceArea = function() {
+            return Math.PI * this.radius * this.radius * 4.0;
+        };
+
+        Ball.prototype.getVolume = function() {
+            return Math.PI * this.radius * this.radius * this.radius * 4.0 / 3.0;
+        };
+
+
+        //=====================================================
+        // Create some objects and manipulate them.
+        //=====================================================
+        function createSomeObjects() {
+            var aSprite = new Sprite("Spritey");
+            aSprite.move(10, 20);
+            aSprite.accelerate(30);
+            alert(aSprite.name + " location " + aSprite.x + ", " + aSprite.y + ", velocity " + aSprite.v);
+
+            var aBall = new Ball("Mr. Ball", 5, 0.9);
+            aBall.move(100, 200);
+            aBall.accelerate(300);
+            aBall.inflate(5);
+ 
+            alert(aBall.name + " location " + aBall.x + ", " + aBall.y + ", velocity " + aBall.v);
+            alert(aBall.name + " surface area " + aBall.getSurfaceArea());
+            alert(aBall.name + " volume " + aBall.getVolume());
+        }
+    </script>
+
+</head>
+
+<body>
+<form name="form1">
+  <input type="button" value="Create some objects" onclick="createSomeObjects()" />
+</form>
+</body>
+
+</html>

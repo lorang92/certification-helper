@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Picture</title>
+</head>
+<body>
+    <p>
+        The Picture element is in the HTML 5.1 specification. <a href="http://caniuse.com/#feat=picture">Can I use it?</a>
+    </p>
+    <picture>
+        <source media="(min-width: 800px)" srcset="big.png">
+        <source media="(min-width: 600px)" srcset="normal.png">
+        <source srcset="small.png">
+        <img src="fallback.png" alt="This picture loads on non-supporting browsers.">
+    </picture>
+</body>
+</html>

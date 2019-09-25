@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        You are developing an airline reservation website by using HTML5 and JavaScript. A page on the site allows users to enter departure and destination airport information and search for tickets. 
+    </p>
+    <p>
+        You have the following requirements:
+            <ul>
+                <li>Users must be able to save information in the application about their favorite destination airport.</li>
+                <li>The airport information must be displayed in the destination text box whenever the user returns to the page.</li>
+            </ul>
+    </p>
+    <p>
+        You need to develop the site to meet the requirements.
+    </p>
+
+    <pre>
+        &lt;input id="txtDest" type="text" /&gt;
+        &lt;input type="button" value="Submit" onclick="storeDestination('txtDest')" /&gt;
+        &lt;script&gt;
+            showDestination();
+            function showDestination() {
+                <b>[???]</b>
+                if (dest != null)
+                    document.getElementById('txtDest').value = dest;
+                }
+
+            function storeDestination(id) {
+                var dest = document.getElementById(id).value;
+                <b>[???]</b>
+            }
+        &lt;/script&gt;
+    </pre>
+
+    <input id="txtDest" type="text" />
+    <input type="button" value="Submit" onclick="storeDestination('txtDest')" />
+    <script>
+        showDestination();
+        function showDestination() {
+            var dest = localStorage.destination;
+            if (dest != null)
+                document.getElementById('txtDest').value = dest;
+        }
+
+        function storeDestination(id) {
+            var dest = document.getElementById(id).value;
+            localStorage.destination = dest;
+        }
+    </script>
+</body>
+</html>

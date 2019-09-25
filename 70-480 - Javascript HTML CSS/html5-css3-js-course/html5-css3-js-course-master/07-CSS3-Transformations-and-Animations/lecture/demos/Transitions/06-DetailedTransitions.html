@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Detailed Transition Demo</title>
+
+    <style>
+
+        #myPanel {
+            background-color: yellow;
+            width:    200px;
+            height: 100px;
+
+            transition-property:         width, height, background-color;
+            -ms-transition-property:     width, height, background-color;
+            -webkit-transition-property: width, height, background-color;
+            -moz-transition-property:    width, height, background-color;
+            -o-transition-property:      width, height, background-color;
+
+            transition-duration:         1s, 1s, 5s;
+            -ms-transition-duration:     1s, 1s, 5s;
+            -webkit-transition-duration: 1s, 1s, 5s;
+            -moz-transition-duration:    1s, 1s, 5s;
+            -o-transition-duration:      1s, 1s, 5s;
+
+            transition-timing-function:         ease-in-out;
+            -ms-transition-timing-function:     ease-in-out;
+            -webkit-transition-timing-function: ease-in-out;
+            -moz-transition-timing-function:    ease-in-out;
+            -o-transition-timing-function:      ease-in-out;
+
+            transition-delay:         0s, 0s, 1s;
+            -ms-transition-delay:     0s, 0s, 1s;
+            -webkit-transition-delay: 0s, 0s, 1s;
+            -moz-transition-delay:    0s, 0s, 1s;
+            -o-transition-delay:      0s, 0s, 1s;
+        }
+
+        #myPanel:hover {
+            width:  600px;
+            height: 300px;
+            background-color: red;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="myPanel"></div>
+</body>
+
+</html>

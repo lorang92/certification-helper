@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Http POST using Fetch (async/await)</title>
+
+    <script>
+        async function upload(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const fileUpload = form['fileUpload'];
+            const files = fileUpload.files;
+            const formData = new FormData();
+
+            for (const file of files) {
+                formData.append('file[]', file);
+            }
+
+            try {
+                const response = await fetch('/Home/Upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error(`${response.status}: ${response.statusText}
+${response.url}`);
+                }
+
+                const responseText = await response.text();
+
+                alert('Server response: ' + responseText);
+
+                // Clear the files in the input
+                fileUpload.value = '';
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Http POST using Fetch (async/await)</h1>
+    </header>
+
+    <main>
+        <form onsubmit="upload(event)">
+            <label for="fileUpload">Select File to Upload:</label>
+            <input id="fileUpload" type="file" multiple />
+            <br />
+            <button typeof="submit">Upload File</button>
+        </form>
+    </main>
+
+    <footer>
+        <hr />
+        @Html.ActionLink("Home", "Index")
+    </footer>
+</body>
+</html>

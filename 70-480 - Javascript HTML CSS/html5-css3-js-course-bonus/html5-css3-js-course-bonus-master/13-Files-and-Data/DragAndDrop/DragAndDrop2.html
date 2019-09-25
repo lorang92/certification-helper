@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        function dragStart(event){
+            event.dataTransfer.setData('text/plain', event.target.id);
+        }
+        
+        function dragOver(event){
+            event.preventDefault();
+        }
+        
+        function drop(event) {
+            var sourceId = event.dataTransfer.getData('text/plain');
+            var source = document.getElementById(sourceId);
+            var target = event.currentTarget;
+            var sourceInnerHTML = source.innerHTML;
+            source.innerHTML = target.innerHTML;
+            target.innerHTML = sourceInnerHTML;
+        }
+    </script>
+</head>
+<body>
+    <div id="part1" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="drop(event)">Part 1</div>
+    <div id="part2" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="drop(event)">Part 2</div>
+    <div id="part3" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="drop(event)">Part 3</div>
+</body>
+</html>

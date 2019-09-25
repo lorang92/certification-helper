@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html >
+<html lang="en">
+<head>
+    <title>Scripting Video Example</title>
+
+	<style>
+		body { 
+			font-family: verdana; 
+		}
+		
+		label {
+			width: 130px;
+			float: left;
+		}
+		
+		button {
+			background-color: yellow;
+			color: orange;
+			font-weight: bold;
+			width: 70px;
+			height: 30px;
+			margin-left: 5px;
+		}
+		
+		video {
+			width: 300px;
+			height: 225px;
+			margin: 10px;
+			border: 5px solid orange;
+			border-radius: 5px;
+			box-shadow: 7px 7px 5px gray; 
+		}
+
+		ul, ol {
+			list-style: none;
+		}
+		
+		li {
+			display: inline;
+		}
+		
+	</style>
+		
+    <script type="text/javascript">
+
+		// Global variables.
+		var videos = new Array();
+		
+		// Loads a video and creates a <video> element.
+		function doLoad() {
+
+			var videoDirElem  = document.getElementById("videoDir");
+			var videoNameElem = document.getElementById("videoName");
+			var videoListElem = document.getElementById("videoList");
+		
+			var newVideo = document.createElement("video");
+			newVideo.src = videoDirElem.value + "/" + videoNameElem.value;
+			newVideo.loop = true;
+			newVideo.autoplay = true;
+			newVideo.controls = true;
+			newVideo.poster = "ImageLoading.png";
+			
+			var li = document.createElement("li");
+			li.appendChild(newVideo);
+			videoListElem.appendChild(li);
+			videos.push(newVideo);
+			
+			console.log((new Date()).toTimeString() + ": Added " + newVideo.src);			
+		}
+
+		// Plays all videos.
+		function doPlay() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].play();
+				console.log((new Date()).toTimeString() + ": Playing " + videos[i].src);
+			}
+		}
+
+		// Pauses all videos.
+		function doPause() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].pause();
+				console.log((new Date()).toTimeString() + ": Pausing " + videos[i].src);
+			}
+		}
+		
+		// Repositions all videos to the start and resets attributes to sensible defaults.
+		function doRestart() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].currentTime = 0;
+				videos[i].playbackRate = 1.0;
+				videos[i].volume = 1.0;
+			}
+		}
+
+		// Fast-forwards all videos.
+		function doFastForward() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].playbackRate = 3;
+			}
+		}
+
+		// Rewinds all videos.
+		function doRewind() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].playbackRate = -3;
+			}
+		}
+
+		// Increases the volume of all videos.
+		function doLouder() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].volume = videos[i].volume + 0.25;
+			}
+		}
+		
+		// Decreases the volume of all videos.
+		function doQuieter() {
+
+			for (var i = 0; i < videos.length; i++) {
+				videos[i].volume = videos[i].volume - 0.25;
+			}
+		}
+				
+    </script>
+</head>
+<body>
+	<h1>Scripting video example</h1>
+	
+	<label>Directory:</label>
+	<input id="videoDir" type="text" size="25" value="MyVideos"></input> <br/>
+
+	<label>Video name:</label>
+	<input id="videoName" type="text" size="25" value="SwanseaBay.mov"></input> 
+	
+	<button onclick="doLoad()">Load</button> <br/><br/>
+
+	<button onclick="doPlay()">&gt;</button> 
+	<button onclick="doPause()">||</button> 
+	<button onclick="doRestart()">|&lt;</button> 
+	<button onclick="doRewind()"> &lt;&lt; </button> 
+	<button onclick="doFastForward()"> &gt;&gt; </button> 
+	<button onclick="doQuieter()">Vol--</button> 
+	<button onclick="doLouder()">Vol++</button> <br/><br/>
+	
+	<ul id="videoList"></ul>
+	
+</body>
+</html>

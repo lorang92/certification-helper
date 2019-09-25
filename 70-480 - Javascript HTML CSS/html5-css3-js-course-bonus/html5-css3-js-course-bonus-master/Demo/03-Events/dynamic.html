@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="add(event)">Add</button>
+    <div id="content"></div>
+
+    <script>
+        // Adding elements
+
+        var counter = 1;
+        var content = document.getElementById('content');
+
+        function add(e) {
+            var p = document.createElement('p');
+            p.innerText = 'Dynamic paragraph ' + counter++;
+            content.appendChild(p);
+        }
+
+        // Hover handlers for paragraphs
+
+        document.body.addEventListener('click', remove, true);
+
+        function remove(e) {
+            if (e.target.tagName === 'P') {
+                e.target.parentNode.removeChild(e.target);
+            }
+        }
+
+    </script>
+</body>
+</html>

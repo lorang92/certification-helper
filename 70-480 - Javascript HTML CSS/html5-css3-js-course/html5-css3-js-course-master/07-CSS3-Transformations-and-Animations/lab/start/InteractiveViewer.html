@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Interactive Viewer</title>
+
+    <style>
+
+        body {
+            font-family: arial;
+        }
+
+        #myImageContainer {
+            width: 600px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 5px 5px 20px gray; 
+        }
+
+        #myImageContainer img {
+            width: 1800px;
+            height: 1200px;
+            margin-left: -400px;
+            margin-top: -300px;
+        }
+        
+    </style>
+
+    <script src="jquery-1.10.2.js"></script>
+
+    <script> 
+
+        var currentTransform = { 
+                angle: 0, 
+                scale: 1.0,
+                xOffset: 0,
+                yOffset: 0
+        };
+
+        var shiftKeyDown = false;
+        var mouseDown = false;
+        var previousMouseX;
+        var previousMouseY;
+        var transformProperty;
+
+
+        function onload() {
+
+            $(document).keypress(function(e) {
+                if (e.which == 43) {                // + key
+                    currentTransform.scale += 0.1;
+                    applyTransformation();
+                }
+                else if (e.which == 45) {           // - key
+                    currentTransform.scale -= 0.1;
+                    applyTransformation();
+                }
+                else if (e.which == 60) {           // < key
+                    currentTransform.angle -= 10;
+                    applyTransformation();
+                }
+                else if (e.which == 62) {           // > key
+                    currentTransform.angle += 10;
+                    applyTransformation();
+                }
+                else if (e.which == 32) {           // SPACE key
+                    currentTransform.scale = 1.0;
+                    currentTransform.angle = 0;
+                    currentTransform.xOffset = 0;
+                    currentTransform.yOffset = 0;
+                    applyTransformation();
+                }
+            });
+
+            $(document).keydown(function(e) {    
+                if (event.which == 16) {
+                    shiftKeyDown = true;
+                }
+            });
+
+            $(document).keyup(function(e) {    
+                if (e.which == 16) {
+                    shiftKeyDown = false;
+                }
+            });
+
+            $(document).mousedown(function(e) {    
+                e.preventDefault();
+                previousMouseX = e.clientX;
+                previousMouseY = e.clientY;
+                mouseDown = true;
+            });
+
+            $(document).mouseup(function(e) {    
+                e.preventDefault();
+                mouseDown = false;
+            });
+
+            $('#myImageContainer').mousemove(function(e) {
+                e.preventDefault();
+                if (shiftKeyDown || mouseDown) {
+                    if (previousMouseX && previousMouseY) {
+                        currentTransform.xOffset += e.clientX - previousMouseX;
+                        currentTransform.yOffset += e.clientY - previousMouseY;
+                        applyTransformation();
+                    }
+                    previousMouseX = e.clientX;
+                    previousMouseY = e.clientY;
+                }
+            });
+        }
+
+
+        function applyTransformation() {
+
+            // TODO 4a: 
+            // --------------------------------------------------
+            // Create a string holding a tranform value, e.g. 
+            //    'rotate(10deg) translate(10px, 20px) scale(0.5)'
+            // Use the values in the currentTransform object to specify the actual values, i.e.
+            //     currentTransform.angle
+            //     currentTransform.xOffset
+            //     currentTransform.yOffset
+            //     currentTransform.scale
+
+
+
+            // TODO 4b: 
+            // --------------------------------------------------
+            // Set myImageElement.style['transform'] to the transform value.
+            // You also need to set all the vendor-specific versions, i.e.
+            //     'WebkitTransform'
+            //     'msTransform'
+            //     'MozTransform'
+            //     'OTransform'
+            var myImageElement = $('#myImage')[0];
+
+        }
+
+
+        // TODO 5: 
+        // --------------------------------------------------
+        // Implement a getTransformProperty(element) function.
+        // The function returns the first transform property supported for an element on the current browser, i.e. one of the following:
+        //     'transform'
+        //     'WebkitTransform'
+        //     'msTransform'
+        //     'MozTransform'
+        //     'OTransform'
+
+
+    </script>
+
+</head>
+
+<body onload="onload()">
+
+    <h1>Interactive Viewer</h1>
+    
+    <div id="myImageContainer">
+        <img id="myImage" src="sunset.jpg" alt="Sunset in Lake Garda">
+    </div>
+
+</body>
+</html>
+

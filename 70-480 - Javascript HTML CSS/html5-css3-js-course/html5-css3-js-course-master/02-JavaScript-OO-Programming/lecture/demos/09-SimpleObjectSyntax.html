@@ -1,0 +1,69 @@
+<html>
+<head>
+
+<script type="text/javascript">
+
+//=====================================================
+// Define functions for use by employee objects
+//=====================================================
+function payRise(amount) {
+    this.salary += amount;            
+    return this.salary; 
+}
+
+function displayDetails() {
+    alert(this.name + " is " + this.age + " and earns " + this.salary);
+}
+
+//=====================================================
+// Create an employee object using new Object() syntax
+//=====================================================
+var employee1 = new Object();
+employee1.name = "John Smith";
+employee1.age = 21;
+employee1.salary = 10000;
+employee1.payRise = payRise;
+employee1.displayDetails = displayDetails;
+
+
+//=====================================================
+// Create an employee object using {} syntax
+//=====================================================
+var employee2 = {};
+employee2.name = "Mary Jones";
+employee2.age = 42;
+employee2.salary = 20000;
+employee2.payRise = payRise;
+employee2.displayDetails = displayDetails;
+
+
+
+//=====================================================
+// Regular event handler functions
+//=====================================================
+function processEmployee(button) {
+    if (button.id == "btnEmp1") {
+        alert("employee1 salary (before pay rise): " + employee1.salary);
+        employee1.payRise(1000);
+        employee1.displayDetails();
+    }
+    else if (button.id == "btnEmp2") {
+        alert("employee2 salary (before pay rise): " + employee2.salary);
+        employee2.payRise(1000);
+        employee2.displayDetails();
+    }
+}
+
+</script>
+</head>
+
+
+<body>
+<form name="form1">
+  <input type="button" id="btnEmp1" value="Pay rise for employee1" onclick="processEmployee(this)" />
+  &nbsp;&nbsp;&nbsp;
+  <input type="button" id="btnEmp2" value="Pay rise for employee2" onclick="processEmployee(this)" />
+</form>
+</body>
+
+</html>

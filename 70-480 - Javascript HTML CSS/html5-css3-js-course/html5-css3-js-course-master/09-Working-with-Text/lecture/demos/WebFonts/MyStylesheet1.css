@@ -1,0 +1,35 @@
+/* Font face definitions */
+@font-face { 
+    font-family: MyFont; 
+    src: url('WoffFonts/SF_Arch_Rival.woff'), 
+	     url('TtfFonts/SF_Arch_Rival.ttf'),
+		 url('OtfFonts/SF_Arch_Rival.otf'),
+		 url('EotFonts/SF_Arch_Rival.eot'); 
+} 
+
+
+/* Stylesheet Rules */
+body {
+    font-family: MyFont, sans-serif;
+    font-size: 40pt;
+    background-color: green;
+    color: orange;
+}
+
+.normalClass {
+    font-weight: normal;
+    font-style: normal;
+}
+
+.boldClass {
+    font-weight: bold;
+}
+
+.italicClass {
+    font-style: italic;
+}
+
+.boldItalicClass {
+    font-weight: bold;
+    font-style: italic;
+}

@@ -1,0 +1,54 @@
+<!-- Source: https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/relatedTarget -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<style>
+		div > div {
+			height: 128px;
+			width: 128px;
+		}
+		
+		#top {
+			background-color: red;
+		}
+		
+		#bottom {
+			background-color: blue;
+		}
+	</style>
+
+	<script>
+function outListener(event) {
+  console.log("exited " + event.target.id + " for " + event.relatedTarget.id);
+}
+
+function overListener(event) {
+  console.log("entered " + event.target.id + " from " + event.relatedTarget.id);
+}
+
+function loadListener() {
+  var top = document.getElementById("top"), 
+      bottom = document.getElementById("bottom");
+
+  top.addEventListener("mouseover", overListener);
+  top.addEventListener("mouseout", outListener);
+  bottom.addEventListener("mouseover", overListener);
+  bottom.addEventListener("mouseout", outListener);
+}
+</script>
+
+</head>
+
+<body onload="loadListener();">
+
+	<div id="outer">
+		<div id="top"></div>
+		<div id="bottom"></div>
+	</div>
+
+</body>
+
+</html>

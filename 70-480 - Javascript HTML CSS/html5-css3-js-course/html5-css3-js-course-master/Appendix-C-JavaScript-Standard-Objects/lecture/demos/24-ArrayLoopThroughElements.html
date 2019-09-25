@@ -1,0 +1,26 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+var myCars = new Array();
+myCars[0] = "Nova";
+myCars[1] = "Peugeot";
+myCars[2] = "Mazda";
+
+document.write("Loop through array using a for loop<br/>");
+for (var i = 0; i < myCars.length; i++)
+{
+  document.write("Car " + i + " is a " + myCars[i] + "<br/>");
+}
+
+document.write("Loop through array using a for-in loop<br/>");
+for (var c in myCars)
+{
+  document.write("Car " + c + " is a " + myCars[c] + "<br/>");
+}
+
+</script>
+
+</body>
+</html>

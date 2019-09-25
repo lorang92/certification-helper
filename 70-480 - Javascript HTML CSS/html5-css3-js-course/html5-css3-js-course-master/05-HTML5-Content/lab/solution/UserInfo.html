@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>User Info</title>
+    <style>
+    
+        body {
+            font-family: Arial, Verdana;
+        }
+        
+        button {
+            width: 120px;
+            height: 30px;
+            background-color: green;
+            color: lightblue;
+            margin: 10px 5px 10px 5px;
+        }
+        
+        details {
+            background-color: lightblue;
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+        
+        details > summary {
+            font-size: larger;
+            color: green;
+        }
+
+        label {
+            float: left;
+            width: 100px;
+        }
+        
+    </style>
+</head>
+
+<body>
+   
+   <section>
+        <details>            
+            <summary>User info</summary>
+            
+            <label>Firstname</label>
+            <input type="text" id="fname" /><br/>
+            
+            <label>Lastname</label>
+            <input type="text" id="lname" required="required" /><br/>
+            
+            <label>Title</label>
+            <input type="text" id="title" /><br/>
+        </details>
+    </section>   
+    
+    <section>
+        <details>
+            <summary>Address info</summary>
+
+            <label>Address 1</label>
+            <input type="text" id="address1" required="required" /><br/>
+            
+            <label>Address 2</label>
+            <input type="text" id="address2" /><br/>
+            
+            <label>Address 3</label>
+            <input type="text" id="address3" required="required" /><br/>
+        </details>
+    </section>
+    
+    <section>
+        <details>
+            <summary>Telephone info</summary>
+            
+            <div id="phoneNumbers">
+                <label>Mobile</label>
+                <input type="text" id="mobile" required="required" /><br/>
+                
+                <label>Home</label>
+                <input type="text" id="home" /><br/>
+                
+                <label>Office</label>
+                <input type="text" id="office" /><br/>
+                
+                <button type="button" id="addPhoneNumbersButton">Add</button>
+            </div>
+
+            <div>
+                Phone numbers:
+                <ul id="phoneList" />
+            </div>
+
+        </details>
+    </section>
+    
+    <button type="button" id="displayAllRequiredFieldsButton">Display Required</button>
+    <button type="button" id="clearAllFieldsButton">Clear All</button>
+     
+    <script type="text/javascript">
+     
+        // Function to display all required fields.
+        document.querySelector("#displayAllRequiredFieldsButton").onclick = function() {
+            var requiredFields = document.querySelectorAll("input[required]");
+            
+            var result="";
+            for (var i = 0; i < requiredFields.length; i++) {
+                requiredFields[i].style["background-color"] = "yellow";
+                result += "Field: " + requiredFields[i].name + ", value: " + requiredFields[i].value + "\n";
+            }
+
+            alert(result);
+
+            for (var i = 0; i < requiredFields.length; i++) {
+                requiredFields[i].style["background-color"] = "white";
+            }
+        }
+    
+        // Function to clear all fields.
+        document.querySelector("#clearAllFieldsButton").onclick = function() {
+
+            var fields = document.querySelectorAll("input[type='text']");
+            
+            for (var i = 0; i < fields.length; i++) {
+                fields[i].value = "";
+            }
+            
+            var lists = document.querySelectorAll("ul, ol");
+            for (var i = 0; i < lists.length; i++) {
+                lists[i].innerHTML = "";
+            }
+            
+        }
+        
+        // Function to add phone numbers to the list.
+        document.querySelector("#addPhoneNumbersButton").onclick = function() {
+
+            var numbers = document.querySelectorAll("#phoneNumbers input");
+        
+            var listItemText = "";
+            for (var i = 0; i < numbers.length; i++) {
+              listItemText += numbers[i].value + " ";
+            }
+              
+            var ul = document.querySelector("#phoneList");
+            var li = document.createElement("li");
+            li.innerHTML = listItemText;
+            ul.appendChild(li);
+        }
+    </script>
+
+</body>
+</html>

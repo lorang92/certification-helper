@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>widget</title>
+
+	<style>
+		body {
+			font-family: Arial, Verdana;
+			background-color: lightblue;
+		}
+
+		button {
+			width: 150px;
+			height: 30px;
+			background-color: yellow;
+			color: orange;
+			margin: 0px 5px 10px 5px;
+		}
+
+		label {
+			float: left;
+			width: 100px;
+		}	
+	</style>
+	
+	<script>
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Useful global variables.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		var targetOrigin = "http://mydomain1";
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Send messages to portal.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		function notifyPortal() {
+			var messageText = document.getElementById("messageText").value;
+			alert("Widget sending message: " + messageText);
+			window.top.postMessage(messageText, targetOrigin);
+		}
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Handle received messages.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		function onMessageReceived(e) {
+			if (e.origin === targetOrigin) {
+				alert("Widget accepting message " + e.data + " from acceptable origin " + e.origin);
+				document.getElementById("status").textContent = e.data;			
+			} else {
+				alert("Widget ignoring message from unacceptable origin " + e.origin);
+			}
+		}
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Register event handlers.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		function onLoad() {
+			document.getElementById("notifyPortalButton").addEventListener("click", notifyPortal, true);
+		}
+
+		window.addEventListener("load", onLoad, true);
+		window.addEventListener("message", onMessageReceived, true);
+
+	</script>
+
+</head>
+<body>
+
+	<h1>My Chat Widget</h1>
+
+	<p>Status (from portal): <strong id="status" />
+
+	<div>
+		<input type="text" id="messageText" />
+		<button id="notifyPortalButton">Notify Portal</button>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="site.css" rel="stylesheet" />
+    <title>Watching Position</title>
+
+    <script type="text/javascript">
+
+        // Global variables.
+        var messageAreaElem;
+        var watchId;
+
+        // Handles the "Watch Position" button click.
+        function doWatch() {
+
+            // Test if the browser supports geolocation.
+            if (navigator.geolocation) {
+
+                // Request for repeated location updates.
+                watchId = navigator.geolocation.watchPosition(positionCallback,
+                                                              positionErrorCallback,
+                                                              {
+                                                                  enableHighAccuracy: true,	// Default is false.
+                                                                  timeout: 7500, 		    // Default is infinity.
+                                                                  maximumAge: 10000			// Default is 0ms.
+                                                              });
+
+                // Tell the "watch position" operation has started.
+                messageAreaElem.innerHTML = "Watch " + watchId + " started";
+
+            } else {
+
+                // Tell the user the browser does not support geolocation.
+                messageAreaElem.innerHTML = "Your browser does not support HTML5 geolocation.";
+            }
+        }
+
+        // Handles the "Clear Watch" button click.
+        function doClear() {
+
+            if (watchId != null) {
+
+                // Clear the watch position.
+                navigator.geolocation.clearWatch(watchId);
+
+                // Tell the user the "watch position" has been cleared.
+                messageAreaElem.innerHTML = "Watch " + watchId + " cleared";
+
+                // Set the global watchId variable to null.
+                watchId = null;
+            }
+        }
+
+        // Geolocation callback, receives position information.
+        function positionCallback(position) {
+
+            var latitude = position.coords.latitude;		// 0 is the Equator, +ve is north, -ve is south.
+            var longitude = position.coords.longitude;		// 0 is the Greenwich Meridian, +ve is east, -ve is west.
+            var accuracy = position.coords.accuracy;
+            var heading = position.coords.heading;
+            var speed = position.coords.speed;
+            var altitude = position.coords.altitude;
+            var altitudeAccuracy = position.coords.altitudeAccuracy;
+
+            var timestamp = new Date();
+            timestamp.setTime(position.timestamp);
+
+            if (!latitude || !longitude) {
+                messageAreaElem.innerHTML = "HTML5 Geolocation is supported in your browser, but location is currently not available.";
+
+            } else {
+
+                document.getElementById("latitude").value = latitude;
+                document.getElementById("longitude").value = longitude;
+                document.getElementById("locationAccuracy").value = accuracy;
+                document.getElementById("heading").value = heading;
+                document.getElementById("speed").value = speed;
+                document.getElementById("altitude").value = altitude;
+                document.getElementById("altitudeAccuracy").value = altitudeAccuracy;
+                document.getElementById("timestamp").value = timestamp;
+            }
+        }
+
+        // Geolocation callback, handles position errors.
+        function positionErrorCallback(error) {
+            messageAreaElem.innerHTML = "Error " + error.code + ", " + error.message;
+        }
+
+        // Performs page initialization.
+        function onLoad() {
+            document.getElementById("watchButton").addEventListener("click", doWatch, true);
+            document.getElementById("clearButton").addEventListener("click", doClear, true);
+            messageAreaElem = document.getElementById("messageArea");
+        }
+
+        window.addEventListener("load", onLoad, true);
+
+    </script>
+
+</head>
+<body>
+
+	<div id="resultArea">
+		<h3>Core information</h3>
+		<label>Latitude (degrees)</label>
+		<input type="text" id="latitude" size="60" readonly="true" /> <br/>
+
+		<label>Longitude (degrees)</label>
+		<input type="text" id="longitude" size="60" readonly="true" /> <br/>
+
+		<label>Location accuracy (m)</label>
+		<input type="text" id="locationAccuracy" size="60" readonly="true" />
+
+		
+		<h3>Optional information</h3>
+		<label>Heading (degrees)</label>
+		<input type="text" id="heading" size="60" readonly="true" /> <br/>
+
+		<label>Speed (m/s)</label>
+		<input type="text" id="speed" size="60" readonly="true" /> <br/>
+
+		<label>Altitude (m)</label>
+		<input type="text" id="altitude" size="60" readonly="true" /> <br/>
+
+		<label>Altitude accuracy (m)</label>
+		<input type="text" id="altitudeAccuracy" size="60" readonly="true" /> <br/>
+
+		<label>Timestamp</label>
+		<input type="text" id="timestamp" size="60" readonly="true" />
+	</div>
+
+	<h1>Watching Position</h1>
+
+	<button id="watchButton">Watch Position</button>  &nbsp;
+	<button id="clearButton">Clear Watch</button>  <br/><br/>
+
+	<div id="messageArea"></div>
+
+    <br />
+    <a href="index.html">Home</a>
+
+</body>
+</html>

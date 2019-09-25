@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Ajax Demo</title>
+</head>
+<body>
+    <h1>Ajax Demo</h1>
+    <div>
+        @Html.ActionLink("Use Ajax directly", "UseAjaxDirectly")  <br />
+        @Html.ActionLink("Use Ajax with jQuery", "UseAjaxWithJQuery") <br />       
+        @Html.ActionLink("Use Ajax with jQuery (deferred syntax)", "UseAjaxWithJQueryDeferred") <br />       
+    </div>
+</body>
+</html>

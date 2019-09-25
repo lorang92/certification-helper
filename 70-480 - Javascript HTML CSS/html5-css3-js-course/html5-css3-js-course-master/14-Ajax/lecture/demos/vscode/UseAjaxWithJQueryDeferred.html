@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Using Ajax with jQuery</title>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="site.css" rel="stylesheet" />
+    <script src="jquery-1.10.2.js"></script>
+    
+    <script type="text/javascript">
+        function myOnKeyUp() {
+
+            var URL = "EchoInUppercase?text=" + $("#myInputField").val();
+
+            // This URL calls a different server method, which echos the text 3 times.
+            // var URL = "/EchoInUppercaseMultipleTimes?text=" + $("#myInputField").val() + "&repeatCount=3";
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                cache: false
+            })
+            .done(function (data) {
+                $("#myEchoField").html(data);
+            })
+            .fail(function (data) {
+                console.log("fail() called, with data " + data);
+            })
+            .always(function (data) {
+                console.log("always() called, with data " + data);
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <h1>Using Ajax with jQuery (deferred syntax)</h1>
+
+    <input type="text" id="myInputField" onkeyup="myOnKeyUp()" autofocus /> 
+    <br /> <br />
+    <p id="myEchoField"></p>
+
+    <a href="index.html">Index</a>
+</body>
+</html>

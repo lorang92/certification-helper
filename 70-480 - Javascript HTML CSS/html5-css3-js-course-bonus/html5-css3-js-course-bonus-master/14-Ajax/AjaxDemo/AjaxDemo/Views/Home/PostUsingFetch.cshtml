@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Http POST using Fetch</title>
+
+    <script>
+        function upload(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const fileUpload = form['fileUpload'];
+            const files = fileUpload.files;
+            const formData = new FormData();
+
+            for (const file of files) {
+                formData.append('file[]', file);
+            }
+
+            fetch('/Home/Upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw Error(response.status + ": " + response.statusText + "\n" + response.url);
+                    }
+
+                    return response.text();
+                })
+                .then(function (response) {
+                    alert('Server response: ' + response);
+                    console.log("done() called, with data " + response);
+
+                    // Clear the files in the input
+                    fileUpload.value = '';
+                })
+                .catch(function (error) {
+                    console.error(error.message);
+                });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Http POST using Fetch</h1>
+    </header>
+
+    <main>
+        <form onsubmit="upload(event)">
+            <label for="fileUpload">Select File to Upload:</label>
+            <input id="fileUpload" type="file" multiple />
+            <br />
+            <button typeof="submit">Upload File</button>
+        </form>
+    </main>
+
+    <footer>
+        <hr />
+        @Html.ActionLink("Home", "Index")
+    </footer>
+</body>
+</html>

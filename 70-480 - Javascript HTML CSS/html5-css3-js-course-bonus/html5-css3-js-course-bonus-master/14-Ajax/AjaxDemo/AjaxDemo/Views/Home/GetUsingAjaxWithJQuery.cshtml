@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Http GET using Ajax with jQuery</title>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    
+    <script type="text/javascript">
+        function myOnKeyUp() {
+
+            var URL = "/Home/EchoInUppercase?text=" + $("#myInputField").val();
+
+            //This URL calls a different server method, which echos the text 3 times.
+            //var URL = "/Home/EchoInUppercaseMultipleTimes?text=" + $("#myInputField").val() + "&repeatCount=3";
+
+            $.get(URL, function (data) {
+                $("#myEchoField").html(data);
+            });
+
+            //This code uses $.ajax() rather than $.get(). Generally $.ajax() is more useful/powerful than $.get().
+            //$.ajax({
+            //    type: "GET",
+            //    url: URL,
+            //    cache: false,
+            //    success: function (data) {
+            //        $("#myEchoField").html(data);
+            //    },
+            //    error: function (data) {
+            //        console.log("Problem occurred");
+            //    }
+            //});
+        }
+    </script>
+
+</head>
+<body>
+    <header>
+        <h1>Http GET using Ajax with jQuery</h1>
+    </header>
+
+    <main>
+        <label for="myInputField">Text:</label>
+        <input type="text" id="myInputField" onkeyup="myOnKeyUp()" autofocus />
+        <br /> <br />
+        <p id="myEchoField"></p>
+    </main>
+
+    <footer>
+        <hr />
+        @Html.ActionLink("Home", "Index")
+    </footer>
+</body>
+</html>

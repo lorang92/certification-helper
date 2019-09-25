@@ -1,0 +1,2 @@
+If you run from Visual Studio (localhost), you might be required to use an API key.
+Instead open the html file from the Windows Explorer (file system) and the API key is not required.

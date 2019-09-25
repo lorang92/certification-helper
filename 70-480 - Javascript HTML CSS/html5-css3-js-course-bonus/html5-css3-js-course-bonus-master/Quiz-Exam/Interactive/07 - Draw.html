@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="Js/jquery-2.0.2.js"></script>
+</head>
+<body>
+    <p>
+        You are developing an HTML5 web application for a surveyor company that displays topographic images.
+    </p>
+
+    <p>
+        The application must:
+        <ul>
+            <li>Display the topographic images at different zoom levels without loss of detail</li>
+            <li>Print the topographic images without loss of detail</li>
+            <li>Work from only one source file for each topographic image</li>
+        </ul>
+    </p>
+
+    <p>
+        You need to ensure that the topographic images display according to the requirements.<br />
+        Which HTML5 element should you use?
+    </p>
+
+    <ol type="A">
+        <li>&lt;SVG&gt;
+            <div class="answer">
+                <svg height="55">
+                    <path d="M 0 50 L 25 0 L 50 50 L 0 50" stroke="red" stroke-width="3" fill="none" />
+                </svg>
+            </div>
+        </li>
+        <li>&lt;CANVAS&gt;
+            <div class="answer">
+                <canvas id="canvas1" height="55">
+                    <script>
+                        var canvas = document.getElementById('canvas1');
+                        var context = canvas.getContext('2d');
+
+                        context.beginPath();
+                        context.moveTo(0, 50);
+                        context.lineTo(25, 0);
+                        context.lineTo(50, 50);
+                        context.lineTo(0, 50);
+                        context.lineWidth = 3;
+                        context.strokeStyle = 'red';
+                        context.stroke();
+                    </script>
+                </canvas>
+            </div>
+        </li>
+        <li>&lt;SAMP&gt;
+            <div class="answer">
+                <samp>
+                    Produces an inline element displayed in the browser's default monotype font (Lucida Console). This element was intended to identify sample output from a computer program.
+                </samp>
+            </div>
+        </li>
+        <li>&lt;AREA&gt;
+            <div class="answer">
+                Defines a hot-spot region on an image, and optionally associates it with a hypertext link. This element is used only within a &lt;map&gt; element.
+            </div>
+        </li>
+    </ol>
+
+    <button onclick="$('.answer').show()">Answer</button>
+
+    <script>
+        $('.answer').hide();
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Defining a better call-back</title> 
+
+	<style>
+		div {
+			margin: 10px;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+	
+		// Definition of plugin as an immediately invoked function expression.
+		(function($) {
+		
+			// Private-scope variables.
+			var normalSettings = {
+				'color': 'black',
+				'background-color': 'white',
+				'font-weight': 'normal'
+			};
+			
+			var defaultHighlightSettings = {
+				'color': 'darkblue',
+				'background-color': 'lightblue',
+				'font-weight': 'bold'
+			};
+			
+			// Add the highlight() function to the jQuery object, so it's available on all jQuery selections.
+			//   - options is an optional object that can override default settings.
+			//   - callback is an optional callback function.
+			$.fn.highlight = function(options, callback) {
+			
+				// Merge the default settings with the options passed in by the client code.
+				var highlightSettings = $.extend({},
+				                                 defaultHighlightSettings,
+										         options);
+
+				// Implement start-hover and end-over functions for all target elements.
+				// Note that hover() implicitly loops through the target elements - so there's no need for us to use $.each() explicitly.
+				$(this).hover(
+					function() { 
+						$(this).css(highlightSettings);		// Apply CSS "highlight" styles to target element. 
+						if ($.isFunction(callback)) {		// Invoke callback function (if specified) to target element.
+							callback.call($(this));
+						}
+					},
+					function() { 
+						$(this).css(normalSettings); 		// Apply CSS "normal" styles to target element. 
+					}
+				);
+
+				// Return the prototype object, to allow client code to chain subsequent calls.
+				return this;								
+			};
+			
+		}(jQuery));
+		
+		
+		// Client code, which uses the plugin.
+		$(function() {
+		
+			// Invoke the highlight() plugin for all <div> elements.
+			$('div').highlight({'color': 'orange'}, 
+							   function() { 
+									var now = new Date();
+									var nowString = '[' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ']';
+									$(this).text($(this).text() + nowString); 
+							   })
+					.css("font-family", "Calibri");
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<div>This is div 1</div>
+	<div>This is div 2</div>
+	<div>This is div 3</div>
+	
+</body>
+</html>

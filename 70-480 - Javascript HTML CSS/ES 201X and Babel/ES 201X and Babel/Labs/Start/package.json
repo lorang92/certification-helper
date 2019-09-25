@@ -1,0 +1,20 @@
+{
+  "name": "lab-es201x-and-babel",
+  "version": "1.0.0",
+  "author": "Rick Beerendonk",
+  "main": "lab.js",
+  "scripts": {
+    "build": "babel ./src/lab.js --presets env --out-file ./lib/test.js",
+    "watch": "babel ./src/lab.js --presets env --out-file ./lib/test.js --watch",
+    "test": "node ./lib/test.js",
+    "build-test": "npm run build && npm run test"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "dependencies": {
+    "expect": "^22.4.3"
+  }
+}

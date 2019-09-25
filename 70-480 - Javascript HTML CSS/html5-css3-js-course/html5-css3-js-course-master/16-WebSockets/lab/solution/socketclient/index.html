@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Chat Room</title>
+
+    <style type="text/css">
+        body {
+            font-family: calibri, Arial, sans-serif;
+        }
+
+        /* Define some styles for colour-coding messages */
+        .success {
+            color: white;
+            background-color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: white;
+            background-color: red;
+            font-weight: bold;
+        }
+
+        .me {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .otherPerson {
+            color: blue;
+        }
+    </style>
+
+
+    <!-- Include jQuery script files -->
+    <script src="jquery-1.10.2.js"></script>
+
+
+    <!-- Our JavaScript code -->
+    <script type="text/javascript">
+
+        // Initialize Web Sockets communication with the server.
+        function init() {
+
+            // Ask the user for his/her name, then display it at the top of the page.
+            var username = prompt('Please enter a username:');
+            $('#chatform').prepend('<h1>Hi ' + username + ', welcome to the chat room!</h1>');
+
+            // Set up the URL of the WebSocket at the server, e.g. ws://localhost/Chat/api/Chat?username=andy
+            var uri = 'ws://' + window.location.hostname + ':8888/?username=' + username;
+
+            // Create a WebSocket object - this will attempt to establish a WebSocket connection with the server.
+            var websocket = new WebSocket(uri);
+
+            // Handle the "open" event on the WebSocket object, which signifies a successful connection with the server.
+            websocket.onopen = function () {
+
+                // Display a message on this user's page, to indicate successfully connection.
+                $('#messages').prepend('<div class="success">Connected.</div>');
+
+                // Handle the submit event on the form - when the user presses ENTER in the form, send the data to the server.
+                $('#chatform').submit(function (e) {
+                    websocket.send($('#inputbox').val());
+                    $('#inputbox').val('');
+                    e.preventDefault();
+                });
+            };
+
+            // Handle the "error" event on the WebSocket object, and display an error message.
+            websocket.onerror = function () {
+                $('#messages').prepend('<div class="error">An error occurred.</div>');
+            };
+
+            // Handle the "message" event on the WebSocket object, which signifies we've received data from the server.
+            websocket.onmessage = function (e) {
+
+                // Display the message in a special colour if it's actually just our message being bounced back to us.
+                if (e.data.match('^' + username)) {
+                    $('#messages').prepend('<div class="me">' + e.data + '</div>');
+                }
+                else {
+                    $('#messages').prepend('<div class="otherPerson">' + e.data + '</div>');
+                }
+            };
+        }
+
+    </script>
+
+</head>
+<body onload="init()">
+
+    <form id="chatform">
+        Input box: <input id="inputbox" />
+    </form>
+
+    <div id="messages"></div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+	<title>XMLHttpRequest Level 2 Test</title>
+
+	<style>
+		body {
+			font-family: Arial, Verdana;
+		}
+	</style>
+	
+	<script>
+
+		function myCreateXMLHttpRequest() {
+
+			try { return new ActiveXObject("Msxml2.XMLHTTP");    } catch (e) {}
+			try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) {}
+			try { return new XMLHttpRequest();                   } catch (e) {}
+			
+			return null;
+		}
+
+		function onLoad() {
+
+			var messageArea = document.getElementById("messageArea");
+
+			var xhr = myCreateXMLHttpRequest();
+			if (xhr == null) {
+				messageArea.innerHTML = "Could not create XMLHttpRequest object";
+				return;
+			}        
+			
+			if (typeof xhr.withCredentials === undefined) {
+				messageArea.innerHTML = "Browser DOES NOT support cross-origin XMLHttpRequest";
+			} else {
+				messageArea.innerHTML = "Browser DOES support cross-origin XMLHttpRequest";
+			}
+		}
+
+		window.addEventListener("load", onLoad, true);
+
+	</script>
+
+</head>
+<body>
+
+	<h1>XMLHttpRequest Level 2 Test</h1>
+	<div id="messageArea" />
+
+</body>
+</html>	

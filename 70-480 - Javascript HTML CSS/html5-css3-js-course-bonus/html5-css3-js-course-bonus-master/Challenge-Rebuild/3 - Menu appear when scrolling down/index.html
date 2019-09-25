@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2018 Rick Beerendonk -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Challenge-Rebuild - Menu appear when scrolling down</title>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        div {
+            height: 4000px;
+            background: linear-gradient(lightgray, gray 400px, blue 401px, lightblue);
+        }
+
+        #menu {
+            background-color: white;
+
+            /* Initially don't show */
+            height: 0px;
+            overflow: hidden;
+
+            /* Position sticked to the top */
+            position: sticky;
+            top: 0;
+
+            /* Transitions */
+            transition-property: height;
+            transition-duration: 500ms;
+        }
+
+        #menu.visible {
+            height: 50px;
+        }
+    </style>
+
+    <script>
+        function bodyScroll() {
+            const nav = document.getElementById('menu');
+            if (window.scrollY > 400) {
+                nav.classList.add('visible');
+            } 
+            else {
+                nav.classList.remove('visible');
+            }
+        }
+    </script>
+</head>
+<body onscroll="bodyScroll()">
+    <nav id="menu">Navigation</nav>
+    <div>Page</div>
+</body>
+</html>

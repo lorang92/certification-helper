@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <style>
+        .answer {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        You develop an HTML5 webpage that contains the following HTML markup:
+    </p>
+    <p>
+        <pre>
+    &lt;label for="loanTypes"&gt;Loan Types&lt;/label&gt;
+    &lt;select name="loanTypes" id="loanTypes" multiple="multiple"&gt;
+        &lt;option&gt;Secured&lt;/option&gt;
+        &lt;option selected="selected"&gt;Unsecured&lt;/option&gt;
+        &lt;option&gt;Demand&lt;/option&gt;
+        &lt;option selected="selected"&gt;Subsidized&lt;/option&gt;
+    &lt;/select&gt;
+        </pre>
+    </p>
+    <p>
+        You have the following requirements:
+    </p>
+    <ul>
+        <li>Retrieve the content for any OPTION element when the value of the selected attribute equals selected.</li>
+        <li>Add the content to a comma separated string.</li>
+    </ul>
+    <p>
+        You need to retrieve the required data. Which two code segments should you add to the webpage?<br>
+        (Each correct answer presents a complete solution. Choose two.)
+    </p>
+    <ol type="A">
+        <li id="a">
+            <pre>
+                $("select option:checked").each(function () {
+                    selectedValues += $(loanTypes).text() + ',';
+                });
+            </pre>
+            <div class="answer"></div>
+        </li>
+        <li id="b">
+            <pre>
+                $("select option:selected").each(function () {
+                    selectedValues += $(loanTypes).text() + ',';
+                });
+            </pre>
+            <div class="answer"></div>
+        </li>
+        <li id="c">
+            <pre>
+                $("select option:selected").each(function () {
+                    selectedValues += $(this).text() + ',';
+                });
+            </pre>
+            <div class="answer"></div>
+        </li>
+        <li id="d">
+            <pre>
+                $("#loanTypes option:selected").each(function () {
+                    selectedValues += $(this).text() + ',';
+                });
+            </pre>
+            <div class="answer"></div>
+        </li>
+        <li id="e">
+            <pre>
+                $("#loanTypes option:checked").each(function () {
+                    selectedValues += $(loanTypes).text() + ',';
+                });
+            </pre>
+            <div class="answer"></div>
+        </li>
+    </ol>
+
+    <button onclick="$('.answer').show()">Answer</button>
+
+    <p hidden="hidden">
+        <label for="loanTypes">Loan Types</label>
+        <select name="loanTypes" id="loanTypes" multiple="multiple">
+            <option>Secured</option>
+            <option selected="selected">Unsecured</option>
+            <option>Demand</option>
+            <option selected="selected">Subsidized</option>
+        </select>;
+    </p>
+
+    <script src="Js/jquery-2.0.2.js"></script>
+    <script>
+        $('.answer').hide();
+
+        var selectedValues;
+
+        var elemAnswerA = document.querySelector('#a .answer');
+        try {
+            selectedValues = '';
+            $("select option:checked").each(function () {
+                selectedValues += $(loanTypes).text() + ',';
+            });
+
+            elemAnswerA.innerHTML = selectedValues;
+        } catch (err) {
+            elemAnswerA.innerHTML = '<span style="color: red">' + err.message + '</span>';
+        }
+
+        var elemAnswerB = document.querySelector('#b .answer');
+        try {
+            selectedValues = '';
+            $("select option:selected").each(function () {
+                selectedValues += $(loanTypes).text() + ',';
+            });
+
+            elemAnswerB.innerHTML = selectedValues;
+        } catch (err) {
+            elemAnswerB.innerHTML = '<span style="color: red">' + err.message + '</span>';
+        }
+
+        var elemAnswerC = document.querySelector('#c .answer');
+        try {
+            selectedValues = '';
+            $("select option:selected").each(function () {
+                selectedValues += $(this).text() + ',';
+            });
+
+            elemAnswerC.innerHTML = selectedValues;
+        } catch (err) {
+            elemAnswerC.innerHTML = '<span style="color: red">' + err.message + '</span>';
+        }
+
+        var elemAnswerD = document.querySelector('#d .answer');
+        try {
+            selectedValues = '';
+            $("#loanTypes option:selected").each(function () {
+                selectedValues += $(this).text() + ',';
+            });
+
+            elemAnswerD.innerHTML = selectedValues;
+        } catch (err) {
+            elemAnswerD.innerHTML = '<span style="color: red">' + err.message + '</span>';
+        }
+
+        var elemAnswerE = document.querySelector('#e .answer');
+        try {
+            selectedValues = '';
+            $("#loanTypes option:checked").each(function () {
+                selectedValues += $(loanTypes).text() + ',';
+            });
+
+            elemAnswerE.innerHTML = selectedValues;
+        } catch (err) {
+            elemAnswerE.innerHTML = '<span style="color: red">' + err.message + '</span>';
+        }
+    </script>
+</body>
+</html>

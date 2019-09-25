@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>User Info</title>
+    <style>
+    
+        body {
+            font-family: Arial, Verdana;
+        }
+        
+        button {
+            width: 120px;
+            height: 30px;
+            background-color: green;
+            color: lightblue;
+            margin: 10px 5px 10px 5px;
+        }
+        
+        label {
+            float: left;
+            width: 100px;
+        }
+        
+    </style>
+</head>
+
+<body>
+   <form>
+
+        <details>
+                <summary>User info</summary>
+        <fieldset>
+            <label>Firstname</label>
+            <input type="text" id="fname" /><br/>
+            
+            <label>Lastname</label>
+            <input type="text" id="lname" required="required" /><br/>
+            
+            <label>Title</label>
+            <input type="text" id="title" /><br/>
+        </fieldset>
+    </details>
+    
+        <details>
+                <summary>Address info</summary>
+
+            <fieldset>
+        <label>Address 1</label>
+        <input type="text" id="address1" required="required" /><br/>
+        
+        <label>Address 2</label>
+        <input type="text" id="address2" /><br/>
+        
+        <label>Address 3</label>
+        <input type="text" id="address3" required="required" /><br/>
+    </fieldset>
+    </details>
+    
+    <div>
+    <details>
+            <summary>Telephone info</summary>
+    <div id="phoneNumbers">
+            <label>Mobile</label>
+            <input type="text" id="mobile" required="required" /><br/>
+            
+            <label>Home</label>
+            <input type="text" id="home" /><br/>
+            
+            <label>Office</label>
+            <input type="text" id="office" /><br/>
+            
+            <button type="button" id="addPhoneNumbersButton">Add</button>
+        </div>
+
+        <div>
+            Phone numbers:
+            <ul id="phoneList" />
+        </div>
+    </details>    
+        
+    </div>
+    
+    <button type="button" id="displayAllRequiredFieldsButton">Display Required</button>
+    <button type="button" id="clearAllFieldsButton">Clear All</button>
+</form>
+     
+    <script type="text/javascript">
+     
+        document.querySelector("#displayAllRequiredFieldsButton").onclick = function() {
+            var inputs = document.querySelectorAll('input:required');
+            inputs.forEach(element => {
+                element.style.cssText = "background: yellow";
+            });
+
+        }
+    
+        document.querySelector("#clearAllFieldsButton").onclick = function() {
+            document.querySelectorAll("input").forEach(element => {
+                element.value = "";
+            });
+            document.querySelectorAll("input").forEach(element => {
+                element.style.cssText = "";
+            });
+        }
+        
+        document.querySelector("#addPhoneNumbersButton").onclick = function() {
+            var phoneNumbers = document.querySelectorAll("#phoneNumbers > input");
+            var phoneList = document.querySelector("#phoneList");
+            phoneList.innerHTML = "";
+            phoneNumbers.forEach(element => {
+                phoneList.innerHTML += "<li> " + element.value + " </li>";
+            });
+        }
+
+    </script>
+
+</body>
+</html>

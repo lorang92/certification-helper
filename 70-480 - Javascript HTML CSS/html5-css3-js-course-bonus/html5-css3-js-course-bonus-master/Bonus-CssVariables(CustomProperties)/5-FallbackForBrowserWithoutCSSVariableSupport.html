@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2017 Rick Beerendonk -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fallback for browser without CSS Variables support</title>
+
+    <style>
+        /* Definition of a CSS Variable */
+        body {
+            --important-color: orange;
+        }
+
+        footer {
+            font-size: 0.8rem;
+        }
+
+        /* Use of a CSS Variable fallback value */
+        /* If the browser doesn't support CSS Variables, 
+             it ignores the 2nd line.
+           If the browser does support CSS Variables, 
+             it will overwrite the value of the 1st line with the value in the 2nd line. */
+        em {
+            background-color: orange;
+            background-color: var(--important-color, lightskyblue);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <p>
+            This is an example of <em>CSS Variables</em>, also known by the offical name of CSS Custom Properties. 
+        </p>
+        <p>
+            CSS Variables are <em>supported in all latest browsers</em>, but not in Internet Explorer or Edge version 15 and lower.
+        </p>
+    </main>
+    <footer>
+        This document is created by <em>Rick Beerendonk</em>.
+    </footer>
+</body>
+</html>

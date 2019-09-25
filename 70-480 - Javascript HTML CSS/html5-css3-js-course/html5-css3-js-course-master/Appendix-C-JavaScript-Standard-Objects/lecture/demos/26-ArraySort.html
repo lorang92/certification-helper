@@ -1,0 +1,22 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+function SortByLengthOfName(elem1, elem2)
+{
+  return elem1.length - elem2.length;
+}
+
+var players = ["Vorm", 
+               "Rangel", "Monk", "Williams", "Taylor",
+               "Dyer", "Gower", "Britton", "Allen", "Sinclair",
+               "Graham"];
+
+document.write("Sorted by name: " + players.sort() + "<br/>");
+document.write("Sorted by length: " + players.sort(SortByLengthOfName) + "<br/>");
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="Js/jquery-2.0.2.js"></script>
+
+    <style>
+        .underlineMe {
+            text-decoration: underline;   
+        }
+    </style>
+</head>
+<body>
+    <p>
+        You are developing a web page that has a group of H1 and H2 elements.<br />
+        The page also includes a CSS class named underlineMe. 
+    </p>
+    <p>
+        You have the following requirements. 
+        <ul>
+            <li>The font color of all H1 and H2 elements must be changed to red.</li>
+            <li>The CSS class underlineMe must be applied to all H1 and H2 elements.</li>
+        </ul>
+    </p>
+    <p>
+        You need to update the web page to meet the requirements.<br />
+        Which code segment should you use?
+    </p>
+
+    <ol type="A">
+        <li>
+            <pre>$(":head").addClass('underlineMe');
+            $(":head").css({ color: 'red' });</pre>
+            <button onclick="$(':head').addClass('underlineMe');
+            $(':head').css({ color: 'red' });">Show</button>
+        </li>
+
+        <li>
+            <pre>$("h1").addClass('underlineMe');
+            $("h1").css({ color: 'red' });</pre>
+            <button onclick="$('h1').addClass('underlineMe');
+            $('h1').css({ color: 'red' });">Show</button>
+        </li>
+
+        <li>
+            <pre>$("h2").addClass('underlineMe');
+            $("h2").css({ color: 'red' });</pre>
+            <button onclick="$('h2').addClass('underlineMe');
+            $('h2').css({ color: 'red' });">Show</button>
+        </li>
+
+        <li>
+            <pre>$(":header").addClass('underlineMe');
+            $(":header").css({ color: 'red' });</pre>
+            <button onclick="$(':header').addClass('underlineMe');
+            $(':header').css({ color: 'red' });">Show</button>
+        </li>
+    </ol>
+
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h1>H1</h1>
+    <h2>H2</h2>
+</body>
+</html>

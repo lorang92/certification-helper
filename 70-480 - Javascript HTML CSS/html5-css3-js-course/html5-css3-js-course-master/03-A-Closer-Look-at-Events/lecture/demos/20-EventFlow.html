@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Event Flow Demo</title>
+        <style type="text/css">
+            p {
+				font-family: verdana;
+                background: blue;
+                color: white;
+                padding: 10px;
+                margin: 5px;
+                border: thin solid black
+            }
+            span {
+                background: white;
+                color: black;
+                padding: 2px;
+                cursor: default;
+            }
+        </style>
+    </head>
+    <body>        
+        <p id="block1">
+            Norway has a population of approximately 5 million people.
+			The country has an extensive oil industry, and fisheries are also important.
+			The capital city of <span id="city">Oslo</span> is located in the south east of the country
+			and has a very cosmopolitan feel. The main shopping street, Karl Johans gate, stretches from
+			the central train station to Slottet, the royal palace.
+        </p>
+        <script type="text/javascript">
+
+            var city = document.getElementById("city");
+            var textblock = document.getElementById("block1");
+
+            city.addEventListener("mouseover", handleMouseEvent);
+            city.addEventListener("mouseout", handleMouseEvent);
+            textblock.addEventListener("mouseover", handleDescendantEvent, true);
+            textblock.addEventListener("mouseout", handleDescendantEvent, true);
+            textblock.addEventListener("mouseover", handleBubbleMouseEvent, false);
+            textblock.addEventListener("mouseout", handleBubbleMouseEvent, false);
+            
+            function handleBubbleMouseEvent(e) {
+               if (e.type == "mouseover" && e.eventPhase == Event.BUBBLING_PHASE) {
+                    e.target.style.textTransform = "uppercase";
+               } else if (e.type == "mouseout" && e.eventPhase == Event.BUBBLING_PHASE) {
+                    e.target.style.textTransform = "none";
+               }
+            }
+
+            function handleDescendantEvent(e) {
+              if (e.type == "mouseover" && e.eventPhase == Event.CAPTURING_PHASE) {
+                    e.target.style.border = "thick solid orange";
+                    e.currentTarget.style.border = "thick double yellow";
+              } else if (e.type == "mouseout" && e.eventPhase == Event.CAPTURING_PHASE) {
+                    e.target.style.removeProperty("border");
+                    e.currentTarget.style.removeProperty("border");
+              }
+            }
+        
+            function handleMouseEvent(e) {
+                if (e.type == "mouseover") {
+                    e.target.style.background = 'green'; 
+                    e.target.style.color = 'white';
+                } else {
+                    e.target.style.removeProperty('color');
+                    e.target.style.removeProperty('background');                    
+                }
+            }
+        </script>        
+    </body>
+</html>

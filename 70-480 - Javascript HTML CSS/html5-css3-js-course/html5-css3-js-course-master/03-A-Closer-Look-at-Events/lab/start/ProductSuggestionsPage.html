@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Current Product Suggestions</title>
+    <link href="Stylesheet.css" rel="stylesheet" />
+    <script src="ProductSuggestionsFunctions.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function onLoad() {
+
+            addMouseOutEventHandlers();
+            addMouseOverEventHandlers();
+            // Display the products in a bulleted list.
+            displayProducts(window.opener.allProducts, "currentProductsList");
+
+            // Update the document's title and the "heading" element, to show current time.
+            var now = new Date();
+            var msg = "Products at " + pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+            document.title = msg;
+            document.querySelector("#heading").innerHTML = msg;
+
+            // Display the products in a table, which we'll create dynamically using DOM.
+            var tbody = document.querySelector("#currentProductsTableBody");
+            for (var i = 0; i < window.opener.allProducts.length; i++) {
+                addTableRow(tbody, window.opener.allProducts[i]);
+            }
+
+        }
+
+
+        function addTableRow(tbody, product) {
+
+            // Use the document's createElement() method to create a <tr> element.
+            var tr = document.createElement("tr");
+
+            // Add 4 <td> child elements to the <tr> element - each <td> displays a separate product field.
+            addTableColumn(tr, product.description);
+            addTableColumn(tr, product.email);
+            addTableColumn(tr, product.price);
+            addTableColumn(tr, product.sales);
+
+            // Append the <tr> to the <tbody>.
+            tbody.appendChild(tr);
+        }
+
+
+        function addTableColumn(tr, data) {
+
+            // Use the document's createElement() method to create a <td> element.
+            var td = document.createElement("td");
+
+            // The <td> just holds a simple piece of data, so we can set it directly via the innerHTML property.
+            td.innerHTML = data;
+
+            // Append the <td> to the <tr>.
+            tr.appendChild(td);
+        }
+
+        function onMouseOverEventHandler(e) {
+            e.target.style.cssText = "color:white; background-color:#555555";
+            var siblings = getSiblings(e.target);
+            console.log(siblings);
+            for(var i = 0; i < siblings.length; i++) {
+                siblings[i].style.cssText = "color:white; background-color:#999999";
+            }
+        }
+
+        function onMouseOutEventHandler(e) {
+            e.target.style.cssText = "";
+            console.log(e);
+            var siblings = getSiblings(e.target);
+            for(var i = 0; i < siblings.length; i++) {
+                siblings[i].style.cssText = "";
+            }
+        } 
+
+        function getSiblings(n) {
+            var siblings =  [];
+            var next = n.nextElementSibling;
+            while(next != null) {
+                siblings.push(next);
+                next = next.nextElementSibling;
+            }
+            var previous = n.previousElementSibling;
+            while(previous != null) {
+                siblings.push(previous);
+                previous = previous.previousElementSibling;
+            }
+            return siblings;
+        }
+
+        function addMouseOverEventHandlers() {
+            var tdElements = document.querySelectorAll("td");
+            for(var i = 0; i < tdElements.length; i ++) {
+                tdElements[i].addEventListener("mouseover", onMouseOverEventHandler);
+            }
+        }
+
+        function addMouseOutEventHandlers() {
+            var tdElements = document.querySelectorAll("td");
+            for(var i = 0; i < tdElements.length; i ++) {
+                tdElements[i].addEventListener("mouseout", onMouseOutEventHandler);
+            }
+        }
+
+
+    </script>
+
+</head>
+<body onload="onLoad()">
+
+    <h1 id="heading">Current product suggestions</h1>
+
+    <div id="currentProductsList"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Product description</td>
+                <td>User's email address</td>
+                <td>Recommended retail price</td>
+                <td>Estimated sales/year</td>
+            </tr>
+        </thead>
+        <tbody id="currentProductsTableBody">
+            <tr>
+                <td>Dummy description 1</td>
+                <td>Dummy email address 1</td>
+                <td>Dummy retail price 1</td>
+                <td>Dummy estimated sales/year 1</td>
+            </tr>
+            <tr>
+                <td>Dummy description 2</td>
+                <td>Dummy email address 2</td>
+                <td>Dummy retail price 2</td>
+                <td>Dummy estimated sales/year 2</td>
+            </tr>
+            <tr>
+                <td>Dummy description 3</td>
+                <td>Dummy email address 3</td>
+                <td>Dummy retail price 3</td>
+                <td>Dummy estimated sales/year 3</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

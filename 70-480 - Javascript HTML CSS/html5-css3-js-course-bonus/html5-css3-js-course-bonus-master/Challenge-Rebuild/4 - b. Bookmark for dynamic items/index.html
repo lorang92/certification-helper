@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2018 Rick Beerendonk -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Challenge-Rebuild - Bookmark - For dynamic items</title>
+
+    <style>
+        div {
+            height: 1500px;
+        }
+
+        #first {
+            background-color: blue;
+        }
+
+        #second {
+            background-color: red;
+        }
+
+        #third {
+            background-color: yellow;
+        }
+    </style>
+
+    <script>
+        function start() {
+            const navElem = document.querySelector('nav');
+
+            const firstElem = document.createElement('a');
+            firstElem.setAttribute('href', '#first');
+            firstElem.innerText = 'First';
+            navElem.appendChild(firstElem);
+
+            const secondElem = document.createElement('a');
+            secondElem.setAttribute('href', '#second');
+            secondElem.innerText = 'Second';
+            navElem.appendChild(secondElem);
+
+            const thirdElem = document.createElement('a');
+            thirdElem.setAttribute('href', '#third');
+            thirdElem.innerText = 'Third';
+            navElem.appendChild(thirdElem);
+        }
+    </script>
+</head>
+
+<body onload="start()">
+    <nav>
+    </nav>
+
+    <div id="first">First</div>
+    <div id="second">Second</div>
+    <div id="third">Third</div>
+</body>
+
+</html>

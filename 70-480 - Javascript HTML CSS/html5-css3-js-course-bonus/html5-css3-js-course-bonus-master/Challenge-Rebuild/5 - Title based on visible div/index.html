@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2018 Rick Beerendonk -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Challenge-Rebuild - Title</title>
+
+    <style>
+        div {
+            height: 1500px;
+        }
+
+        #first {
+            background-color: blue;
+        }
+
+        #second {
+            background-color: red;
+        }
+
+        #third {
+            background-color: yellow;
+        }
+
+        #fourth {
+            background-color: gray;
+        }
+
+        #fifth {
+            background-color: green;
+        }
+    </style>
+
+    <script>
+        function bodyScrolled() {
+            // Turn "document.getElementsByTagName()" into an array
+            const allDivs = [].slice.call(document.getElementsByTagName("div"));
+
+            // Filter items with a top higher than 50% of the visible part of the page
+            const topAboveMiddleOfScreenDivs = allDivs.filter(div => 
+                div.getBoundingClientRect().top < (window.innerHeight / 2));
+
+            // Get the lowest item of all items filtered in the previous step
+            const lastDiv = topAboveMiddleOfScreenDivs.reduce((acc, current) => {
+                // if we don't have an item yet, just return current.
+                if (!acc) {
+                    return current;
+                }
+
+                // if the current is lower on the page than acc, return current.
+                if (acc.getBoundingClientRect().top < current.getBoundingClientRect().top) {
+                    return current;
+                }
+
+                // By default return acc.
+                return acc;
+            });
+
+            document.title = lastDiv.id;
+        }
+    </script>
+</head>
+
+<body onscroll="bodyScrolled()">
+    <div id="first">First</div>
+    <div id="second">Second</div>
+    <div id="third">Third</div>
+    <div id="fourth">Fourth</div>
+    <div id="fifth">Fifth</div>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>With Web Worker</title>
+
+    <script>
+        function setResult(s) {
+            var r = document.getElementById('result');
+            r.innerText = s;
+        }
+
+        function newText(s) {
+            if (typeof (Worker) === "undefined") {
+                alert("Worker not defined!");
+                return;
+            }
+            var w = new Worker("worker.mjs", { type: 'module' });
+            w.onmessage = function (e){
+                setResult(e.data);
+            };
+
+            w.postMessage(s);
+
+            //w.terminate();
+        }
+    </script>
+</head>
+<body>
+    <input type="text" onkeyup="newText(this.value)" />
+    <div id="result"></div>
+</body>
+</html>

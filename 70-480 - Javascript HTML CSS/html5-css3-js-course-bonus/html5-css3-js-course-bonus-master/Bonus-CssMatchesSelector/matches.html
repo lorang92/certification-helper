@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>matches selector</title>
+
+    <style>
+        #id1 {
+            background-color: lightgreen;
+        }
+
+        #id2 {
+            background-color: lightpink;
+        }
+
+        /*
+        #id1 div,
+        #id1 ul,
+        #id1 a:hover
+        */
+        #id1 :matches(div, ul, a:hover) {
+            font-style: italic;
+            font-weight: bold
+        }
+    </style>
+</head>
+<body>
+    <h1>:matches selector demo</h1>
+
+    <div id="id1">
+        <div>My div</div>
+        <p>My paragraph</p>
+        <ul><li>My unordered list</li></ul>
+        <ol><li>My unordered list</li></ol>
+        <a href="http://oblicum.com">Oblicum website</a>
+    </div>
+
+    <div id="id2">
+        <div>A div</div>
+        <p>A paragraph</p>
+        <ul><li>An unordered list</li></ul>
+        <ol><li>An unordered list</li></ol>
+        <a href="http://oblicum.com">Oblicum website</a>
+    </div>
+</body>
+</html>

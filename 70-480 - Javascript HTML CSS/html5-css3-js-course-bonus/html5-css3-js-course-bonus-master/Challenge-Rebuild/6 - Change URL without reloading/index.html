@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Change URL without reloading</title>
+</head>
+<body>
+    <button onclick="changeUrl()">Change URL</button>
+
+    <script>
+        function changeUrlHash(newHash) {
+            const currentUrl = window.location.href;
+            const hashPos = currentUrl.indexOf('#');
+            const currentUrlBeforeHash = hashPos < 0 ? currentUrl : currentUrl.substr(0, hashPos);
+            const newUrl = newHash ? `${currentUrlBeforeHash}#${newHash}` : currentUrlBeforeHash;
+            if (currentUrl !== newUrl) {
+                history.replaceState(null, document.title, newUrl);
+            }
+        }
+
+        let numberOfChanges = 0;
+
+        function changeUrl() {
+            changeUrlHash(++numberOfChanges);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        /*
+        #hidden {
+            text-transform: hidden;
+        }
+
+        #blink {
+            text-transform: blink;
+        }
+
+        #capitalize {
+            text-transform: capitalize;
+        }
+
+        #linethrough {
+            text-transform: line-through;
+        }
+
+        #uppercase {
+            text-transform: uppercase;
+        }
+
+        #lowercase {
+            text-transform: lowercase;
+        }*/
+    </style>
+
+    <script>
+        function show() {
+            var items = document.getElementsByTagName('li');
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                item.style.textTransform = item.id;
+            }
+        }
+    </script>
+</head>
+<body>
+    <p>
+        You are developing an HTML5 web application and are styling text.<br />
+        You need to use the text-transform CSS property.<br />
+        Which values are valid for the text-transform property?
+    </p>
+    <ol type="A">
+        <li id="hidden">hidden</li>
+        <li id="blink">blink</li>
+        <li id="capitalize">capitalize</li>
+        <li id="linethrough">line-through</li>
+        <li id="uppercase">uppercase</li>
+        <li id="lowercase">LOWERCASE</li>
+    </ol>
+    <button onclick="show()">Show</button>
+</body>
+</html>

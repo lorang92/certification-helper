@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Working with colors</title>
+    <style>
+    
+        body {
+            font-family: arial, verdana;
+            font-size: 12px;
+        }
+    
+        button {
+            background-color: yellow;
+            color: orange;
+            width: 150px;
+            height: 30px;
+            margin: 0px 10px 5px 0px;
+        }
+    
+        canvas {
+            border: 2px solid darkblue;
+        }
+    </style>
+	
+</head>
+
+<body>
+	
+    <h1>Working with colors</h1>
+    
+    <p>Click a button to draw colored shape</p>
+    
+    <button onclick="demoLinearGradient()">Linear gradient</button>
+    <button onclick="demoRadialGradient()">Radial gradient</button>
+    <button onclick="demoPattern()">Pattern</button>
+    <br/>
+    
+    <canvas id="myCanvas">
+        Sorry, your browser doesn't support canvas.
+    </canvas>
+
+    <img id="wales" src="Wales.png" style="display: none;" />
+    
+    <script>
+
+    
+        // Get the canvas element and its drawing context.
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        context.lineWidth = 5;
+
+        function demoLinearGradient() 
+        {
+            var linearGradient = context.createLinearGradient(0, 0, canvas.height, 0);
+            linearGradient.addColorStop(0, "red");
+            linearGradient.addColorStop(0.4, "yellow");
+            linearGradient.addColorStop(1, "green");
+
+            drawShapes(linearGradient);
+        }
+
+        function demoRadialGradient() 
+        {
+            var radialGradient = context.createRadialGradient(canvas.width/2, canvas.height/2, 10, canvas.width/2, canvas.height/2, 100);
+            radialGradient.addColorStop(0, "red");
+            radialGradient.addColorStop(0.4, "yellow");
+            radialGradient.addColorStop(1, "green");
+
+            drawShapes(radialGradient);
+        }
+
+        function demoPattern() 
+        {
+            var image = document.getElementById("wales");
+            var pattern = context.createPattern(image, "repeat");
+
+            drawShapes(pattern);
+        }
+
+        function drawShapes(theStyle) 
+        {
+            // Clear any existing content in the canvas.
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw a filled triangle, using the specified style.
+            context.fillStyle = theStyle;
+            context.strokeStyle = "rgb(200, 200, 200)";
+            context.beginPath();
+            context.moveTo(70, 30);
+            context.lineTo(130, 140);
+            context.lineTo(10, 140);
+            context.closePath();
+            context.fill();
+            context.stroke();
+
+            // Draw a stroked circle, still using the specified style.
+            context.beginPath();
+            context.arc(canvas.width/2, canvas.height/2, 50, 0, 2*Math.PI);
+            context.fill();
+
+            // Draw a stroked triangle, using the specified style.
+            context.fillStyle = "rgb(200, 200, 200)";
+            context.strokeStyle = theStyle;
+            context.beginPath();
+            context.moveTo(230, 30);
+            context.lineTo(290, 140);
+            context.lineTo(170, 140);
+            context.closePath();
+            context.fill();
+            context.stroke();
+        }
+
+    </script>
+ 
+</body>
+</html>

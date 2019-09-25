@@ -1,0 +1,10 @@
+#par2,
+p.last {
+    color: green;
+}
+
+p {
+    color: blue;
+    font-size: 50px; 
+    font-family: Arial, "Times New Roman";
+}  

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Mouse Events Demo</title>
+        <style type="text/css">
+            p {
+				font-family: verdana;
+                background: blue;
+                color: white;
+                padding: 10px;
+                margin: 5px;
+                border: thin solid black
+            }
+            span {
+                background: white;
+                color: black;
+                padding: 2px;
+                cursor: default;
+            }
+        </style>
+    </head>
+    <body>        
+        <p id="block1">
+            Norway has a population of approximately 5 million people.
+			The country has an extensive oil industry, and fisheries are also important.
+			The capital city of Oslo is located in the south east of the country
+			and has a very cosmopolitan feel. The main shopping street, Karl Johans gate, stretches from
+			the central train station to Slottet, the royal palace.
+        </p>
+        <table border="1">
+            <tr><th>Type:</th><td id="eType"></td></tr>
+            <tr><th>X:</th><td id="eX"></td></tr>
+            <tr><th>Y:</th><td id="eY"></td></tr>
+        </table>
+        
+        <script type="text/javascript">
+            var textblock = document.getElementById("block1");
+            var typeCell = document.getElementById("eType");
+            var xCell = document.getElementById("eX");
+            var yCell = document.getElementById("eY");
+
+            textblock.addEventListener("mouseover", handleMouseEvent, false);
+            textblock.addEventListener("mouseout", handleMouseEvent, false);
+            textblock.addEventListener("mousemove", handleMouseEvent, false);
+            
+            function handleMouseEvent(e) {
+                if (e.eventPhase == Event.AT_TARGET) {
+                    typeCell.innerHTML = e.type;
+                    xCell.innerHTML = e.clientX;
+                    yCell.innerHTML = e.clientY;
+                
+                    if (e.type == "mouseover") {
+                        e.target.style.background='black'; 
+                        e.target.style.color='white';
+                    } else {
+                        e.target.style.removeProperty('color');
+                        e.target.style.removeProperty('background');                    
+                    }
+                }
+            }     
+        </script>        
+    </body>
+</html>

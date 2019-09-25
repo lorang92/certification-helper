@@ -1,0 +1,5 @@
+To run the video with subtitles:
+1. Add the files to a webserver
+2. Make sure the server supports the MIME type "text/vtt" for extension ".vtt"
+     a. IIS7: https://technet.microsoft.com/en-us/library/cc725608(v=ws.10).aspx
+3. Open VideoWithSubtitles.html in the browser at the server location.

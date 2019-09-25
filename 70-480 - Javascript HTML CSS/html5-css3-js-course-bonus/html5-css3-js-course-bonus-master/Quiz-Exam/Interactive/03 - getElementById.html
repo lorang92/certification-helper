@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var elButton = document.getElementById("myButton");
+            var elDiv = document.getElementById("myDiv");
+            elButton.addEventListener("click", function () {
+                alert(this.type);
+            }, false);
+        }, false);
+    </script>
+</head>
+<body>
+    <p>
+        You are troubleshooting a web page that includes the following code.
+    </p>
+    <p>
+        <pre>
+<p>&lt;!DOCTYPE html&gt;<br />&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;<br />&lt;head&gt;<br /><span style="white-space: pre;">  </span>&lt;meta charset="utf-8" /&gt;<br /><span style="white-space: pre;">  </span>&lt;title&gt;&lt;/title&gt;<br /><span style="white-space: pre;">  </span>&lt;script&gt;<br /><span style="white-space: pre;">    </span>document.addEventListener("DOMContentLoaded", function () {<br /><span style="white-space: pre;">      </span>var elButton = document.getElementById("myButton");<br /><span style="white-space: pre;">      </span>var elDiv = document.getElementById("myDiv");<br /><span style="white-space: pre;">      </span>elButton.addEventListener("click", function () {<br /><span style="white-space: pre;">        </span>alert(this.type);<br /><span style="white-space: pre;">      </span>}, false);<br /><span style="white-space: pre;">    </span>}, false);<br /><span style="white-space: pre;">  </span>&lt;/script&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br /><span style="white-space: pre;">  </span>&lt;div id="myDiv"&gt;Test&lt;/div&gt;<br /><span style="white-space: pre;">  </span>&lt;input type="button" id="myButton" value="Click Me" /&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;</p>
+        </pre>
+    </p>
+    <p>
+        What is displayed in the alert?
+    </p>
+
+    <div id="myDiv" style="display: none">Test</div>
+    <input type="button" id="myButton" value="Show" />
+</body>
+</html>

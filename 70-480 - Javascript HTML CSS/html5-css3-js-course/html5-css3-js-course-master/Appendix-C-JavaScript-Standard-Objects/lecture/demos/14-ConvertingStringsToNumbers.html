@@ -1,0 +1,30 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+var str1 = "65";
+var str2 = "123456.789";
+var str3 = "12345 This Is Some Text";
+var num1 = Number(str1);
+var num2 = Number(str2);
+var num3 = Number(str3);
+
+document.write("<b>Here are numbers obtained via Number():</b><br/>");
+document.write(str1 + " plus 1 is " + ++num1 + "<br/>");
+document.write(str2 + " plus 1 is " + ++num2 + "<br/>");
+document.write(str3 + " plus 1 is " + ++num3 + "<br/><br/>");
+
+num1 = parseInt(str1);
+num2 = parseFloat(str2);
+num3 = parseInt(str3);
+
+document.write("<b>Here are numbers obtained via parseInt and parseFloat():</b><br/>");
+document.write(str1 + " minus 1 is " + --num1 + "<br/>");
+document.write(str2 + " minus 1 is " + --num2 + "<br/>");
+document.write(str3 + " minus 1 is " + --num3 + "<br/>");
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+var ts = new Date();
+var timeInMs = ts.getTime();
+timeInMs += (24 * 60 * 60 * 1000);
+ts = new Date(timeInMs);
+
+document.write("This time tomorrow it will be "   + 
+                ts.getDate()         + "/" + 
+               (ts.getMonth() + 1)   + "/" +
+                ts.getYear()         + "<br/>");
+
+document.write( ts.getHours()        + ":" + 
+                ts.getMinutes()      + ":" + 
+                ts.getSeconds()      + "." +
+                ts.getMilliseconds() + "<br/>"); 
+
+</script>
+
+
+</body>
+</html>

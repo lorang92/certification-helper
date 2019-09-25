@@ -1,0 +1,161 @@
+Below a list of topics appearing in exam questions.
+This list is not complete, so no guarantees!
+
+Meaning of dashes:
+- (likely) Discussed during the course
+-- (likely) Not discussed during the course (see link or Rick's bonus material)
+
+
+(based on 102 "questions")
+
+
+CSS
+
+-- :checked pseudo-class (also used for selected option-elements)
+-- :disabled pseude-class (see: https://developer.mozilla.org/en-US/docs/Web/CSS/:disabled)
+- :first-of-type pseude-class (see: https://developer.mozilla.org/en-US/docs/Web/CSS/:first-of-type)
+- :not() pseudo-class
+- border
+-- cascading (style sheet) order [see: "Bonus-CssPrecedence\Cascade - CSS - MDN.url”]
+- class selector
+-- display: inline
+- flexbox & -ms-flexbox (NOT: -ms-flex) & flex-direction & -ms-flex-align & -ms-flex-pack (https://msdn.microsoft.com/en-us/library/hh673531(v=vs.85).aspx)
+- -ms-grid, ms-grid-column, -ms-grid-columns, ms-grid-row, -ms-grid-rows, ms-wrap-flow, ms-grid-column-span, ms-grid-row-span, auto, min-content, fr
+- nth-child
+- nth-of-type
+- padding
+- precedence
+- property: background-image
+- property: border-radius
+- property: box-sizing
+- property: break-after
+- property: break-inside
+- property: column-width
+- property: hyphens
+- property: margin
+- property: position
+- property: text-decoration
+- property: text-shadow
+- property: text-transform
+- property: top
+- selectors
+
+HTML5 elements
+
+- article
+- section
+- slider
+-- input's disabled property (see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
+- input's pattern-attribute
+- input's placeholder attribute
+- input.onblur event vs input.onfocus event
+- input type="email"
+-- input type="password"
+- input type="range" + attributes (default, min, max, step, value)
+- group & header & hgroup
+- figure & figcaption
+-- mousemove vs mouseover events (see: https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_event_mouseenter_mouseover)
+- select & option (see: 05 - HTML5 Content\Forms\Select)
+-- window.onerror event (see: https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror)
+
+JAVASCRIPT
+
+- == vs === (double vs triple equals) [see: https://stackoverflow.com/questions/15455009/javascript-call-apply-vs-bind]
+- +=
+- array.push()
+- document.createElement
+- document.getElementById
+- document.getElementsByTagName
+-- element.addEventListener() & element.attachEvent() [attachEvent = IE only] 
+-- element.dispatchEvent() [see: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent]
+- element.appendChild()
+- element.innerHTML
+- element.type property
+-- Error.number & Error.description [both IE only! --see: https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript]
+-- isNaN() function (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN)
+-- this within callbacks [see 1st answer: https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback]
+- functions
+-- (function() { ... } ).apply(...) [see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply]
+-- (function() { ... } ).call()
+-- .call() vs .bind()
+- if-else
+-- instanceof vs isPrototypeOf (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf)
+- object inheritance
+- object methods (prototype)
+- object syntax (var o = {…})
+- onblur & onfocus
+-- parseInt() (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
+-- Regular Expressions: * ^ $ [] {} d (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
+- Regular Expressions: test() method
+- switch/case/break
+- typeof vs instanceof [typeof: object, instanceof: Error, Array, Employee, etc.]
+- var
+
+FILES & DATA
+
+- FileReader: readAsArrayBuffer()
+- FileReader: readAsBinaryString()
+- FileReader: readAsDataURL()
+- FileReader: readAsText()
+
+WEB SOCKET
+
+- send()
+
+JQUERY
+
+-- .ajax() & type (post) & contentType (application/json, application/soap+xml, application/x-www-form-urlencoded)
+- .appendTo()
+- .each()
+-- .getJSON() (see: https://api.jquery.com/jquery.getjson/)
+-- .parseJSON() (see: http://api.jquery.com/jquery.parsejson/)
+- .text() vs .val()
+- .trigger() (to trigger event handlers -- see: http://api.jquery.com/trigger/)
+- :selected pseudo-class selector (only exists in JQuery, not in CSS)
+- css-selectors
+-- css-selector: Attribute ends with (see: https://api.jquery.com/attribute-ends-with-selector/)
+
+EVENTS
+
+- onclick vs click: elem.onclick vs element.addEventListener(“click”, ...)
+
+AJAX
+
+- jQuery’s .ajax()
+- XMLHttpRequest()
+- XMLHttpRequest() vs ActiveXObject(“Microsoft.XMLHTTP”)
+- XMLHttpRequest.response
+- XMLHttpRequest.responseType (see: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType)
+-- XMLHttpRequest.responseXML
+-- CORS (see: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+
+DRAG & DROP
+
+- dataTransfer event property
+
+GEOLOCATION
+
+- getCurrentPosition() vs watchPosition()
+- position.coords.accuracy vs position.coords.speed
+
+SVG
+
+- canvas vs svg
+- Tags: canvas, samp, svg, area
+- currentScale attribute (see: https://developer.mozilla.org/en-US/docs/Web/API/SVGSVGElement)
+
+CANVAS
+
+- .fillRect()
+- .fillStyle()
+
+STORAGE
+
+ - localStorage (read/write)
+
+WEB WORKERS
+
+- close() vs terminate() [see: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#Terminating_a_worker]
+- postMessage()
+-- onconnect event vs onmessage event [see: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#Sending_messages_to_and_from_a_shared_worker]
+- What can you access and what not: DOM? LocalStorage?

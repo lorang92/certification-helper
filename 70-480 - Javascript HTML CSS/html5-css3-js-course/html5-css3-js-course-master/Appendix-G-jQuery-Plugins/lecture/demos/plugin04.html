@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Immediately invoked function expression</title> 
+
+	<style>
+		div {
+			margin: 10px;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+	
+		// Definition of plugin as an immediately invoked function expression.
+		(function($) {
+			
+			// Add the highlight() function to the jQuery object, so it's available on all jQuery selections.
+			$.fn.highlight = function() {
+
+				// Implement start-hover and end-over functions for all target elements.
+				// Note that hover() implicitly loops through the target elements - so there's no need for us to use $.each() explicitly.
+				$(this).hover(
+					function() { 
+						// Apply CSS "highlight" styles to target element. 
+						$(this).css({ 
+							'color': 'darkblue',
+							'background-color': 'lightblue',
+							'font-weight': 'bold'
+						});
+					},
+					function() { 
+						// Apply CSS "normal" styles to target element. 
+						$(this).css({ 
+							'color': 'black',
+							'background-color': 'white',
+							'font-weight': 'normal'
+						});
+					}
+				);								
+			};
+			
+		}(jQuery));
+		
+		
+		// Client code, which uses the plugin.
+		$(function() {
+			// Invoke the highlight() plugin for all <div> elements.
+			$('div').highlight();
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<div>This is div 1</div>
+	<div>This is div 2</div>
+	<div>This is div 3</div>
+	
+</body>
+</html>

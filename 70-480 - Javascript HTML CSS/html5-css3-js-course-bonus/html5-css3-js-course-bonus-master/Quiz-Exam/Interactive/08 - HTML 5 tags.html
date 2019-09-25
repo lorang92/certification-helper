@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Js/jquery-2.0.2.js"></script>
+</head>
+<body>
+    <p>
+        You are devloping an HTML5 page.<br />
+        You need to add author and copyright information.<br />
+        Which tag should you use?
+    </p>
+
+    <ol type="A">
+        <li>&lt;aside&gt;
+            <div class="answer">
+                <p>Represents a section of a page that consists of content that is tangentially related to the content around it, which could be considered separate from that content. Such sections are often represented as sidebars or as inserts. They often contain side explanations, like a glossary definition; more loosely related stuff, like advertisements; the biography of the author; or in web-applications, profile information or related blog links.</p>
+            </div>
+        </li>
+        <li>&lt;header&gt;
+            <div class="answer">
+                <p>Represents a group of introductory or navigational aids. It may contain some heading elements but also other elements like a logo, wrapped section's header, a search form, and so on.</p>
+            </div>
+        </li>
+        <li>&lt;footer&gt;
+            <div class="answer">
+                <p>Represents a footer for its nearest sectioning content or sectioning root element (i.e, its nearest parent &lt;article&gt;, &lt;aside&gt;, &lt;nav&gt;, &lt;section&gt;, &lt;blockquote&gt;, &lt;body&gt;, &lt;details&gt;, &lt;fieldset&gt;, &lt;figure&gt;, &lt;td&gt;). A footer typically contains information about the author of the section, copyright data or links to related documents.</p>
+            </div>
+        </li>
+        <li>&lt;section&gt;
+            <div class="answer">
+                <p>Represents a generic section of a document, i.e., a thematic grouping of content, typically with a heading.</p>
+            </div>
+        </li>
+    </ol>
+
+    <button onclick="$('.answer').show()">Answer</button>
+
+    <script>
+        $('.answer').hide();
+    </script>
+
+</body>
+</html>

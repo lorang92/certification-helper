@@ -1,0 +1,13 @@
+{
+  "name": "js-unit-test-examples",
+  "version": "1.0.0",
+  "description": "ECMAScript 5 unit tests with Mocha and Expect.",
+  "author": "Rick Beerendonk <rick@beerendonk.com>",
+  "scripts": {
+    "test": "mocha \"./test/**/*.spec.js\""
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.1.2"
+  }
+}

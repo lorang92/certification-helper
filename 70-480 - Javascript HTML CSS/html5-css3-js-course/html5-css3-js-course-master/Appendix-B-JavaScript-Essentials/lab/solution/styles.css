@@ -1,0 +1,24 @@
+/* DONE: The question should be shown in bold font. */
+.question {
+    font-weight: bold;
+}
+
+/* DONE: The question's first letter should be in uppercase */
+.question::first-letter {
+    text-transform: uppercase;
+}
+
+/* DONE: The answer should be in uppercase */
+.answer {
+    text-transform: uppercase;
+}
+
+/* DONE: The correct answer should be green */
+.correct {
+    color: green;
+}
+
+/* DONE: The incorrect answer should be red */
+.incorrect {
+    color: red;
+}

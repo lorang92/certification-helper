@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Chat Room</title>
+
+    <style type="text/css">
+        body {
+            font-family: calibri, Arial, sans-serif;
+        }
+
+        /* TODO 3: Define some styles for colour-coding messages */
+
+
+    </style>
+
+
+    <!-- Include jQuery script files -->
+    <script src="jquery-1.10.2.js"></script>
+
+
+    <!-- Our JavaScript code -->
+    <script type="text/javascript">
+
+        // Initialize Web Sockets communication with the server.
+        function init() {
+
+            // Ask the user for his/her name, then display it at the top of the page.
+            var username = prompt('Please enter a username:');
+            $('#chatform').prepend('<h1>Hi ' + username + ', welcome to the chat room!</h1>');
+
+
+            // TODO 2a: Set the uri variable to hold the URL for Web Sockets communication (e.g. ws://localhost/Chat/api/Chat?username=andy)
+            var uri;
+
+
+
+            // TODO 2b: Create a WebSocket object - this will attempt to establish a Web Sockets connection with the server.
+            var websocket;
+
+
+
+            // TODO 2c: Handle the "open" event on the websocket object, which signifies a successful connection with the server:
+            //  - Display a message on this user's page, to indicate successfully connection.
+            //  - Also set up a handler the "submit" event on the form... when the user presses ENTER in the form, send the data to the server.
+
+
+
+
+            // TODO 2d: Handle the "error" event on the websocket object:
+            //  - Display an error message to the user.
+
+
+
+
+            // TODO 2e: Handle the "message" event on the websocket object, which signifies we've received data from the server.
+            //  - Display the received data to the user.
+
+
+
+
+        }
+
+    </script>
+
+</head>
+<body onload="init()">
+
+    <form id="chatform">
+        Input box: <input id="inputbox" />
+    </form>
+
+    <div id="messages"></div>
+
+</body>
+</html>

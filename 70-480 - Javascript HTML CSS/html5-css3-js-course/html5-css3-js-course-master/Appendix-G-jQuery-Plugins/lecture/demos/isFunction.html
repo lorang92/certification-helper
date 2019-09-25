@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>$.isFunction example</title> 
+	
+	<style>
+		body { 
+			font-family: "Calibri";
+			color: darkblue;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+
+			var obj = {
+				button1Handler: function() {
+					alert("This is a button1Handler");
+				},
+				button2Handler: function() {
+					alert("This is a button2Handler");
+				},
+				button3Handler: null
+			};
+
+			$("button").click(function() {
+				var callbackName = $(this).attr("id") + "Handler";
+				var callback = obj[callbackName];
+				
+				if ($.isFunction(callback)) {
+					callback();
+				}
+				else {
+					alert("Call-back function not set");
+				}
+			});
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<button id="button1">Button 1</button>
+	<button id="button2">Button 2</button>
+	<button id="button3">Button 3</button>
+	
+</body>
+</html>

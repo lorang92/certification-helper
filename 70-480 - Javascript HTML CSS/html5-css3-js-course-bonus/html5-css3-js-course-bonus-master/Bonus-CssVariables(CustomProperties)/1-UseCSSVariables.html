@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- Mozilla Public License Version 2.0 -->
+<!-- Copyright © 2017 Rick Beerendonk -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Use CSS Variables (Custom Properties)</title>
+
+    <style>
+        /* Definition of a CSS Variable */
+        main {
+            --important-color: orange;
+        }
+
+        footer {
+            font-size: 0.8rem;
+        }
+
+        /* Use of a CSS Variable */
+        /* Observe that in main the background color is changed,
+           because the variable is inherited.
+        /* Observe that in the footer the background color is not changed,
+           because there is no variable inherited (main is not a parent of the footer). */
+        em {
+            background-color: var(--important-color);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <p>
+            This is an example of <em>CSS Variables</em>, also known by the offical name of CSS Custom Properties. 
+        </p>
+        <p>
+            CSS Variables are <em>supported in all latest browsers</em>, but not in Internet Explorer or Edge version 15 and lower.
+        </p>
+    </main>
+    <footer>
+        This document is created by <em>Rick Beerendonk</em>.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+We're going to change a website into something that is shown in solution.png 
+
+In the Start folder is the initial situation you need to modify.
+
+In the Solution folder is the final situation that fixes all TODOs.
+Use this as a last resort. Use the slides of Appendix A and B or Google "mdn ..." first.
+
+In the Start folder there are a number of TODOs for you to fix:
+1 TODO in index.html
+5 TODOs in styles.css
+2 TODOs in student.js
+
+Good luck!

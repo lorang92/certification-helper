@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>$.extend example</title> 
+	
+	<style>
+		body { 
+			font-family: "Calibri";
+			color: darkblue;
+		}
+	</style>
+	
+	<script type="text/javascript" src="../../jQuery/jquery-1.10.2.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+
+			var defaults = { validate: false, limit: 5, name: "foo" };
+			var options = { validate: true, name: "bar" };
+			 
+			/* merge defaults and options, without modifying defaults */
+			var settings = $.extend({}, defaults, options);
+
+			$.each(settings, function(index, value) {
+				$("#list1").append("<li>[" + index + "]: " + value + "</li>");
+			});
+		});
+	</script>
+	
+</head>
+<body> 
+
+	<h2>Settings (merged defaults and options)</h2>
+	<ul id="list1"></ul>
+	
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Chat Portal</title>
+
+	<style>
+		body {
+			font-family: Arial, Verdana;
+		}
+
+		button {
+			width: 150px;
+			height: 30px;
+			background-color: yellow;
+			color: orange;
+			margin: 0px 5px 10px 5px;
+		}
+
+		label {
+			float: left;
+			width: 100px;
+		}	
+	</style>
+	
+	<script>
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Useful global variables.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		var targetOrigin = "http://mydomain2";
+		var defaultTitle = "My Chat Portal";
+		var blinkTimer = null;
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Send messages to widget.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		function sendStatusMessage() {
+			var statusMessage = document.getElementById("statusMessage").value;
+			alert("Sending message " + statusMessage);
+			document.getElementById("myWidget").contentWindow.postMessage(statusMessage, targetOrigin);
+		}
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Handle messages from widget.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		function onMessage(e) {
+			if (e.origin == targetOrigin) {
+				alert("Portal accepting message " + e.data + " from acceptable origin " + e.origin);
+				stopBlinkingTitle();
+				blinkTitle(e.data, defaultTitle);
+			} else {
+				alert("Portal ignoring message from unacceptable origin " + e.origin);
+			}
+		}
+
+		function blinkTitle(title1, title2) {
+			document.title = title1;
+			blinkTimer = setTimeout(blinkTitle, 500, title2, title1)
+		}
+
+		function stopBlinkingTitle() {
+			if (blinkTimer !== null) {
+				clearTimeout(blinkTimer);
+			}
+			document.title = defaultTitle;
+		}
+
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+		// Register event handlers.
+		//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		function onLoad() {
+		   sendStatusMessage();
+		   document.getElementById("sendStatusMessageButton").addEventListener("click", sendStatusMessage, true);
+		   document.getElementById("stopBlinkingButton").addEventListener("click", stopBlinkingTitle, true);
+		}
+
+		window.addEventListener("load", onLoad, true);
+		window.addEventListener("message", onMessage, true);
+
+	</script>
+
+</head>
+<body>
+
+	<h1>My Chat Portal</h1>
+
+	Status: &nbsp;&nbsp;
+	<input type="text" id="statusMessage" value="Online"> &nbsp;&nbsp;
+	<button id="sendStatusMessageButton">Send Status Message</button> &nbsp;&nbsp;
+	<button id="stopBlinkingButton">Stop Blinking</button>
+	<br/><br/>
+
+	<iframe id="myWidget" src="http://mydomain2/MyChatWidget.html" width="100%"/>
+
+</body>
+</html>
+

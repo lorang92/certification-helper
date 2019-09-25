@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>File Handling</title>
+
+    <style>
+        body {
+            font-family: arial, sans-serif;
+        }
+        
+        label {
+            float: left;
+            width: 120px;
+        }
+
+        #textFileSection {
+            float: left;
+            width: 400px;
+        }
+        
+    </style>
+
+    <script>
+    
+        // Loads a text file and displays it in a <textArea> element.
+        function onLoadTextFile() {
+
+            var theFileElem = document.getElementById("theTextFile");
+
+            // Get the File object selected by the user (and make sure it's a text file).
+            if (theFileElem.files.length != 0 && theFileElem.files[0].type.match(/text.*/)) {
+            
+                // Create a FileReader and handle the onload and onerror events.
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    var theMessageAreaElem = document.getElementById("theMessageArea");
+                    theMessageAreaElem.value = e.target.result;    
+                };
+                reader.onerror = function(e){
+                    alert("Cannot load text file");
+                };
+                
+                // Read the text file (the 2nd parameter is optional - the default encoding is "UTF-8").
+                reader.readAsText(theFileElem.files[0], "ISO-8859-1");
+            }
+            else {
+                alert("Please select a text file");
+            }
+        }
+        
+        
+        function onLoadBinaryFile() {
+
+            var theFileElem = document.getElementById("theBinaryFile");
+
+            // Get the File object selected by the user (and make sure it's an image file).
+            if (theFileElem.files.length != 0 && theFileElem.files[0].type.match(/image.*/)) {
+            
+                // Create a FileReader and handle the onload and onerror events.
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    var theImgElem = document.getElementById("theImg");
+                    theImgElem.src = e.target.result;    
+                };
+                reader.onerror = function(e){
+                    alert("Cannot load binary file");
+                };
+                
+                // Read the binary file.
+                reader.readAsDataURL(theFileElem.files[0]);
+            }
+            else {
+                alert("Please select a binary file");
+            }
+        }
+                
+    </script>
+    
+</head>
+<body>
+
+    <h1>File Handling</h1>
+    
+    <section id="textFileSection">
+        <label>Load text file:</label>
+        <input type="file" id="theTextFile" onchange="onLoadTextFile()" /> <br/>
+        <textArea id="theMessageArea" rows="30" cols="40"></textArea> <br/><br/>
+    </section>
+    
+    <section id="binaryFileSection">
+        <label>Load binary file:</label>
+        <input type="file" id="theBinaryFile" onchange="onLoadBinaryFile()" /> <br/>
+        <img id="theImg"></img>
+    </section>
+            
+</body>
+</html>

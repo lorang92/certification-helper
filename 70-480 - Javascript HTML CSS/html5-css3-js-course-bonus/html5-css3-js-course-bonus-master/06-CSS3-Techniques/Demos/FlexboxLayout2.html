@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSS3 Flexbox Layout (2)</title>
+
+    <style>
+        body {
+            font-family: arial;
+        }
+
+        /* Deviating height */
+
+        nav {
+            height: 400px;
+        }
+
+        nav a:link {
+            color: Navy;
+            display: block;
+            text-decoration: none;
+            margin: 2px;
+        }
+
+        nav a:hover {
+            color: Orange;
+            background-color: White;
+        }
+
+        section * {
+            padding: 5px;
+        }
+
+        /* Set up a flexbox layout for a section. */
+
+        #mySection {
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        /* The header occupies the top row. */
+
+        #mySection header {
+            /* order: 0 */
+            flex: 1 100%;
+            background-color: darkblue;
+            color: white;
+            font-size: 30pt;
+        }
+
+        /* The navigation menu occupies left part of center row. */
+
+        #mySection nav {
+            order: 1;
+            flex: 1 1 150px;
+            background-color: yellow;
+        }
+
+        /* The main content occupies middle part of center row. */
+
+        /* Align (vertically) center. */
+
+        #mySection article {
+            order: 2;
+            flex: 3 3 450px;
+            align-self: center;
+        }
+
+        /* The aside occupies right part of center row. */
+
+        #mySection aside {
+            order: 3;
+            flex: 1 1 150px;
+            background-color: lightblue;
+        }
+
+        /* The footer occupies row 3, and spans all 3 columns. */
+
+        #mySection footer {
+            order: 4;
+            flex: 1 100%;
+            background-color: darkblue;
+            color: white;
+            font-size: 30pt;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="mySection">
+        <header>This is my full-width header</header>
+        <nav>
+            <a href="http://www.bbc.co.uk">Auntie Beeb</a>
+            <a href="http://www.olsensoft.com">Olsen Software</a>
+            <a href="http://www.swanseacity.net">Swansea City</a>
+        </nav>
+        <article>
+            This is the main content area, add all your main content here! It's centrally aligned - do you like it?
+        </article>
+        <aside>
+            This is an aside with incidental information - adverts, etc.
+        </aside>
+        <footer>
+            This is my full-width footer
+        </footer>
+    </section>
+</body>
+
+</html>

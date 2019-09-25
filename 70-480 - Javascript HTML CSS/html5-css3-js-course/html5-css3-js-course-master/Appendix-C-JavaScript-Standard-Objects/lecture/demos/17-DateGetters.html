@@ -1,0 +1,23 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+var ts = new Date();
+
+document.write("[" + ts.getDay()  + "] "   + 
+                ts.getDate()         + "/" + 
+               (ts.getMonth() + 1)   + "/" +
+                ts.getYear()         + "<br/>");
+
+document.write( ts.getHours()        + ":" + 
+                ts.getMinutes()      + ":" + 
+                ts.getSeconds()      + "." +
+                ts.getMilliseconds() + "<br/>");
+				
+document.write(ts.toLocaleDateString());
+				
+</script>
+
+</body>
+</html>

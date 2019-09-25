@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Working with text</title>
+  <style>
+  
+    body {
+      font-family: arial, verdana;
+      font-size: 12px;
+    }
+  
+    button {
+      background-color: yellow;
+      color: orange;
+      width: 180px;
+      height: 30px;
+      margin: 0px 10px 5px 0px;
+    }
+  
+    canvas {
+      border: 2px solid darkblue;
+    }
+  </style>
+	
+</head>
+
+<body>
+	
+  <h1>Working with text</h1>
+  
+  <p>Click a button to draw stylized text</p>
+  
+  <button onclick="demoFonts()">Fonts</button>
+  <button onclick="demoPlacement()">Placement</button>
+  <button onclick="demoMeasurementAndCodes()">Measurement &amp; Codes</button>
+  <br/>
+  
+  <canvas id="myCanvas" width="900px" height="400px">
+    Sorry, your browser doesn't support canvas.
+
+
+  <img id="wales" src="wales.png" style="display: none;" />
+  
+  <script>
+
+  
+    // Get the canvas element and its drawing context.
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    context.lineWidth = 2;
+    context.strokeStyle = "rgba(0, 0, 0, 0.3)";
+
+    function demoFonts() 
+    {
+      // Clear any existing content in the canvas, and save the current settings.
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.save();
+      
+      // Draw solid text in red.
+      context.font = "20px Arial";
+      context.fillStyle = "red";
+      context.fillText("Solid red text", 10, 30);
+
+      // Draw solid text in green.
+      context.font = "30px Verdana";
+      context.fillStyle = "green";
+      context.fillText("Solid green text", 10, 110);
+
+      // Draw outline text in blue.
+      context.font = "60px 'Lucida Console'";
+      context.strokeStyle = "blue";
+      context.strokeText("Outline blue text", 10, 210);
+      
+      // Draw solid text in a pattern.
+      context.font = "110px Calibri";
+      var image = document.getElementById("wales");      
+      context.strokeStyle = "red";
+      context.fillStyle = context.createPattern(image, "repeat");
+      context.fillText("Patterned text", 10, 350);
+      context.strokeText("Patterned text", 10, 350);
+
+      // Restore original context settings.
+      context.restore();
+    }
+
+    function demoPlacement() 
+    {
+      // Clear any existing content in the canvas, and save the current settings.
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.save();
+      
+      // In this example, draw all text as 20px Arial (semi-transparent red).
+      context.font = "20px Arial";
+      context.fillStyle = "rgba(255, 0, 0, 0.5)";
+      
+      // Draw a vertical indicator line for visibility.
+      context.beginPath();
+      context.moveTo(150, 0);
+      context.lineTo(150, canvas.height);
+      context.stroke();
+
+      // Draw a horizontal indicator line for visibility.
+      context.beginPath();
+      context.moveTo(0, 280);
+      context.lineTo(canvas.width, 280);
+      context.stroke();
+
+      // Set the textAlign property (e.g. left, center, right).
+      context.fillText("default textAlign", 150, 30);
+
+      context.textAlign = "left";
+      context.fillText("left textAlign", 150, 80);
+      
+      context.textAlign = "center";
+      context.fillText("center textAlign", 150, 130);
+
+      context.textAlign = "right";
+      context.fillText("right textAlign", 150, 180);
+      context.textAlign = "left";
+
+      
+      // Set the textBaseline property (e.g. top, middle, bottom).
+      context.fillText("default textBaseline", 150, 280);
+
+      context.textBaseline = "top";
+      context.fillText("top textBaseline", 330, 280);
+
+      context.textBaseline = "middle";
+      context.fillText("middle textBaseline", 510, 280);
+
+      context.textBaseline = "bottom";
+      context.fillText("bottom textBaseline", 690, 280);
+
+      // Restore original context settings.
+      context.restore();
+    }
+
+    function demoMeasurementAndCodes() 
+    {
+      // Clear any existing content in the canvas, and save the current settings.
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.save();
+
+      // In this example, draw all text as 80px Calibri.
+      context.font = "80px Calibri";
+
+      // Draw text part 1.
+      var eacute = String.fromCharCode(0xE9);
+	  var text1 = "Libert" + eacute;
+      var x1 = 50;
+      context.fillStyle = "blue";
+      context.fillText(text1, x1, 200);
+      var metrics1 = context.measureText(text1);
+
+      // Draw text part 2.
+      var text2 = "Egalit" + eacute;
+      var x2 = x1 + metrics1.width + 5;
+      context.strokeStyle = "lightblue";
+      context.strokeText(text2, x2, 200);
+      var metrics2 = context.measureText(text2);
+      
+      // Draw text part 3.
+      var text3 = "Fraternit" + eacute;
+      var x3 = x2 + metrics2.width + 10;
+      context.fillStyle = "red";
+      context.fillText(text3, x3, 200);
+ 
+      // Restore original context settings.
+      context.restore();
+    }
+
+  </script>
+ 
+</body>
+</html>

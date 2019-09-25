@@ -1,0 +1,202 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name='viewport' content='width=device-width' />
+    <title>Multi-File Upload Application</title>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <link href='~/Content/Site.css' rel='stylesheet' />
+</head>
+<body>
+
+    <h1>Multi-File Upload Application</h1>
+    
+    <p>
+        <button id='addFilesButton'>Add files</button>
+        <button id='uploadButton' disabled>Upload</button>
+    </p>
+
+    <p>Files ready for upload: <span id='readyToUploadSummary'>0</span></p>
+    <p>Files uploaded successfully: <span id='uploadedSummary'>0</span></p>
+
+    <input type='file' id='fileChooser' multiple class='hidden' />
+
+    <ul id='fileList'>
+        <li class='fileEntryTemplate'> 
+            <span class='filename'></span>
+            <span class='uploadSize'></span>
+            <span class='uploadStatus'></span>
+        </li>
+    </ul>
+
+    <script>
+
+        // Useful constant.
+        var MAX_FILE_SIZE = 20 * 1024 * 1024;   // 20MB
+
+        // Map of info about all the files to upload.
+        var filesToUpload = {};
+
+        // Initialization function.
+        $(document).ready(function () {
+
+            // When the user clicks the Add Files button, simulate a click of the "file input" element.
+            $('#addFilesButton').click(function (e) {
+                $('#fileChooser').prop('value', '');
+                $('#fileChooser')[0].click();
+            });
+
+            // When the user has chosen which files to upload, add each file to the list.
+            $('#fileChooser').change(function () {
+                $(this.files).each(function () {
+                    addFileToUploadList(this);
+                });
+            });
+
+            // When the user clicks the Upload button, upload every file (apart from the files that have already been uploaded previously).
+            $('#uploadButton').click(function (e) {
+                for (var filename in filesToUpload) {
+                    if (!filesToUpload[filename].uploadComplete) {
+                        uploadFile(filename);
+                    }
+                };
+                e.preventDefault();
+            });
+        });
+
+        // Add a file to the list of files to be uploaded.
+        function addFileToUploadList(file) {
+
+            if (!file)
+                return;
+
+            if (file.size > MAX_FILE_SIZE) {
+                alert(file.name + ' exceeds maximum file size (' + MAX_FILE_SIZE + ') and will not be uploaded.');
+                return;
+            }
+
+            // Clone the template element representing an <li> element, and add it to the <ul>.
+            var newFileEntry = $('.fileEntryTemplate').clone();
+            $(newFileEntry).removeClass('fileEntryTemplate');
+            $('#fileList').append(newFileEntry);
+
+            // Define some helper variables, to access <span> elements within the new <li> element.
+            var fileNameElement     = $(newFileEntry).children('.filename');
+            var uploadSizeElement   = $(newFileEntry).children('.uploadSize');
+            var uploadStatusElement = $(newFileEntry).children('.uploadStatus');
+
+            // Insert a new item into the "filesToUpload" global map. 
+            // The key is the name of the file.
+            // The value is an object that contains info about the file's upload status. 
+            filesToUpload[file.name] = {
+                file: file,
+                statusMessageElement: uploadStatusElement,
+                uploadComplete: false
+            };
+
+            // Display info about the file in the <span> elements for this <li>.
+            displayMessage(fileNameElement, file.name);
+            displayMessage(uploadSizeElement, getFileSizeString(file.size));
+            displayMessage(uploadStatusElement, 'Ready for upload');
+
+            // Redisplay the summary panel at the top of the page, showing totals.
+            displaySummaryPanel();
+        }
+
+        // Actually perform a file upload operation, to upload one file to the server using Ajax.
+        function uploadFile(filename) {
+
+            alert('File upload functionality not implemented yet.')
+
+            // TODO 4a: Create a new FormData object. This allows you to load contents into an HTML form, without actually creating a real <form> element in the UI.
+
+
+            // TODO 4b: Add parameters to the FormData object, to hold the "filename" and "file" parameters (as required by the server).
+
+
+            // This is an IIFE (Immediately Invoked Function Expression), to represent a scope for this Ajax request.
+            // This allows us to define private variables that are only known to this particular Ajax request).
+            (function() {
+
+                // Define private variables to remember the status message element, and the file object that's being uploaded.
+                // You can get both these pieces of info from the filesToUpload[filename] object.
+                var statusMessageElement = filesToUpload[filename].statusMessageElement;
+                var fileBeingUploaded = filesToUpload[filename];
+
+                // Create a new XMLHttpRequest object, to perform the file upload.
+                var xhr = new XMLHttpRequest();
+
+                // TODO 5a: For the xhr object, handle the "load" event and see if it's a non-200 status code back from the server.
+
+
+                // TODO 5b: For the xhr upload, handle the "progress" event and display the percentage of the upload complete so far. 
+
+
+                // TODO 5c: For the xhr upload, handle the "load" event and display a "File uploaded successfully" message.
+
+
+                // TODO 5d: For the xhr upload, handle the "error" event and display an "Error occurred, file not uploaded" message.
+
+
+                // TODO 5e: For the xhr upload, handle the "abort" event and display an "Upload canceled" message.
+
+
+                // TODO 5f: Open a POST request to "/Home/UploadFile", and then send the FormData object.
+
+
+            })();
+        }
+
+        // Helper function, displays summary info about the overall progress of the file uploads.
+        function displaySummaryPanel() {
+
+            var countReadyToUpload = 0, countUploaded = 0;
+            var sizeReadyToUpload = 0, sizeUploaded = 0;
+
+            for(var f in filesToUpload) {
+                if (!filesToUpload[f].uploadComplete) {
+                    countReadyToUpload++;
+                    sizeReadyToUpload += filesToUpload[f].file.size;
+                } 
+                else {
+                    countUploaded++;
+                    sizeUploaded += filesToUpload[f].file.size;
+                }
+            }
+
+            var readyToUploadMessage = '' + countReadyToUpload + ' (' + getFileSizeString(sizeReadyToUpload) + ')'; 
+            displayMessage($('#readyToUploadSummary'), readyToUploadMessage);
+
+            var uploadedMessage = '' + countUploaded + ' (' + getFileSizeString(sizeUploaded) + ')'; 
+            displayMessage($('#uploadedSummary'), uploadedMessage);
+
+            $('#uploadButton').prop('disabled', countReadyToUpload == 0);
+        }
+    
+        // Helper function, displays a message in the specified HTML element, with the specified CSS class.
+        function displayMessage(targetElement, message, cssClass) {
+            targetElement.text(message);
+            targetElement.removeClass('errorMessage successMessage');
+            targetElement.addClass(cssClass);
+        }
+    
+        // Helper function, returns a string representation of a file size (e.g. 3.2MB or 1.7KB).
+        function getFileSizeString(size) {
+            var str = 0;
+            if (size > 1024 * 1024) {
+                str = (Math.round(size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+            }
+            else {
+                str = (Math.round(size * 100 / 1024) / 100).toString() + 'KB';
+            }
+            return str;
+        }
+
+    </script>
+</body>
+</html>

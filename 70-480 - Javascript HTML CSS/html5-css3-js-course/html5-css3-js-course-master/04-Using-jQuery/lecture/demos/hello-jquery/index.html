@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home Page</title>
+    <link href="Site.css" rel="stylesheet" />
+    <script src="jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+
+    <table id="employeesTable">
+        <tbody>
+            <tr>
+                <td>Joe</td>
+                <td>Allen</td>
+                <td>100000</td>
+            </tr>
+            <tr>
+                <td>Nathan</td>
+                <td>Dyer</td>
+                <td>120000</td>
+            </tr>
+            <tr>
+                <td>Scott</td>
+                <td>Sinclair</td>
+                <td>200000</td>
+            </tr>
+            <tr>
+                <td>Leon</td>
+                <td>Britton</td>
+                <td>130000</td>
+            </tr>
+            <tr>
+                <td>Stephen</td>
+                <td>Dobbie</td>
+                <td>95000</td>
+            </tr>
+            <tr>
+                <td>Ferrie</td>
+                <td>Bodde</td>
+                <td>110000</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <hr />
+
+    <div id="MyPanel" class="clickable" style="background:Orange; width:300px; font-size:10pt">
+        This is my lovely panel. <br /><br />
+        <input id="MyButton" type="button" value="Animate" />
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("table#employeesTable tr:nth-child(even)").addClass("even");
+
+            //$("td").css('font-style', 'italic');
+
+            //$("table").before("<h4>Added with jQuery!</h4>");
+
+            /*       
+            $(document).on("click", "div.clickable", function () {
+                $(this).after("<div class='clickable'>Here's another div!</div>");
+            });
+            */
+
+            /*
+            $("#MyButton").click(function () {
+                $("#MyPanel").animate({ width: "500px", opacity: 0.25, fontSize: "16pt" }, 2000);
+                $("#MyPanel").animate({ width: "300px", opacity: 1.00, fontSize: "10pt" }, 500);
+            });
+            */
+        });
+    </script>
+
+</body>
+
+</html>

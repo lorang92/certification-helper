@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Video Fallback</title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+
+		function init() {
+			var player = document.getElementById('myVideo');
+            alert("Is <video> supported? " + (player.canPlayType != null));
+
+            if (player.canPlayType) { 
+                alert("Is mp4 supported? " + player.canPlayType('video/mp4'));
+                alert("Is H.264 Baseline supported? " + player.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"'));
+            }
+        }
+
+        function showFallback(player) {
+            alert("Video error");
+			while (player.firstChild) {
+                if (player.firstChild instanceof HTMLSourceElement) {
+                    player.removeChild(player.firstChild);
+                } else {
+                    player.parentNode.insertBefore(player.firstChild, player);
+                }
+            }
+            player.parentNode.removeChild(player);
+        }
+		
+    </script>
+
+</head>
+<body onload="init()">
+    <video id="myVideo" width="640" controls autoplay onerror="showFallback(this)" poster="ImageLoading.png">
+        <source src="MyVideos/SwanseaBay.mp4"  type="video/mp4"  onerror="ShowFallback(this.parentNode)" />
+        <source src="MyVideos/SwanseaBay.webm" type="video/webm" onerror="ShowFallback(this.parentNode)" />
+    </video>
+</body>
+</html>

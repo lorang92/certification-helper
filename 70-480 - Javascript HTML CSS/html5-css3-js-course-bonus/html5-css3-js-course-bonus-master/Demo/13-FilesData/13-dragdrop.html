@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.innerText);
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            var data = e.dataTransfer.getData('text/plain');
+            e.target.innerText = data;
+        }
+    </script>
+</head>
+<body>
+    <div id="part1" draggable="true" ondragstart="dragStart(event)">Part 1</div>
+    <div id="part2" ondragover="dragOver(event)" ondrop="drop(event)">Part 2</div>
+</body>
+</html>

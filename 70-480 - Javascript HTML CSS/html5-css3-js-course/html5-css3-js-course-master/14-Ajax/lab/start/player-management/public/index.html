@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="site.css" rel="stylesheet" />
+    <script src="jquery-1.10.2.js"></script>
+</head>
+
+<body>
+    <h2>Player selection</h2>
+
+    <input type="text" id="Name" onkeyup="getMatchingPlayers();" autofocus autocomplete="false" />
+    <br />
+    <ul id="ResultList"></ul>
+
+    <script type="text/javascript">
+
+        function getMatchingPlayers() {
+            $.ajax({
+                type: "GET",
+                url: "/players?q=" + $("#Name").val(),
+                success: function(data) {
+                    displayPlayers(data);
+                },
+            });
+
+        }
+
+        function displayPlayers(players) {
+            var resultlist = document.getElementById("ResultList");
+            resultlist.innerHTML = "";
+            players.forEach(player => {
+                resultlist.innerHTML += 
+                '<li>' + 
+                    player.firstName +
+                    " " +
+                    player.lastName + 
+                    ", Salary: " +
+                    player.salary +
+                '</li>';
+            });
+        }
+    </script>
+</body>
+
+</html>

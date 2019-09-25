@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        // Video
+
+        var video = document.createElement('video');
+
+        video.src = 'SwanseaBay.mp4';
+        video.autoplay = true;
+        video.controls = true;
+        video.loop = true;
+
+        video.playbackRate = 3.0;
+        video.volume = 0.5;
+
+        document.body.appendChild(video);
+
+        // Play/Pause Button
+
+        var playButton = document.createElement('button');
+        playButton.innerText = 'Play / Pause';
+        playButton.onclick = function() {
+            var video = document.querySelector('video');
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        document.body.appendChild(playButton);
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using jQuery</title>
+    <link href="Stylesheet.css" rel="stylesheet" />
+    <script src="jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("a").click(function () {
+                alert("Hello world!");
+            });
+        });
+
+        $(document).ready(function () {
+            $("#ukCountriesList").addClass("red");
+        });
+
+        $(document).ready(function () {
+            $("#ukCountriesList > li li").addClass("green");
+        });
+
+        $(document).ready(function () {
+            $("#ukCountriesList li:last").hover(function () {
+                $(this).addClass("blue");
+            }, function () {
+                $(this).removeClass("blue");
+            });
+        });
+
+        $(document).ready(function () {
+            $("#nordicCountriesList").find("li").each(function (i) {
+                $(this).append(" [this is item" + (i + 1) + "]");
+            });
+        });
+
+        $(document).ready(function () {
+            $("ol > li").not(":has(ul)").css("background-color", "yellow");
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <a href="">Link</a>
+
+    <ol id="ukCountriesList">
+        <li>England</li>
+        <li>Scotland</li>
+        <li>
+            Wales
+            <ul>
+                <li>Swansea</li>
+                <li>Cardiff</li>
+                <li>Newport</li>
+            </ul>
+        </li>
+        <li>Northern Ireland</li>
+    </ol>
+
+    <ol id="nordicCountriesList">
+        <li>Norway</li>
+        <li>Sweden</li>
+        <li>Denmark</li>
+        <li>Finland</li>
+    </ol>
+
+</body>
+</html>

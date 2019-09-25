@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Http GET using Ajax Directly</title>
+
+    <script type="text/javascript">
+
+        var request = myCreateXMLHttpRequest();
+
+        function myCreateXMLHttpRequest() {
+            try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
+            try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) { }
+            try { return new XMLHttpRequest(); } catch (e) { }
+            return null;
+        }
+
+        function myOnKeyUp() {
+
+            if (request != null) {
+                var textField = document.getElementById("myInputField");
+                var url = "/Home/EchoInUppercase?text=" + textField.value;
+
+                request.open("GET", url, true);
+                request.onreadystatechange = myHandleCallback;
+                request.send(null);
+            }
+        }
+
+        function myHandleCallback() {
+
+            if (request.readyState == 4 && request.status == 200) {
+                var outputField = document.getElementById("myEchoField");
+                outputField.innerHTML = request.responseText;
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Http GET using Ajax Directly</h1>
+    </header>
+
+    <main>
+        <label for="myInputField">Text:</label>
+        <input type="text" id="myInputField" onkeyup="myOnKeyUp()" autofocus />
+        <br /> <br />
+        <p id="myEchoField"></p>
+    </main>
+
+    <footer>
+        <hr />
+        @Html.ActionLink("Home", "Index")
+    </footer>
+</body>
+</html>

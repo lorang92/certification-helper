@@ -1,0 +1,9 @@
+images/Brazil.png
+images/China.png
+images/Greece.png
+images/India.png
+images/Norway.png
+images/Spain.png
+images/Sweden.png
+images/USA.png
+images/Wales.png
