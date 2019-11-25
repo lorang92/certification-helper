@@ -1,0 +1,6 @@
+
+A study guide with resources for all (almost) parts of the certification
+https://www.isaaclevin.com/post/az-203-study-guide/
+
+A study guide based on the previous link with added resources for missing parts of corriculum
+https://docs.google.com/document/d/1Zl1ahyKX4CL-Y1JgFGG0eD6nTMbf9djMzZq9OkjGP5w/edit?usp=sharing
